@@ -1,0 +1,24 @@
+version: '3'
+services:
+  server:
+    container_name: hazelcast
+    image: hazelcast/hazelcast:3.12.2
+    volumes:
+      - /Users/nico/projects/hazelcast/jet-train/infrastructure:/etc/hazelcast
+    environment:
+      - MANCENTER_URL=http://management-center:8081/hazelcast-mancenter
+      - MIN_HEAP_SIZE=1G
+    ports:
+      - 5701:5701
+    depends_on:
+      - management-center
+  management-center:
+    container_name: train-management-center
+    image: hazelcast/management-center:3.12.5
+    environment:
+      - MC_HTTP_PORT=8081
+    command: ["bash", "-c", "set -euo pipefail \
+                          && ./mc-conf.sh create-user -H=/data -n=admin -p=password74 -r=admin \
+                          && /mc-start.sh"]
+    ports:
+      - 8081:8081
