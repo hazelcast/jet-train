@@ -8,7 +8,10 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>common</module>
+        <module>load-static</module>
         <module>stream-dynamic</module>
+        <module>local-jet</module>
+        <module>web</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
@@ -65,6 +68,21 @@
                 <groupId>${project.groupId}</groupId>
                 <artifactId>common</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>20190722</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.kittinunf.fuel</groupId>
+                <artifactId>fuel</artifactId>
+                <version>2.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.kittinunf.result</groupId>
+                <artifactId>result</artifactId>
+                <version>2.2.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
