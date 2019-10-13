@@ -16,10 +16,9 @@ class RemoveDoubleQuotes : FunctionEx<List<String>, List<String>> {
     override fun applyEx(words: List<String>) = words.map { it.replace("\"", "") }
 }
 
-class ToEntry(private val withToJson: FunctionEx<List<String>, JSONObject?>) :
-    FunctionEx<List<String>, Map.Entry<String, String>> {
-    override fun applyEx(line: List<String>): Map.Entry<String, String>? {
-        val json = withToJson.applyEx(line)
+class ToEntry :
+    FunctionEx<JSONObject?, Map.Entry<String, String>> {
+    override fun applyEx(json: JSONObject?): Map.Entry<String, String>? {
         return if (json != null) AbstractMap.SimpleEntry(json.getString("id"), json.toString())
         else null
     }

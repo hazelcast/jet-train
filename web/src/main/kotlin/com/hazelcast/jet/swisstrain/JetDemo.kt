@@ -22,7 +22,7 @@ class WebSocketConfig : WebSocketMessageBrokerConfigurer {
     }
 
     override fun registerStompEndpoints(registry: StompEndpointRegistry) {
-        registry.addEndpoint("/websocket").withSockJS()
+        registry.addEndpoint("/hazelcast").withSockJS()
     }
 }
 
