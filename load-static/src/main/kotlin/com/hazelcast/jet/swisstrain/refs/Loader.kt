@@ -5,7 +5,6 @@ import com.hazelcast.jet.config.JobConfig
 import com.hazelcast.jet.function.FunctionEx
 import com.hazelcast.jet.pipeline.Pipeline
 import com.hazelcast.jet.pipeline.Sinks
-import com.hazelcast.jet.swisstrain.common.CloseableJet
 import com.hazelcast.jet.swisstrain.common.withCloseable
 import org.json.JSONObject
 
@@ -13,29 +12,30 @@ fun main() {
 
     Jet.newJetClient().withCloseable().use {
         with(config()) {
-        submit(it, this, "agency", ToAgency())
-        submit(it, this, "trips", ToTrip())
-        submit(it, this, "routes", ToRoute())
-        submit(it, this, "stops", ToStop())}
+            it.newJob(pipeline("agency", ToAgency()), this).join()
+            it.newJob(pipeline("routes", ToRoute()), this).join()
+            it.newJob(pipeline("stops", ToStop()), this).join()
+            it.newJob(pipeline("trips", ToTrip()), this).join()
+            it.newJob(pipeline("stop_times", ToStopTime()), this)
+        }
     }
 }
 
-private fun submit(
-    jet: CloseableJet,
-    config: JobConfig,
+private fun pipeline(
     name: String,
-    withToJson: FunctionEx<List<String>, JSONObject?>
-) =
+    jsonify: FunctionEx<List<String>, JSONObject?>,
+    merge: FunctionEx<JSONObject?, JSONObject?> = FunctionEx.identity())=
     Pipeline.create().apply {
         drawFrom(file(name))
             .map(
                 RemoveFirstAndLastChars()
                     .andThen(SplitByDoubleQuotes())
                     .andThen(RemoveDoubleQuotes())
-                    .andThen(ToEntry(withToJson))
+                    .andThen(jsonify)
+                    .andThen(merge)
+                    .andThen(ToEntry())
             )
             .drainTo(Sinks.map<String, String>(name))
-        jet.newJob(this, config)
     }
 
 private fun config() = JobConfig().addClass(
@@ -50,5 +50,6 @@ private fun config() = JobConfig().addClass(
     ToStop::class.java,
     ToAgency::class.java,
     ToRoute::class.java,
-    ToTrip::class.java
+    ToTrip::class.java,
+    ToStopTime::class.java
 )

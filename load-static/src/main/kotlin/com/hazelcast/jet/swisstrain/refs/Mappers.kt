@@ -39,6 +39,16 @@ class ToTrip : ToJson(
     )
 )
 
+class ToStopTime : ToJson(
+    mapOf(
+        "tripId" to 0,
+        "arrival" to 1,
+        "departure" to 2,
+        "id" to 3,
+        "sequence" to 4
+    )
+)
+
 sealed class ToJson(private val mappings: Map<String, Int>) : FunctionEx<List<String>, JSONObject?> {
     override fun applyEx(list: List<String>) =
         if (list.size > mappings.size)
