@@ -5,44 +5,34 @@
     let value = 8.516515;
 
     function connect() {
-        const socket = new SockJS('/websocket');
+        const socket = new SockJS('/hazelcast');
         stomp = Stomp.over(socket);
+        stomp.reconnect_delay = 2000;
         stomp.connect({}, function (frame) {
             stomp.subscribe('/topic/updates', showUpdate);
         });
     }
 
     function showUpdate(update) {
-        const layer = new ol.layer.Vector({
-            source: new ol.source.Vector({
-                features: [
-                    new ol.Feature({
-                        geometry: new ol.geom.Point(ol.proj.fromLonLat([value++, 46.819382])),
-                    })
-                ]
-            })
-        });
-        map.addLayer(layer);
+        const marker = L.marker([46.819382, value++]);
+        marker.addTo(map);
     }
 
     function createMap() {
-        map = new ol.Map({
-            target: "map",
-            layers: [
-                new ol.layer.Tile({
-                    source: new ol.source.OSM()
-                })],
-            view: new ol.View({
-                center: ol.proj.fromLonLat([8.416515, 46.819382]),
-                zoom: 8
-            })
-        });
+        map = L.map('map').setView([46.819382, 8.416515], 9);
+        L.tileLayer(
+            'https://tile.thunderforest.com/transport/{z}/{x}/{y}{r}.png?apikey=170be1cff4224274add97bf552fd4745',
+            {
+                attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,'
+                    + '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+            }
+        ).addTo(map);
     }
 
     this.initialize = function () {
         createMap();
         connect();
-        $.ajax("/data/");
+        $.ajax('/data/');
     };
 
     return {
