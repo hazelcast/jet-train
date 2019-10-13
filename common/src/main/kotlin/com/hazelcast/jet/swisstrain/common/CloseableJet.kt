@@ -1,4 +1,4 @@
-package com.hazelcast.jet.swisstrain
+package com.hazelcast.jet.swisstrain.common
 
 import com.hazelcast.jet.JetInstance
 import java.io.Closeable

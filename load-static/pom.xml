@@ -14,14 +14,8 @@
             <artifactId>kotlin-stdlib</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.github.doyaaaaaken</groupId>
-            <artifactId>kotlin-csv-jvm</artifactId>
-            <version>0.7.1</version>
-        </dependency>
-        <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20190722</version>
         </dependency>
         <dependency>
             <groupId>com.hazelcast.jet</groupId>
