@@ -1,8 +1,8 @@
 package com.hazelcast.jet.swisstrain.refs
 
-import java.util.*
-import org.json.JSONObject
+import com.hazelcast.internal.json.JsonObject
 import com.hazelcast.jet.function.FunctionEx
+import java.util.*
 
 class RemoveFirstAndLastChars : FunctionEx<String, String> {
     override fun applyEx(line: String) = line.substring(1, line.length - 1)
@@ -17,9 +17,12 @@ class RemoveDoubleQuotes : FunctionEx<List<String>, List<String>> {
 }
 
 class ToEntry :
-    FunctionEx<JSONObject?, Map.Entry<String, String>> {
-    override fun applyEx(json: JSONObject?): Map.Entry<String, String>? {
-        return if (json != null) AbstractMap.SimpleEntry(json.getString("id"), json.toString())
-        else null
+    FunctionEx<JsonObject?, Map.Entry<Any, JsonObject>> {
+    override fun applyEx(json: JsonObject?): Map.Entry<Any, JsonObject>? {
+        return if (json != null) {
+            val id = json.get("id")
+            if (id.isString) AbstractMap.SimpleEntry(id.asString(), json)
+            else AbstractMap.SimpleEntry(id.asObject(), json)
+        } else null
     }
 }
