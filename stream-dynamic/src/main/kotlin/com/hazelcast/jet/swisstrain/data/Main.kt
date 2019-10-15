@@ -20,21 +20,6 @@ private fun pipeline() = Pipeline.create().apply {
     drawFrom(remoteService(URL, token))
         .withIngestionTimestamps()
         .flatMap(SplitPayload())
-        .mapUsingIMap(
-            "trips",
-            GetTripId(),
-            MergeWithTrip()
-        )
-        .mapUsingIMap(
-            "routes",
-            GetRouteId(),
-            MergeWithRoute()
-        )
-        .mapUsingIMap(
-            "agency",
-            GetAgencyId(),
-            MergeWithAgency()
-        )
         .peek()
         .map(ToEntry())
         .drainTo(Sinks.remoteMap<String, String>("update", clientConfig))
@@ -48,12 +33,6 @@ private val jobConfig = JobConfig()
     .addClass(
         SplitPayload::class.java,
         TripTraverser::class.java,
-        GetRouteId::class.java,
-        MergeWithRoute::class.java,
-        GetTripId::class.java,
-        MergeWithTrip::class.java,
-        GetAgencyId::class.java,
-        MergeWithAgency::class.java,
         FillBuffer::class.java,
         CreateContext::class.java,
         TimeHolder::class.java,
