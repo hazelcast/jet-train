@@ -18,36 +18,33 @@ sealed class ToJson(private val mappings: Map<String, Int>) : FunctionEx<List<St
 class ToStop : ToJson(
     mapOf(
         "id" to 0,
-        "name" to 1,
-        "lat" to 2,
-        "long" to 3
+        "stop_name" to 1,
+        "stop_lat" to 2,
+        "stop_long" to 3
     )
 )
 
 class ToAgency : ToJson(
     mapOf(
         "id" to 0,
-        "name" to 1
+        "agency_name" to 1
     )
 )
 
 class ToRoute : ToJson(
     mapOf(
         "id" to 0,
-        "agency" to 1,
-        "name" to 2,
-        "description" to 4,
-        "type" to 5
+        "agency_id" to 1,
+        "route_name" to 2,
+        "route_type" to 4
     )
 )
 
 class ToTrip : ToJson(
     mapOf(
-        "route" to 0,
-        "service" to 1,
+        "route_id" to 0,
         "id" to 2,
-        "headsign" to 3,
-        "shortname" to 4
+        "trip_headsign" to 3
     )
 )
 
