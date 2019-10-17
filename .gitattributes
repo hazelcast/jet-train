@@ -7,4 +7,12 @@ infrastructure/data/gtfsfp20192019-10-09/feed_info.txt filter=lfs diff=lfs merge
 infrastructure/data/gtfsfp20192019-10-09/stops.txt filter=lfs diff=lfs merge=lfs -text
 infrastructure/data/gtfsfp20192019-10-09/trips.txt filter=lfs diff=lfs merge=lfs -text
 infrastructure/data/gtfsfp20192019-10-09/calendar.txt filter=lfs diff=lfs merge=lfs -text
-*.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20192019-10-16/agency.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20192019-10-16/calendar.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20192019-10-16/calendar_dates.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20192019-10-16/feed_info.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20192019-10-16/routes.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20192019-10-16/stop_times.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20192019-10-16/stops.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20192019-10-16/transfers.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20192019-10-16/trips.txt filter=lfs diff=lfs merge=lfs -text
