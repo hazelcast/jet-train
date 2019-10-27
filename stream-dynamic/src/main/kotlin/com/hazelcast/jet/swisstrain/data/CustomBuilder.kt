@@ -11,33 +11,33 @@ import com.hazelcast.jet.pipeline.SourceBuilder
 import com.hazelcast.jet.pipeline.SourceBuilder.SourceBuffer
 
 fun remoteService(url: String, token: String) = SourceBuilder
-    .stream("http-source", CreateContext(url))
-    .fillBufferFn(FillBuffer(token))
+    .stream("http-source", CreateContext())
+    .fillBufferFn(FillBuffer(url, token))
     .build()
 
-class FillBuffer(private val token: String) : BiConsumerEx<Pair<String, TimeHolder>, SourceBuffer<String>> {
-    override fun acceptEx(tuple: Pair<String, TimeHolder>, buffer: SourceBuffer<String>) {
-        if (Instant.now().isAfter(tuple.second.value.plusSeconds(30))) {
+class FillBuffer(private val url: String, private val token: String) : BiConsumerEx<TimeHolder, SourceBuffer<String>> {
+    override fun acceptEx(time: TimeHolder, buffer: SourceBuffer<String>) {
+        if (Instant.now().isAfter(time.value.plusSeconds(30))) {
             val (_, _, result) =
-                Fuel.get(tuple.first).header(
+                Fuel.get(url).header(
                     "Authorization" to token,
                     "Accept-Encoding" to "gzip, deflate").responseString()
             when (result) {
                 is Result.Failure -> println(result.getException())
                 is Result.Success -> buffer.add(result.get())
             }
-            tuple.second.reset()
+            time.reset()
         }
     }
 }
 
-class CreateContext(private val url: String) : FunctionEx<Processor.Context, Pair<String, TimeHolder>> {
-    override fun applyEx(ctx: Processor.Context): Pair<String, TimeHolder> {
-        return url to TimeHolder()
-    }
+class CreateContext : FunctionEx<Processor.Context, TimeHolder> {
+    override fun applyEx(ctx: Processor.Context) = TimeHolder()
 }
 
-class TimeHolder(var value: Instant = Instant.now().minusSeconds(31)) : Serializable {
+class TimeHolder : Serializable {
+    var value : Instant = Instant.now().minusSeconds(31)
+        private set
     fun reset() {
         value = Instant.now()
     }
