@@ -1,0 +1,135 @@
+= Jet Train
+Author: <nicolas.frankel@hazelcast.com>
+v1.0, 2019-12-17
+:icons: font
+
+This project is a demo of https://jet.hazelcast.org/[Hazelcast Jet^], a data streaming engine based on https://hazelcast.org/[Hazelcast IMDG^].
+
+It displays the position of public transport in Switzerland in near real-time.
+
+// Insert image there
+
+The technology stack consists of:
+
+* Hazelcast Jet
+* Hazelcast IMDG
+* Spring Boot
+* Kotlin
+* Maven
+
+== Module structure
+
+Modules are as follows:
+
+[options="header,autowidth"]
+|===
+
+| Name | Description
+
+| `common`
+| Code shared across modules
+
+| `infrastructure`
+| Starts a fully-configured "remote" Jet instance and a management center instance.
+This is the infrastructure the demo should run on.
+It requires Docker compose.
+
+| `local-jet`
+| Alternative to the previous module, starts a local Jet instance to be able to easily debug
+
+| `load-static`
+| Loads reference data from files in memory, to enrich streamed data
+
+| `stream-dynamic`
+| Calls an OpenData endpoint to get the data, and streams it to an IMDG map.
+
+| `web`
+| Loads the aforementioned IMDG map and publishes changes to a web-socket endpoint.
+The web UI subscribes to the endpoint, and displays each data point on an Open Street Map.
+
+|===
+
+== Running the demo
+
+The demo is based on data taken from https://opentransportdata.swiss/en/[Open Data Platform Swiss Public Transport^].
+
+=== Reference documentation
+
+The official documentation is a mess.
+However, reading the general explanation on https://opentransportdata.swiss/en/cookbook/gtfs/[General Transit Feed Specification] is a good start.
+Note that GTFS is a format proposed by Google.
+The endpoint makes use of some, not all.
+
+=== Data update
+
+Every week, new reference data (_e.g._ expected stop times) are published.
+Hence, the infrastructure project that contains said data needs to be updated with new files.
+
+WARNING: Some files are quite huge (> 100 Mo).
+They require to be stored on https://git-lfs.github.com/[Git LFS^].
+
+. Go to the https://opentransportdata.swiss/en/dataset/timetable-2019-gtfs[download page^].
+. Download the data archive for the week - it's updated each week on Wednesday
+. Extract the files from the archive
+. Move the folder to `common/infrastructure/data`
+. Delete the old folder from `common/infrastructure/data`
+. Update `load-static/src/main/kotlin/com/hazelcast/jet/swisstrain/refs/CustomBuilder.kt`
+// TODO: automate this step by reading the latest folder from common/infrastructure/data
+. Add each new file individually under Git LFS:
++
+[source,bash]
+git lfs track infrastructure/data/gtfsfp20192019-12-11/agency.txt
+git lfs track infrastructure/data/gtfsfp20192019-12-11/calendar.txt
+...
++
+. Git add, commit & push
+
+=== API Key
+
+Calling the endpoint requires an API key.
+
+. First, https://opentransportdata.swiss/en/register[create an account^]
+. Then, https://opentransportdata.swiss/en/dev-dashboard/[create a token^]
+. The token should be used as the `token` System property when launching the `com.hazelcast.jet.swisstrain.data.MainKt` class from the `stream-dynamic` module:
++
+[source,bash]
+java -Dtoken=<MY_TOKEN> com.hazelcast.jet.swisstrain.data.MainKt
+
+=== The demo
+
+The following steps need to be executed in order:
+
+To set up the "infrastructure"::
+In the `infrastructure` module:
++
+[source,bash]
+docker-compose up
++
+To load static data::
+In the `load-static` module:
++
+[source,bash]
+java com.hazelcast.jet.swisstrain.refs.MainKt
++
+To get dynamic data::
+In the `stream-dynamic` module:
++
+[source,bash]
+java -Dtoken=<MY_TOKEN> com.hazelcast.jet.swisstrain.data.MainKt
++
+NOTE: There's a rate limiter on the server side:
+the endpoint returns a 429 status if it's queried more than once per 30 seconds.
+Hence, the Jet job is configured to runly only once per 31 seconds.
+To display the map on screen::
+In the `web` module:
++
+[source,bash]
+java com.hazelcast.jet.swisstrain.JetDemoKt
++
+Then, open a browser to <http://localhost:8080/>
+
+== Local setup
+
+The normal setup splits the client and the server into two different parts.
+To ease debugging and understanding, the `local-jet` demo is provided.
+To use it, just run the `com.hazelcast.jet.swisstrain.LocalJet.kt` class instead of `docker-compose`.
