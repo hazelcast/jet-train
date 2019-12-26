@@ -21,7 +21,7 @@ fun main() {
 private fun pipeline() = Pipeline.create().apply {
     val token = System.getProperty("token")
     drawFrom(remoteService(URL, token))
-        .withIngestionTimestamps()
+//        .withIngestionTimestamps()
         .flatMap(SplitPayload())
         .filter(Taker(10))
         .mapUsingContext(
