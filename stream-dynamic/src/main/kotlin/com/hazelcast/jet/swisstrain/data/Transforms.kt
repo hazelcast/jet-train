@@ -43,7 +43,9 @@ class AdjustTimeWithDelays : FunctionEx<JsonObject, JsonObject> {
             val delay = it.asLong()
             val stopTimeString = stopTimeUpdate.getString("stop_time_$name", null)
             if (stopTimeString != null) {
-                val time = LocalTime.parse(stopTimeString)
+                // Sometimes, time follows this pattern: '24:21:00'
+                val fixedStopTimeString = stopTimeString.replace("^24".toRegex(), "00")
+                val time = LocalTime.parse(fixedStopTimeString)
                 val newTime = time.plusSeconds(delay)
                 stopTimeUpdate.set("${name}_time", newTime.toString())
             }
