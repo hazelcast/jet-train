@@ -35,6 +35,6 @@ class CloseReader : ConsumerEx<BufferedReader> {
 class CreateReader(private val filename: String) : FunctionEx<Context, BufferedReader> {
     override fun applyEx(ctx: Context) =
         BufferedReader(
-            FileReader(File("/opt/hazelcast/data/gtfsfp20192019-12-11/$filename.txt"))
+            FileReader(File("/opt/hazelcast/data/gtfsfp20202020-01-08/$filename.txt"))
         )
 }
