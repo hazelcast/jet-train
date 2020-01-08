@@ -19,11 +19,11 @@ fun main() {
 }
 
 private fun pipeline() = Pipeline.create().apply {
-    val token = System.getProperty("token")
-    drawFrom(remoteService(URL, token))
+    val service = if (System.getProperty("mock") != null) mockService()
+    else remoteService(URL, System.getProperty("token"))
+    drawFrom(service)
 //        .withIngestionTimestamps()
         .flatMap(SplitPayload())
-        .filter(Taker(10))
         .mapUsingContext(
             ContextFactory.withCreateFn(ContextCreator()),
             MergeWithTrip()
@@ -39,7 +39,7 @@ private fun pipeline() = Pipeline.create().apply {
         .drainTo(Sinks.remoteMap<String, JsonObject>("update", clientConfig))
 }
 
-class Taker(private val limit: Int): PredicateEx<JsonObject> {
+class Taker(private val limit: Int) : PredicateEx<JsonObject> {
     private var i = 0
     override fun testEx(json: JsonObject): Boolean {
         i++
@@ -56,8 +56,11 @@ private val jobConfig = JobConfig()
         SplitPayload::class.java,
         TripTraverser::class.java,
         FillBuffer::class.java,
+        MockBuffer::class.java,
         CreateContext::class.java,
+        CreateMockContext::class.java,
         TimeHolder::class.java,
+        CountHolder::class.java,
         ToEntry::class.java,
         ContextCreator::class.java,
         MergeWithTrip::class.java,
