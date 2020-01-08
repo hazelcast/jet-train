@@ -130,6 +130,17 @@ Then, open a browser to <http://localhost:8080/>
 
 == Local setup
 
+=== Co-located Jet
+
 The normal setup splits the client and the server into two different parts.
 To ease debugging and understanding, the `local-jet` demo is provided.
 To use it, just run the `com.hazelcast.jet.swisstrain.LocalJet.kt` class instead of `docker-compose`.
+
+=== Mocking the webservices call
+
+Using the Internet in a conference might be a big PITA.
+To use mock data instead, In the `stream-dynamic` module, type:
+
+[source,bash]
+java -Dmock com.hazelcast.jet.swisstrain.data.MainKt
+
