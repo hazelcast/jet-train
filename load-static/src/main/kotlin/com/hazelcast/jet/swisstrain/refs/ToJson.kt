@@ -56,7 +56,7 @@ class ToStopTime : FunctionEx<List<String>, JsonObject?> {
                 set("arrival", t[1])
                 set("departure", t[2])
                 set("stop", t[3])
-                set("sequence", t[4])
-                set("id", JsonObject().add("trip", t[0]).add("stop", t[3]))
+                set("sequence", t[4].toInt())
+                set("id", JsonObject().add("trip", t[0]).add("sequence", t[4].toInt()))
             } else null
 }

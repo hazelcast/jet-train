@@ -2,7 +2,6 @@
 
     let stomp = null;
     let map = null;
-    let value = 8.516515;
 
     function connect() {
         const socket = new SockJS('/hazelcast');
@@ -14,8 +13,11 @@
     }
 
     function showUpdate(update) {
-        const marker = L.marker([46.819382, value++]);
-        marker.addTo(map);
+        const body = JSON.parse(update.body);
+        for (const stop of body.schedule) {
+            const marker = L.marker([stop.latitude, stop.longitude]);
+            marker.addTo(map);
+        }
     }
 
     function createMap() {

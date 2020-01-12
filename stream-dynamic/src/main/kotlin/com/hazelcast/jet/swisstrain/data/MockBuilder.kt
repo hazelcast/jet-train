@@ -9,7 +9,7 @@ import java.io.Serializable
 import java.time.Instant
 
 fun mockService() = SourceBuilder
-    .batch("mock-source", CreateMockContext())
+    .stream("mock-source", CreateMockContext())
     .fillBufferFn(MockBuffer())
     .build()
 

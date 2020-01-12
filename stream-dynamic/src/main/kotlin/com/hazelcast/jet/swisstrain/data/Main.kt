@@ -4,7 +4,6 @@ import com.hazelcast.client.config.ClientConfig
 import com.hazelcast.internal.json.JsonObject
 import com.hazelcast.jet.Jet
 import com.hazelcast.jet.config.JobConfig
-import com.hazelcast.jet.function.PredicateEx
 import com.hazelcast.jet.pipeline.ContextFactory
 import com.hazelcast.jet.pipeline.Pipeline
 import com.hazelcast.jet.pipeline.Sinks
@@ -22,29 +21,21 @@ private fun pipeline() = Pipeline.create().apply {
     val service = if (System.getProperty("mock") != null) mockService()
     else remoteService(URL, System.getProperty("token"))
     drawFrom(service)
-//        .withIngestionTimestamps()
+        .withTimestamps(TimestampExtractor(), 200)
         .flatMap(SplitPayload())
         .mapUsingContext(
             ContextFactory.withCreateFn(ContextCreator()),
             MergeWithTrip()
+        ).mapUsingContext(
+            ContextFactory.withCreateFn(ContextCreator()),
+            MergeWithStopTimes()
         )
         .mapUsingContext(
             ContextFactory.withCreateFn(ContextCreator()),
-            MergeWithStops()
-        )
-        .map(AdjustTimeWithDelays())
-        .map(ComputeLocation())
-        .peek()
+            MergeWithLocation()
+        ).peek()
         .map(ToEntry())
         .drainTo(Sinks.remoteMap<String, JsonObject>("update", clientConfig))
-}
-
-class Taker(private val limit: Int) : PredicateEx<JsonObject> {
-    private var i = 0
-    override fun testEx(json: JsonObject): Boolean {
-        i++
-        return i < limit
-    }
 }
 
 private val clientConfig = ClientConfig().apply {
@@ -64,8 +55,7 @@ private val jobConfig = JobConfig()
         ToEntry::class.java,
         ContextCreator::class.java,
         MergeWithTrip::class.java,
-        MergeWithStops::class.java,
-        AdjustTimeWithDelays::class.java,
-        ComputeLocation::class.java,
-        Taker::class.java
+        MergeWithStopTimes::class.java,
+        MergeWithLocation::class.java,
+        TimestampExtractor::class.java
     )

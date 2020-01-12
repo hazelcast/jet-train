@@ -11,7 +11,7 @@ import com.hazelcast.jet.pipeline.SourceBuilder
 import com.hazelcast.jet.pipeline.SourceBuilder.SourceBuffer
 
 fun remoteService(url: String, token: String) = SourceBuilder
-    .batch("http-source", CreateContext())
+    .stream("http-source", CreateContext())
     .fillBufferFn(FillBuffer(url, token))
     .build()
 

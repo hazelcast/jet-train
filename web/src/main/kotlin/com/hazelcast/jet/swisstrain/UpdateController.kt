@@ -1,5 +1,6 @@
 package com.hazelcast.jet.swisstrain
 
+import com.hazelcast.internal.json.JsonObject
 import com.hazelcast.jet.Jet
 import org.springframework.http.HttpStatus
 import org.springframework.messaging.simp.SimpMessageSendingOperations
@@ -14,11 +15,11 @@ class UpdateController(val ops: SimpMessageSendingOperations) {
     @ResponseStatus(HttpStatus.ACCEPTED)
     fun readData() {
         Jet.newJetClient().hazelcastInstance
-            .getMap<String, String>("update")
+            .getMap<String, JsonObject>("update")
             .entries
-            .take(3)
             .forEach {
-                ops.convertAndSend("/topic/updates", it.value)
+                println(it.value)
+                ops.convertAndSend("/topic/updates", it.value.toString())
             }
     }
 }
