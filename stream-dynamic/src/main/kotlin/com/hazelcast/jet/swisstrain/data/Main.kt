@@ -30,6 +30,7 @@ private fun pipeline() = Pipeline.create().apply {
             ContextFactory.withCreateFn(ContextCreator()),
             MergeWithStopTimes()
         )
+        .map(HourToTimestamp())
         .mapUsingContext(
             ContextFactory.withCreateFn(ContextCreator()),
             MergeWithLocation()
@@ -53,6 +54,7 @@ private val jobConfig = JobConfig()
         TimeHolder::class.java,
         CountHolder::class.java,
         ToEntry::class.java,
+        HourToTimestamp::class.java,
         ContextCreator::class.java,
         MergeWithTrip::class.java,
         MergeWithStopTimes::class.java,

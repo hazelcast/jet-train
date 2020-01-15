@@ -37,6 +37,8 @@ private const val MAX_SEQ_NUMBER = 69
 class MergeWithStopTimes :
     BiFunctionEx<HazelcastInstance, JsonObject, JsonObject> {
 
+    private val pattern = "HH:mm:ss"
+
     override fun applyEx(instance: HazelcastInstance, tripUpdate: JsonObject): JsonObject? {
         val stopTimes = instance.getMap<JsonObject, JsonObject>("stop_times")
         val tripId = tripUpdate.getString("id", null)
@@ -123,13 +125,13 @@ class MergeWithStopTimes :
     }
 
     private fun adjustDelayIfNecessary(stopTime: JsonObject, matchingUpdate: JsonObject, what: String) {
-        val formatter = DateTimeFormatter
-            .ofPattern("HH:mm:ss")
-            .withResolverStyle(ResolverStyle.LENIENT)
         val update = matchingUpdate[what] as JsonObject? ?: JsonObject()
         val delay = update.getInt("delay", 0)
         val timeString = stopTime.getString(what, null)
         if (timeString != null) {
+            val formatter = DateTimeFormatter
+                .ofPattern(pattern)
+                .withResolverStyle(ResolverStyle.LENIENT)
             val originalTime = LocalTime.from(formatter.parse(timeString))
             val adjustedTime = originalTime + Duration.ofSeconds(delay.toLong())
             stopTime.set(what, formatter.format(adjustedTime))
