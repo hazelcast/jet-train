@@ -11,7 +11,7 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ResponseStatus
-import java.util.*
+import java.util.concurrent.ConcurrentLinkedQueue
 
 @Controller
 class UpdateController(val ops: SimpMessageSendingOperations) {
@@ -39,7 +39,7 @@ class UpdateController(val ops: SimpMessageSendingOperations) {
 class UpdateMapListener : MapListener, EntryAddedListener<String, JsonObject>,
     EntryUpdatedListener<String, JsonObject> {
 
-    private val queue = ArrayDeque<JsonObject>(150)
+    private val queue = ConcurrentLinkedQueue<JsonObject>()
 
     override fun entryAdded(event: EntryEvent<String, JsonObject>) {
         queue.add(event.value)
