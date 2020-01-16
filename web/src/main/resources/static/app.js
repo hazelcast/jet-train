@@ -1,24 +1,52 @@
+const routeDefaultColor = '#808080'
+
+const randomColor = () => {
+  const colors = [
+    '#FF0000',
+    '#FFC000',
+    '#FFFC00',
+    '#FF0000',
+    '#00FFFF',
+    '#FF0000',
+  ]
+  return colors[Math.trunc(Math.random() * colors.length)]
+}
+
+class Route {
+  static stopToLatLong({ latitude, longitude }) {
+    return [latitude, longitude]
+  }
+
+  constructor(map, schedule) {
+    this.polyline = L.polyline(schedule.map(Route.stopToLatLong), {
+      color: routeDefaultColor,
+    })
+    this.polyline.addTo(map)
+    this.stops = schedule.map(({ stop, latitude, longitude }) => {
+      const circle = L.circle([latitude, longitude], {
+        color: routeDefaultColor,
+        radius: 10,
+        fill: true,
+        fillOpacity: 0.8,
+      })
+      circle.bindTooltip(stop)
+      circle.addTo(map)
+      return circle
+    })
+  }
+
+  setColor(newColor) {
+    this.polyline.setStyle({ color: newColor })
+    this.stops.forEach((stop) => stop.setStyle({ color: newColor }))
+  }
+
+  remove() {
+    this.polyline.remove()
+    this.stops.forEach((stop) => stop.remove())
+  }
+}
+
 class Train {
-  static randomColor() {
-    const colors = [
-      '#FF0000',
-      '#FFC000',
-      '#FFFC00',
-      '#FF0000',
-      '#00FFFF',
-      '#FF0000',
-    ]
-    return colors[Math.trunc(Math.random() * colors.length)]
-  }
-
-  static _stopToLatLong({ latitude, longitude }) {
-    return [parseFloat(latitude), parseFloat(longitude)]
-  }
-
-  static get defaultColor() {
-    return '#808080'
-  }
-
   constructor(map, routeId, schedule, name, onFinalStopCb) {
     this.routeId = routeId
     this.schedule = schedule
@@ -40,35 +68,31 @@ class Train {
   }
 
   _createRoute() {
-    if (this._hasRouteEnded) {
+    if (this._hasMovementEnded) {
       return
     }
 
-    const stops = this.schedule.map(Train._stopToLatLong)
-
-    this._route = L.polyline(stops, { color: Train.defaultColor })
-    this._route.addTo(this._map)
+    this._route = new Route(this._map, this.schedule)
   }
 
   _createHeartbeat() {
     this._heartbeatIntervalId = setInterval(() => this._refresh(), 1000)
+    this._refresh()
   }
 
   _refresh() {
-    if (this._hasRouteEnded) {
+    if (this._hasMovementEnded) {
       this._onFinalStop()
       return
     }
 
-    if (!this._hasRouteStarted) {
+    if (!this._hasMovementStarted) {
       return
     }
 
     if (!this._train) {
       this._createNewTrain()
-
-      this._route.setStyle({ color: Train.randomColor() })
-
+      this._route.setColor(randomColor())
       return
     }
 
@@ -98,8 +122,8 @@ class Train {
   }
 
   get _currentLatLong() {
-    if (!this._hasRouteStarted) {
-      return Train._stopToLatLong(this.schedule[0])
+    if (!this._hasMovementStarted) {
+      return Route.stopToLatLong(this.schedule[0])
     }
 
     const nextStopI = this.schedule.findIndex(
@@ -108,7 +132,7 @@ class Train {
 
     if (nextStopI === -1) {
       // Train has arrived at the final stop
-      return Train._stopToLatLong(this.schedule[this.schedule.length - 1])
+      return Route.stopToLatLong(this.schedule[this.schedule.length - 1])
     }
 
     const nextStop = this.schedule[nextStopI]
@@ -118,17 +142,15 @@ class Train {
 
     if (currentTime < prevStop.departure) {
       // Train hasn't departed yet
-      return Train._stopToLatLong(prevStop)
+      return Route.stopToLatLong(prevStop)
     }
 
     const distancePassed =
       (currentTime - prevStop.departure) /
       (nextStop.arrival - prevStop.departure)
 
-    const prevLat = parseFloat(prevStop.latitude)
-    const prevLong = parseFloat(prevStop.longitude)
-    const nextLat = parseFloat(nextStop.latitude)
-    const nextLong = parseFloat(nextStop.longitude)
+    const { latitude: prevLat, longitude: prevLong } = prevStop
+    const { latitude: nextLat, longitude: nextLong } = nextStop
 
     const currentLat = prevLat + (nextLat - prevLat) * distancePassed
     const currentLong = prevLong + (nextLong - prevLong) * distancePassed
@@ -136,12 +158,12 @@ class Train {
     return [currentLat, currentLong]
   }
 
-  get _hasRouteEnded() {
+  get _hasMovementEnded() {
     const routeEndTime = this.schedule[this.schedule.length - 1].arrival
     return this._currentTime > routeEndTime
   }
 
-  get _hasRouteStarted() {
+  get _hasMovementStarted() {
     const routeStartTime = this.schedule[0].arrival
     return this._currentTime > routeStartTime
   }
@@ -173,9 +195,14 @@ class Container {
     this._stomp = Stomp.over(this._socket)
     this._stomp.reconnect_delay = 2000
     this._stomp.connect({}, () => {
-      this._stomp.subscribe('/topic/updates', (update) =>
-        this._processData(JSON.parse(update.body)),
-      )
+      this._stomp.subscribe('/topic/updates', (update) => {
+        const data = JSON.parse(update.body)
+        data.schedule.forEach((stop) => {
+          stop.longitude = parseFloat(stop.longitude)
+          stop.latitude = parseFloat(stop.latitude)
+        })
+        this._processData(data)
+      })
     })
 
     $.ajax('/data/')
