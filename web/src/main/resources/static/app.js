@@ -48,15 +48,15 @@ class Route {
 
 class Train {
   constructor(map, routeId, schedule, name, onFinalStopCb) {
-    this.routeId = routeId
-    this.schedule = schedule
-    this.name = name
+    this.routeId = routeId;
+    this.schedule = schedule;
+    this.name = name;
 
-    this._map = map
-    this._onFinalStopCb = onFinalStopCb
-    this._route = undefined
-    this._train = undefined
-    this._heartbeatIntervalId = undefined
+    this._map = map;
+    this._onFinalStopCb = onFinalStopCb;
+    this._route = undefined;
+    this._train = undefined;
+    this._heartbeatIntervalId = undefined;
 
     if (this._hasMovementEnded) {
       this._onFinalStop()
@@ -68,11 +68,15 @@ class Train {
   }
 
   updateSchedule(newSchedule) {
-    this.schedule = newSchedule
+    this.schedule = newSchedule;
     this._refresh()
   }
 
   _createRoute() {
+    if (this._hasMovementEnded) {
+      return
+    }
+
     this._route = new Route(this._map, this.schedule)
   }
 
@@ -101,23 +105,23 @@ class Train {
   }
 
   _createNewTrain() {
-    this._train = L.marker(this._currentLatLong)
-    this._train.bindTooltip(this.name)
+    this._train = L.marker(this._currentLatLong);
+    this._train.bindTooltip(this.name);
     this._train.addTo(this._map)
   }
 
   _onFinalStop() {
     if (this._train) {
-      this._train.remove()
+      this._train.remove();
       this._train = undefined
     }
 
     if (this._route) {
-      this._route.remove()
+      this._route.remove();
       this._route = undefined
     }
 
-    clearInterval(this._heartbeatIntervalId)
+    clearInterval(this._heartbeatIntervalId);
 
     this._onFinalStopCb(this)
   }
@@ -129,17 +133,17 @@ class Train {
 
     const nextStopI = this.schedule.findIndex(
       ({ arrival }) => this._currentTime < arrival,
-    )
+    );
 
     if (nextStopI === -1) {
       // Train has arrived at the final stop
       return Route.stopToLatLong(this.schedule[this.schedule.length - 1])
     }
 
-    const nextStop = this.schedule[nextStopI]
-    const prevStop = this.schedule[nextStopI - 1]
+    const nextStop = this.schedule[nextStopI];
+    const prevStop = this.schedule[nextStopI - 1];
 
-    const currentTime = this._currentTime
+    const currentTime = this._currentTime;
 
     if (currentTime < prevStop.departure) {
       // Train hasn't departed yet
@@ -148,13 +152,13 @@ class Train {
 
     const distancePassed =
       (currentTime - prevStop.departure) /
-      (nextStop.arrival - prevStop.departure)
+      (nextStop.arrival - prevStop.departure);
 
     const { latitude: prevLat, longitude: prevLong } = prevStop
     const { latitude: nextLat, longitude: nextLong } = nextStop
 
-    const currentLat = prevLat + (nextLat - prevLat) * distancePassed
-    const currentLong = prevLong + (nextLong - prevLong) * distancePassed
+    const currentLat = prevLat + (nextLat - prevLat) * distancePassed;
+    const currentLong = prevLong + (nextLong - prevLong) * distancePassed;
 
     return [currentLat, currentLong]
   }
@@ -176,9 +180,9 @@ class Train {
 
 class Container {
   constructor() {
-    this.map = L.map('map').setView([46.819382, 8.416515], 9)
-    this._trains = {}
-    this._socket = undefined
+    this.map = L.map('map').setView([46.819382, 8.416515], 9);
+    this._trains = {};
+    this._socket = undefined;
     this._stomp = undefined
   }
 
@@ -190,11 +194,11 @@ class Container {
           '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,' +
           '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
       },
-    ).addTo(this.map)
+    ).addTo(this.map);
 
-    this._socket = new SockJS('/hazelcast')
-    this._stomp = Stomp.over(this._socket)
-    this._stomp.reconnect_delay = 2000
+    this._socket = new SockJS('/hazelcast');
+    this._stomp = Stomp.over(this._socket);
+    this._stomp.reconnect_delay = 2000;
     this._stomp.connect({}, () => {
       this._stomp.subscribe('/topic/updates', (update) => {
         const data = JSON.parse(update.body)
@@ -216,7 +220,7 @@ class Container {
     route_type: routeType,
     agency_name: agencyName,
   }) {
-    const existingTrain = this._trains[routeId]
+    const existingTrain = this._trains[routeId];
 
     if (!existingTrain) {
       const newTrain = new Train(
@@ -225,8 +229,8 @@ class Container {
         schedule,
         `${routeType} ${routeName} (${agencyName})`,
         (train) => this._onTrainFinalStop(train),
-      )
-      this._trains[routeId] = newTrain
+      );
+      this._trains[routeId] = newTrain;
       return
     }
 
@@ -238,4 +242,4 @@ class Container {
   }
 }
 
-new Container().initialize()
+new Container().initialize();
