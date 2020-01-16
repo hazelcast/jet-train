@@ -31,6 +31,7 @@ class UpdateController(val ops: SimpMessageSendingOperations) {
             listener.poll()?.let {
                 println(it)
                 ops.convertAndSend("/topic/updates", it.toString())
+                Thread.sleep(200)
             }
         }
     }
