@@ -58,6 +58,11 @@ class Train {
     this._train = undefined
     this._heartbeatIntervalId = undefined
 
+    if (this._hasMovementEnded) {
+      this._onFinalStop()
+      return
+    }
+
     this._createRoute()
     this._createHeartbeat()
   }
@@ -68,10 +73,6 @@ class Train {
   }
 
   _createRoute() {
-    if (this._hasMovementEnded) {
-      return
-    }
-
     this._route = new Route(this._map, this.schedule)
   }
 
