@@ -1,6 +1,4 @@
 class Train {
-  static defaultColor = '#808080'
-
   static randomColor() {
     const colors = [
       '#FF0000',
@@ -15,6 +13,10 @@ class Train {
 
   static _stopToLatLong({ latitude, longitude }) {
     return [parseFloat(latitude), parseFloat(longitude)]
+  }
+
+  static get defaultColor() {
+    return '#808080'
   }
 
   constructor(map, routeId, schedule, name, onFinalStopCb) {
