@@ -12,6 +12,8 @@ const randomColor = () => {
   return colors[Math.trunc(Math.random() * colors.length)]
 }
 
+const currentTime = () => Date.now() / 1000
+
 class Route {
   static stopToLatLong({ latitude, longitude }) {
     return [latitude, longitude]
@@ -54,16 +56,10 @@ class Train {
 
     this._map = map
     this._onFinalStopCb = onFinalStopCb
-    this._route = undefined
+    this._route = new Route(this._map, this.schedule)
     this._train = undefined
     this._heartbeatIntervalId = undefined
 
-    if (this._hasMovementEnded) {
-      this._onFinalStop()
-      return
-    }
-
-    this._createRoute()
     this._createHeartbeat()
   }
 
@@ -72,9 +68,7 @@ class Train {
     this._refresh()
   }
 
-  _createRoute() {
-    this._route = new Route(this._map, this.schedule)
-  }
+  _createRoute() {}
 
   _createHeartbeat() {
     this._heartbeatIntervalId = setInterval(() => this._refresh(), 1000)
@@ -127,9 +121,9 @@ class Train {
       return Route.stopToLatLong(this.schedule[0])
     }
 
-    const nextStopI = this.schedule.findIndex(
-      ({ arrival }) => this._currentTime < arrival,
-    )
+    const t = currentTime()
+
+    const nextStopI = this.schedule.findIndex(({ arrival }) => t < arrival)
 
     if (nextStopI === -1) {
       // Train has arrived at the final stop
@@ -139,16 +133,13 @@ class Train {
     const nextStop = this.schedule[nextStopI]
     const prevStop = this.schedule[nextStopI - 1]
 
-    const currentTime = this._currentTime
-
-    if (currentTime < prevStop.departure) {
+    if (top < prevStop.departure) {
       // Train hasn't departed yet
       return Route.stopToLatLong(prevStop)
     }
 
     const distancePassed =
-      (currentTime - prevStop.departure) /
-      (nextStop.arrival - prevStop.departure)
+      (t - prevStop.departure) / (nextStop.arrival - prevStop.departure)
 
     const { latitude: prevLat, longitude: prevLong } = prevStop
     const { latitude: nextLat, longitude: nextLong } = nextStop
@@ -161,18 +152,16 @@ class Train {
 
   get _hasMovementEnded() {
     const routeEndTime = this.schedule[this.schedule.length - 1].arrival
-    return this._currentTime > routeEndTime
+    return currentTime() > routeEndTime
   }
 
   get _hasMovementStarted() {
     const routeStartTime = this.schedule[0].arrival
-    return this._currentTime > routeStartTime
-  }
-
-  get _currentTime() {
-    return Date.now() / 1000
+    return currentTime() > routeStartTime
   }
 }
+
+const falseIds = []
 
 class Container {
   constructor() {
@@ -216,6 +205,10 @@ class Container {
     route_type: routeType,
     agency_name: agencyName,
   }) {
+    if (currentTime() > schedule[schedule.length - 1].arrival) {
+      return
+    }
+
     const existingTrain = this._trains[routeId]
 
     if (!existingTrain) {
