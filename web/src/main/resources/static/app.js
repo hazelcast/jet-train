@@ -1,16 +1,8 @@
 const routeDefaultColor = '#808080';
 
-const randomColor = () => {
-  const colors = [
-    '#FF0000',
-    '#FFC000',
-    '#FFFC00',
-    '#FF0000',
-    '#00FFFF',
-    '#FF0000',
-  ];
-  return colors[Math.trunc(Math.random() * colors.length)];
-};
+const trainColor = '#FF0000';
+const boatColor = '#0000FF';
+const otherColor = '#00FF00';
 
 const currentTime = () => Date.now() / 1000;
 
@@ -19,7 +11,8 @@ class Route {
     return [latitude, longitude];
   }
 
-  constructor(map, schedule) {
+  constructor(type, map, schedule) {
+    this.type = type;
     this.polyline = L.polyline(schedule.map(Route.stopToLatLong), {
       color: routeDefaultColor,
     });
@@ -37,7 +30,37 @@ class Route {
     });
   }
 
-  setColor(newColor) {
+  setColor() {
+    let newColor;
+    switch(this.type) {
+      case('InterRegio'):
+      case('Intercity'):
+      case('Schnelles Nachtnetz'):
+      case('Standseilbahn'):
+      case('Regionalzug'):
+      case('Luftseilbahn'):
+      case('Eurocity'):
+      case('EN'):
+      case('Ice'):
+      case('TGV'):
+      case('Drahtseilbahn'):
+      case('Sesselbahn'):
+      case('Extrazug'):
+      case('RegioExpress'):
+      case('TER200'):
+      case('PanoramaExpress'):
+      case('Aufzug'):
+      case('Zahnradbahn'):
+      case('S-Bahn'):
+        newColor = trainColor;
+        break;
+      case('Schiff'):
+        newColor = boatColor;
+        break;
+      default:
+        newColor = otherColor;
+        break;
+    }
     this.polyline.setStyle({ color: newColor });
     this.stops.forEach((stop) => stop.setStyle({ color: newColor }));
   }
@@ -49,14 +72,15 @@ class Route {
 }
 
 class Train {
-  constructor(map, routeId, schedule, name, onFinalStopCb) {
+  constructor(map, routeId, routeType, schedule, name, onFinalStopCb) {
     this.routeId = routeId;
+    this.routeType = routeType;
     this.schedule = schedule;
     this.name = name;
 
     this._map = map;
     this._onFinalStopCb = onFinalStopCb;
-    this._route = new Route(this._map, this.schedule);
+    this._route = new Route(this.routeType, this._map, this.schedule);
     this._train = undefined;
     this._heartbeatIntervalId = undefined;
 
@@ -85,7 +109,7 @@ class Train {
 
     if (!this._train) {
       this._createNewTrain();
-      this._route.setColor(randomColor());
+      this._route.setColor();
       return;
     }
 
@@ -159,8 +183,6 @@ class Train {
   }
 }
 
-const falseIds = [];
-
 class Container {
   constructor() {
     this.map = L.map('map').setView([46.819382, 8.416515], 9);
@@ -213,6 +235,7 @@ class Container {
       const newTrain = new Train(
         this.map,
         routeId,
+        routeType,
         schedule,
         `${routeType} ${routeName} (${agencyName})`,
         (train) => this._onTrainFinalStop(train),
