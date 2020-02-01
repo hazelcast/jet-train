@@ -54,3 +54,12 @@ infrastructure/data/gtfsfp20202020-01-15/stop_times.txt filter=lfs diff=lfs merg
 infrastructure/data/gtfsfp20202020-01-15/stops.txt filter=lfs diff=lfs merge=lfs -text
 infrastructure/data/gtfsfp20202020-01-15/transfers.txt filter=lfs diff=lfs merge=lfs -text
 infrastructure/data/gtfsfp20202020-01-15/trips.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20202020-01-29/agency.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20202020-01-29/calendar.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20202020-01-29/calendar_dates.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20202020-01-29/feed_info.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20202020-01-29/routes.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20202020-01-29/stop_times.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20202020-01-29/stops.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20202020-01-29/transfers.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/gtfsfp20202020-01-29/trips.txt filter=lfs diff=lfs merge=lfs -text
