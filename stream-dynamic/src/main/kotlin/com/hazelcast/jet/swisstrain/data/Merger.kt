@@ -17,17 +17,14 @@ class ContextCreator : FunctionEx<JetInstance, HazelcastInstance> {
         jet.hazelcastInstance
 }
 
-class MergeWithTrip :
-    BiFunctionEx<HazelcastInstance, JsonObject, JsonObject> {
+object TripIdExtractor : FunctionEx<JsonObject, String?> {
+    override fun applyEx(json: JsonObject): String? = json.getString("id", null)
+}
 
-    override fun applyEx(instance: HazelcastInstance, json: JsonObject): JsonObject {
-        val tripId = json.getString("id", null)
-        instance.getMap<String, JsonObject>("trips")[tripId]
-            ?.let {
-                return json.merge(it)
-            }
-        return json
-    }
+object MergeWithTrip : BiFunctionEx<JsonObject, JsonObject?, JsonObject> {
+    override fun applyEx(json: JsonObject, trip: JsonObject?): JsonObject =
+        if (trip == null) json
+        else json.merge(trip)
 }
 
 // Magic number

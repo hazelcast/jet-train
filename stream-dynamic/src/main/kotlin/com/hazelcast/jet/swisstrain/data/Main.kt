@@ -23,10 +23,8 @@ private fun pipeline() = Pipeline.create().apply {
     drawFrom(service)
         .withTimestamps(TimestampExtractor(), 200)
         .flatMap(SplitPayload())
+        .mapUsingIMap("trips", TripIdExtractor, MergeWithTrip)
         .mapUsingContext(
-            ContextFactory.withCreateFn(ContextCreator()),
-            MergeWithTrip()
-        ).mapUsingContext(
             ContextFactory.withCreateFn(ContextCreator()),
             MergeWithStopTimes()
         )
@@ -56,6 +54,7 @@ private val jobConfig = JobConfig()
         ToEntry::class.java,
         HourToTimestamp::class.java,
         ContextCreator::class.java,
+        TripIdExtractor::class.java,
         MergeWithTrip::class.java,
         MergeWithStopTimes::class.java,
         MergeWithLocation::class.java,
