@@ -15,7 +15,7 @@ sealed class ToJson(private val mappings: Map<String, Int>) : FunctionEx<List<St
         else null
 }
 
-class ToStop : ToJson(
+object ToStop : ToJson(
     mapOf(
         "id" to 0,
         "stop_name" to 1,
@@ -24,14 +24,14 @@ class ToStop : ToJson(
     )
 )
 
-class ToAgency : ToJson(
+object ToAgency : ToJson(
     mapOf(
         "id" to 0,
         "agency_name" to 1
     )
 )
 
-class ToRoute : ToJson(
+object ToRoute : ToJson(
     mapOf(
         "id" to 0,
         "agency_id" to 1,
@@ -40,7 +40,7 @@ class ToRoute : ToJson(
     )
 )
 
-class ToTrip : ToJson(
+object ToTrip : ToJson(
     mapOf(
         "route_id" to 0,
         "id" to 2,
@@ -48,7 +48,7 @@ class ToTrip : ToJson(
     )
 )
 
-class ToStopTime : FunctionEx<List<String>, JsonObject?> {
+object ToStopTime : FunctionEx<List<String>, JsonObject?> {
     override fun applyEx(t: List<String>): JsonObject? =
         if (t.size > 4)
             JsonObject().apply {

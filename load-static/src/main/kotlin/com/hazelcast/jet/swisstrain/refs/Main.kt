@@ -13,23 +13,23 @@ fun main() {
 
     Jet.newJetClient().withCloseable().use {
         with(config) {
-            it.newJob(pipeline("stops", ToStop()), this).join()
-            it.newJob(pipeline("agency", ToAgency()), this).join()
+            it.newJob(pipeline("stops", ToStop), this).join()
+            it.newJob(pipeline("agency", ToAgency), this).join()
             it.newJob(
                 pipeline(
                     "routes",
-                    ToRoute(),
-                    Triple("agency", GetAgencyId(), MergeWithAgency())
+                    ToRoute,
+                    Triple("agency", GetAgencyId, MergeWithAgency)
                 ), this
             ).join()
             it.newJob(
                 pipeline(
                     "trips",
-                    ToTrip(),
-                    Triple("routes", GetRouteId(), MergeWithRoute())
+                    ToTrip,
+                    Triple("routes", GetRouteId, MergeWithRoute)
                 ), this
             ).join()
-            it.newJob(pipeline("stop_times", ToStopTime()), this).join()
+            it.newJob(pipeline("stop_times", ToStopTime), this).join()
         }
     }
 }
@@ -42,9 +42,9 @@ private fun pipeline(
     Pipeline.create().apply {
         val commonMap = drawFrom(file(name))
             .map(
-                RemoveFirstAndLastChars()
-                    .andThen(SplitByDoubleQuotes())
-                    .andThen(RemoveDoubleQuotes())
+                RemoveFirstAndLastChars
+                    .andThen(SplitByDoubleQuotes)
+                    .andThen(RemoveDoubleQuotes)
                     .andThen(jsonify)
             )
         val richMap =
@@ -57,7 +57,7 @@ private fun pipeline(
             } else commonMap
         richMap
             .peek()
-            .map(ToEntry())
+            .map(ToEntry)
             .drainTo(Sinks.map<Any, JsonObject>(name))
     }
 

@@ -13,7 +13,7 @@ fun file(filename: String) =
     SourceBuilder
         .batch("$filename-source", CreateReader(filename))
         .fillBufferFn(FillBuffer())
-        .destroyFn(CloseReader())
+        .destroyFn(CloseReader)
         .build()
 
 class FillBuffer : BiConsumerEx<BufferedReader, SourceBuilder.SourceBuffer<String>> {
@@ -26,7 +26,7 @@ class FillBuffer : BiConsumerEx<BufferedReader, SourceBuilder.SourceBuffer<Strin
     }
 }
 
-class CloseReader : ConsumerEx<BufferedReader> {
+object CloseReader : ConsumerEx<BufferedReader> {
     override fun acceptEx(reader: BufferedReader) {
         reader.close()
     }

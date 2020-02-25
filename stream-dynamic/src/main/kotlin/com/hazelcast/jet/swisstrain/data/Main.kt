@@ -21,19 +21,19 @@ private fun pipeline() = Pipeline.create().apply {
     val service = if (System.getProperty("mock") != null) mockService()
     else remoteService(URL, System.getProperty("token"))
     drawFrom(service)
-        .withTimestamps(TimestampExtractor(), 200)
-        .flatMap(SplitPayload())
+        .withTimestamps(TimestampExtractor, 200)
+        .flatMap(SplitPayload)
         .mapUsingIMap("trips", TripIdExtractor, MergeWithTrip)
         .mapUsingContext(
-            ContextFactory.withCreateFn(ContextCreator()),
-            MergeWithStopTimes()
+            ContextFactory.withCreateFn(ContextCreator),
+            MergeWithStopTimes
         )
-        .map(HourToTimestamp())
+        .map(HourToTimestamp)
         .mapUsingContext(
-            ContextFactory.withCreateFn(ContextCreator()),
-            MergeWithLocation()
+            ContextFactory.withCreateFn(ContextCreator),
+            MergeWithLocation
         ).peek()
-        .map(ToEntry())
+        .map(ToEntry)
         .drainTo(Sinks.remoteMap<String, JsonObject>("update", clientConfig))
 }
 

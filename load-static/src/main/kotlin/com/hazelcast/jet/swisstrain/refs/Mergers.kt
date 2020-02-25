@@ -9,10 +9,10 @@ sealed class IdExtractorFn(private val id: String) : FunctionEx<JsonObject?, Str
         entity?.getString(id, null)
 }
 
-class GetAgencyId : IdExtractorFn("agency_id")
-class GetRouteId : IdExtractorFn("route_id")
+object GetAgencyId : IdExtractorFn("agency_id")
+object GetRouteId : IdExtractorFn("route_id")
 
-class MergeWithAgency : BiFunctionEx<JsonObject?, JsonObject?, JsonObject?> {
+object MergeWithAgency : BiFunctionEx<JsonObject?, JsonObject?, JsonObject?> {
     override fun applyEx(entity: JsonObject?, ref: JsonObject?) =
         entity.apply {
             val agencyName = ref?.getString("agency_name", null)
@@ -20,7 +20,7 @@ class MergeWithAgency : BiFunctionEx<JsonObject?, JsonObject?, JsonObject?> {
         }
 }
 
-class MergeWithRoute : BiFunctionEx<JsonObject?, JsonObject?, JsonObject?> {
+object MergeWithRoute : BiFunctionEx<JsonObject?, JsonObject?, JsonObject?> {
     override fun applyEx(entity: JsonObject?, ref: JsonObject?) =
         entity.apply {
             val agencyName = ref?.getString("agency_name", null)

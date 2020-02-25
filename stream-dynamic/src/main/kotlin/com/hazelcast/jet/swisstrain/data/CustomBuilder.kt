@@ -11,7 +11,7 @@ import com.hazelcast.jet.pipeline.SourceBuilder
 import com.hazelcast.jet.pipeline.SourceBuilder.SourceBuffer
 
 fun remoteService(url: String, token: String) = SourceBuilder
-    .stream("http-source", CreateContext())
+    .stream("http-source", CreateContext)
     .fillBufferFn(FillBuffer(url, token))
     .build()
 
@@ -31,7 +31,7 @@ class FillBuffer(private val url: String, private val token: String) : BiConsume
     }
 }
 
-class CreateContext : FunctionEx<Processor.Context, TimeHolder> {
+object CreateContext : FunctionEx<Processor.Context, TimeHolder> {
     override fun applyEx(ctx: Processor.Context) = TimeHolder()
 }
 

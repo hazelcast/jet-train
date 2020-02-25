@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.ResolverStyle
 import java.util.*
 
-class SplitPayload : FunctionEx<String, Traverser<JsonObject>> {
+object SplitPayload : FunctionEx<String, Traverser<JsonObject>> {
     override fun applyEx(payload: String): Traverser<JsonObject> {
         val json = Json.parse(payload).asObject()
         val timestamp = json.get("header").asObject().getLong("timestamp", 0)
@@ -30,9 +30,9 @@ class TripTraverser(entities: JsonArray, private val timestamp: Long) : Traverse
         else null
 }
 
-class HourToTimestamp : FunctionEx<JsonObject, JsonObject> {
+object HourToTimestamp : FunctionEx<JsonObject, JsonObject> {
 
-    private val pattern = "HH:mm:ss"
+    private const val pattern = "HH:mm:ss"
 
     override fun applyEx(json: JsonObject): JsonObject {
         val schedule = json
@@ -62,12 +62,12 @@ class HourToTimestamp : FunctionEx<JsonObject, JsonObject> {
     }
 }
 
-class ToEntry : FunctionEx<JsonObject, Map.Entry<String, JsonObject>> {
+object ToEntry : FunctionEx<JsonObject, Map.Entry<String, JsonObject>> {
     override fun applyEx(json: JsonObject): Map.Entry<String, JsonObject> =
         AbstractMap.SimpleEntry(json.getString("id", null), json)
 }
 
-class TimestampExtractor : ToLongFunctionEx<String> {
+object TimestampExtractor : ToLongFunctionEx<String> {
     override fun applyAsLongEx(value: String): Long {
         val json = Json.parse(value).asObject()
         return json.get("header").asObject().getLong("timestamp", -1)

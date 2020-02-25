@@ -12,9 +12,8 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.format.ResolverStyle
 
-class ContextCreator : FunctionEx<JetInstance, HazelcastInstance> {
-    override fun applyEx(jet: JetInstance) =
-        jet.hazelcastInstance
+object ContextCreator : FunctionEx<JetInstance, HazelcastInstance> {
+    override fun applyEx(jet: JetInstance) = jet.hazelcastInstance
 }
 
 object TripIdExtractor : FunctionEx<JsonObject, String?> {
@@ -31,7 +30,7 @@ object MergeWithTrip : BiFunctionEx<JsonObject, JsonObject?, JsonObject> {
 // This is the highest sequence count of stops for a trip in regard to the current static data set
 private const val MAX_SEQ_NUMBER = 69
 
-class MergeWithStopTimes :
+object MergeWithStopTimes :
     BiFunctionEx<HazelcastInstance, JsonObject, JsonObject> {
 
     private val pattern = "HH:mm:ss"
@@ -136,7 +135,7 @@ class MergeWithStopTimes :
     }
 }
 
-class MergeWithLocation : BiFunctionEx<HazelcastInstance, JsonObject, JsonObject> {
+object MergeWithLocation : BiFunctionEx<HazelcastInstance, JsonObject, JsonObject> {
     override fun applyEx(instance: HazelcastInstance, json: JsonObject): JsonObject {
         val stops = instance.getMap<String, JsonObject>("stops")
         val schedule = json
