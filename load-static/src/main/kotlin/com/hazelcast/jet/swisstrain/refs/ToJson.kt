@@ -5,8 +5,8 @@ import com.hazelcast.jet.function.FunctionEx
 
 sealed class ToJson(private val mappings: Map<String, Int>) : FunctionEx<List<String>, JsonObject?> {
     override fun applyEx(list: List<String>) =
-        if (list.size > mappings.size)
-            JsonObject().apply {
+        if (list.size > mappings.size) JsonObject()
+            .apply {
                 mappings.forEach {
                     val value = list[it.value]
                     set(it.key, value)
@@ -49,14 +49,15 @@ object ToTrip : ToJson(
 )
 
 object ToStopTime : FunctionEx<List<String>, JsonObject?> {
-    override fun applyEx(t: List<String>): JsonObject? =
-        if (t.size > 4)
-            JsonObject().apply {
+    override fun applyEx(t: List<String>) =
+        if (t.size > 4) JsonObject()
+            .apply {
                 set("trip", t[0])
                 set("arrival", t[1])
                 set("departure", t[2])
                 set("stop", t[3])
                 set("sequence", t[4].toInt())
                 set("id", JsonObject().add("trip", t[0]).add("sequence", t[4].toInt()))
-            } else null
+            }
+        else null
 }
