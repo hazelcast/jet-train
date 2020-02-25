@@ -5,6 +5,7 @@ import com.hazelcast.jet.Jet
 import com.hazelcast.jet.config.JobConfig
 import com.hazelcast.jet.function.BiFunctionEx
 import com.hazelcast.jet.function.FunctionEx
+import com.hazelcast.jet.pipeline.BatchStage
 import com.hazelcast.jet.pipeline.Pipeline
 import com.hazelcast.jet.pipeline.Sinks
 import com.hazelcast.jet.swisstrain.common.withCloseable
@@ -41,12 +42,8 @@ private fun pipeline(
 ) =
     Pipeline.create().apply {
         val commonMap = drawFrom(file(name))
-            .map(
-                RemoveFirstAndLastChars
-                    .andThen(SplitByDoubleQuotes)
-                    .andThen(RemoveDoubleQuotes)
-                    .andThen(jsonify)
-            )
+            .apply(CleanUp)
+            .map(jsonify)
         val richMap =
             if (mergeWith != null) {
                 commonMap.mapUsingIMap(
@@ -61,8 +58,18 @@ private fun pipeline(
             .drainTo(Sinks.map<Any, JsonObject>(name))
     }
 
+object CleanUp : FunctionEx<BatchStage<String>, BatchStage<List<String>>> {
+    override fun applyEx(stage: BatchStage<String>) =
+        stage.map(
+            RemoveFirstAndLastChars
+                .andThen(SplitByDoubleQuotes)
+                .andThen(RemoveDoubleQuotes)
+        )
+}
+
 private val config = JobConfig()
     .addClass(
+        CleanUp::class.java,
         CreateReader::class.java,
         FillBuffer::class.java,
         CloseReader::class.java,
