@@ -2,7 +2,6 @@ package com.hazelcast.jet.swisstrain.data
 
 import com.hazelcast.client.config.ClientConfig
 import com.hazelcast.jet.Jet
-import com.hazelcast.jet.JetInstance
 import com.hazelcast.jet.config.JobConfig
 import com.hazelcast.jet.pipeline.Pipeline
 import com.hazelcast.jet.pipeline.ServiceFactories
@@ -17,7 +16,7 @@ fun main() {
     }
 }
 
-private fun pipeline() = Pipeline.create().apply {
+internal fun pipeline() = Pipeline.create().apply {
     val service = if (System.getProperty("mock") != null) mockService()
     else remoteService(URL, System.getProperty("token"))
     readFrom(service)
@@ -37,11 +36,11 @@ private fun pipeline() = Pipeline.create().apply {
         .writeTo(Sinks.remoteMap("update", clientConfig))
 }
 
-private val clientConfig = ClientConfig().apply {
+internal val clientConfig = ClientConfig().apply {
     clusterName = "jet"
 }
 
-private val jobConfig = JobConfig()
+internal val jobConfig = JobConfig()
     .addClass(
         SplitPayload::class.java,
         TripTraverser::class.java,

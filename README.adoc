@@ -95,6 +95,13 @@ Calling the endpoint requires an API key.
 [source,bash]
 java -Dtoken=<MY_TOKEN> com.hazelcast.jet.swisstrain.data.MainKt
 
+=== Requirements
+
+* Docker compose
+* JDK 8+
+* Maven
+* Hazelcast Jet distribution
+
 === The demo
 
 The following steps need to be executed in order:
@@ -105,14 +112,30 @@ In the `infrastructure` module:
 [source,bash]
 docker-compose up
 +
-To load static data::
-In the `load-static` module:
+To create the artefacts::
+In the project root folder:
 +
 [source,bash]
-java com.hazelcast.jet.swisstrain.refs.MainKt
+mvn package
++
+To load static data::
+In the Hazelcast Jet distribution folder:
++
+[source,bash]
+./jet submit -v -c com.hazelcast.jet.swisstrain.refs.Stops $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+./jet submit -v -c com.hazelcast.jet.swisstrain.refs.Agencies $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+# Wait until the `Agencies` job has finished running
+./jet submit -v -c com.hazelcast.jet.swisstrain.refs.Routes $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+# Wait until the `Routes` job has finished running
+./jet submit -v -c com.hazelcast.jet.swisstrain.refs.Trips $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+# Wait until all jobs have finished running
+./jet submit -v -c com.hazelcast.jet.swisstrain.refs.StopTimes $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
++
+There are dependencies between the jobs.
+Hence, one should wait for a required job to have finished before launching the dependable one.
 +
 To get dynamic data::
-In the `stream-dynamic` module:
+In the Hazelcast Jet distribution folder:
 +
 [source,bash]
 java -Dtoken=<MY_TOKEN> com.hazelcast.jet.swisstrain.data.MainKt
@@ -136,10 +159,18 @@ The normal setup splits the client and the server into two different parts.
 To ease debugging and understanding, the `local-jet` demo is provided.
 To use it, just run the `com.hazelcast.jet.swisstrain.LocalJet.kt` class instead of `docker-compose`.
 
+Then, run the `MainKt` classes from each module _i.e._:
+
+[source,bash]
+java com.hazelcast.jet.swisstrain.refs.MainKt
+
+[source,bash]
+java com.hazelcast.jet.swisstrain.data.MainKt
+
 === Mocking the webservices call
 
 Using the Internet in a conference might be a big PITA.
-To use mock data instead, In the `stream-dynamic` module, type:
+To use mock data instead, in the `stream-dynamic` module, type:
 
 [source,bash]
 java -Dmock com.hazelcast.jet.swisstrain.data.MainKt

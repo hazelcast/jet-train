@@ -1,62 +1,24 @@
 package com.hazelcast.jet.swisstrain.refs
 
-import com.hazelcast.function.BiFunctionEx
 import com.hazelcast.function.FunctionEx
-import com.hazelcast.internal.json.JsonObject
 import com.hazelcast.jet.Jet
+import com.hazelcast.jet.JetInstance
 import com.hazelcast.jet.config.JobConfig
 import com.hazelcast.jet.pipeline.BatchStage
 import com.hazelcast.jet.pipeline.Pipeline
-import com.hazelcast.jet.pipeline.Sinks
 import com.hazelcast.jet.swisstrain.common.withCloseable
 
 fun main() {
+    execute(Jet.newJetClient(), stops, agencies, routes, trips, stopTimes)
+}
 
-    Jet.newJetClient().withCloseable().use {
-        with(config) {
-            it.newJob(pipeline("stops", ToStop), this).join()
-            it.newJob(pipeline("agency", ToAgency), this).join()
-            it.newJob(
-                pipeline(
-                    "routes",
-                    ToRoute,
-                    Triple("agency", GetAgencyId, MergeWithAgency)
-                ), this
-            ).join()
-            it.newJob(
-                pipeline(
-                    "trips",
-                    ToTrip,
-                    Triple("routes", GetRouteId, MergeWithRoute)
-                ), this
-            ).join()
-            it.newJob(pipeline("stop_times", ToStopTime), this).join()
+internal fun execute(jetInstance: JetInstance, vararg pipeline: Pipeline) {
+    jetInstance.withCloseable().use { jet ->
+        pipeline.forEach { pipeline ->
+            jet.newJob(pipeline, jobConfig).join()
         }
     }
 }
-
-private fun pipeline(
-    name: String,
-    jsonify: FunctionEx<List<String>, JsonObject?>,
-    mergeWith: Triple<String, IdExtractorFn, BiFunctionEx<JsonObject?, JsonObject?, JsonObject?>>? = null
-) =
-    Pipeline.create().apply {
-        val commonMap = readFrom(file(name))
-            .apply(CleanUp)
-            .map(jsonify)
-        val richMap =
-            if (mergeWith != null) {
-                commonMap.mapUsingIMap(
-                    mergeWith.first,
-                    mergeWith.second,
-                    mergeWith.third
-                )
-            } else commonMap
-        richMap
-            .peek()
-            .map(ToEntry)
-            .writeTo(Sinks.map(name))
-    }
 
 object CleanUp : FunctionEx<BatchStage<String>, BatchStage<List<String>>> {
     override fun applyEx(stage: BatchStage<String>) =
@@ -67,7 +29,7 @@ object CleanUp : FunctionEx<BatchStage<String>, BatchStage<List<String>>> {
         )
 }
 
-private val config = JobConfig()
+private val jobConfig = JobConfig()
     .addClass(
         CleanUp::class.java,
         CreateReader::class.java,
