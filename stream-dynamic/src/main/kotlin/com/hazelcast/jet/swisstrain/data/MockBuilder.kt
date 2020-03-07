@@ -1,8 +1,8 @@
 package com.hazelcast.jet.swisstrain.data
 
+import com.hazelcast.function.BiConsumerEx
+import com.hazelcast.function.FunctionEx
 import com.hazelcast.jet.core.Processor
-import com.hazelcast.jet.function.BiConsumerEx
-import com.hazelcast.jet.function.FunctionEx
 import com.hazelcast.jet.pipeline.SourceBuilder
 import java.io.File
 import java.io.Serializable

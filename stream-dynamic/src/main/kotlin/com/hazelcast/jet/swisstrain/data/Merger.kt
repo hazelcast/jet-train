@@ -1,20 +1,14 @@
 package com.hazelcast.jet.swisstrain.data
 
-import com.hazelcast.core.HazelcastInstance
-import com.hazelcast.core.IMap
+import com.hazelcast.function.BiFunctionEx
+import com.hazelcast.function.FunctionEx
 import com.hazelcast.internal.json.JsonArray
 import com.hazelcast.internal.json.JsonObject
-import com.hazelcast.jet.JetInstance
-import com.hazelcast.jet.function.BiFunctionEx
-import com.hazelcast.jet.function.FunctionEx
+import com.hazelcast.map.IMap
 import java.time.Duration
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.format.ResolverStyle
-
-object ContextCreator : FunctionEx<JetInstance, HazelcastInstance> {
-    override fun applyEx(jet: JetInstance) = jet.hazelcastInstance
-}
 
 object TripIdExtractor : FunctionEx<JsonObject, String?> {
     override fun applyEx(json: JsonObject): String? = json.getString("id", null)
@@ -30,13 +24,11 @@ object MergeWithTrip : BiFunctionEx<JsonObject, JsonObject?, JsonObject> {
 // This is the highest sequence count of stops for a trip in regard to the current static data set
 private const val MAX_SEQ_NUMBER = 69
 
-object MergeWithStopTimes :
-    BiFunctionEx<HazelcastInstance, JsonObject, JsonObject> {
+object MergeWithStopTimes : BiFunctionEx<IMap<JsonObject, JsonObject>, JsonObject, JsonObject> {
 
-    private val pattern = "HH:mm:ss"
+    private const val pattern = "HH:mm:ss"
 
-    override fun applyEx(instance: HazelcastInstance, tripUpdate: JsonObject): JsonObject? {
-        val stopTimes = instance.getMap<JsonObject, JsonObject>("stop_times")
+    override fun applyEx(stopTimes: IMap<JsonObject, JsonObject>, tripUpdate: JsonObject): JsonObject? {
         val tripId = tripUpdate.getString("id", null)
         val updatedStopTimes = IntRange(1, MAX_SEQ_NUMBER)
             .mapNotNull { findStopTime(tripId, it, stopTimes) }
@@ -107,7 +99,7 @@ object MergeWithStopTimes :
      * }
      */
     private fun adjust(stopTimeUpdates: JsonArray?, stopTime: JsonObject): JsonObject {
-        val sequence = stopTime.getInt("sequence", -1).toInt()
+        val sequence = stopTime.getInt("sequence", -1)
         val matchingUpdate = stopTimeUpdates
             ?.map { it as JsonObject }
             ?.firstOrNull {
@@ -135,9 +127,8 @@ object MergeWithStopTimes :
     }
 }
 
-object MergeWithLocation : BiFunctionEx<HazelcastInstance, JsonObject, JsonObject> {
-    override fun applyEx(instance: HazelcastInstance, json: JsonObject): JsonObject {
-        val stops = instance.getMap<String, JsonObject>("stops")
+object MergeWithLocation : BiFunctionEx<IMap<String, JsonObject>, JsonObject, JsonObject> {
+    override fun applyEx(stops: IMap<String, JsonObject>, json: JsonObject): JsonObject {
         val schedule = json
             .get("schedule")
             .asArray()

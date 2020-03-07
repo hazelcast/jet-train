@@ -1,7 +1,7 @@
 package com.hazelcast.jet.swisstrain.refs
 
+import com.hazelcast.function.FunctionEx
 import com.hazelcast.internal.json.JsonObject
-import com.hazelcast.jet.function.FunctionEx
 import java.util.*
 
 object RemoveFirstAndLastChars : FunctionEx<String, String> {

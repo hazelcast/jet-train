@@ -1,10 +1,10 @@
 package com.hazelcast.jet.swisstrain.refs
 
+import com.hazelcast.function.BiFunctionEx
+import com.hazelcast.function.FunctionEx
 import com.hazelcast.internal.json.JsonObject
 import com.hazelcast.jet.Jet
 import com.hazelcast.jet.config.JobConfig
-import com.hazelcast.jet.function.BiFunctionEx
-import com.hazelcast.jet.function.FunctionEx
 import com.hazelcast.jet.pipeline.BatchStage
 import com.hazelcast.jet.pipeline.Pipeline
 import com.hazelcast.jet.pipeline.Sinks
@@ -41,7 +41,7 @@ private fun pipeline(
     mergeWith: Triple<String, IdExtractorFn, BiFunctionEx<JsonObject?, JsonObject?, JsonObject?>>? = null
 ) =
     Pipeline.create().apply {
-        val commonMap = drawFrom(file(name))
+        val commonMap = readFrom(file(name))
             .apply(CleanUp)
             .map(jsonify)
         val richMap =
@@ -55,7 +55,7 @@ private fun pipeline(
         richMap
             .peek()
             .map(ToEntry)
-            .drainTo(Sinks.map<Any, JsonObject>(name))
+            .writeTo(Sinks.map(name))
     }
 
 object CleanUp : FunctionEx<BatchStage<String>, BatchStage<List<String>>> {

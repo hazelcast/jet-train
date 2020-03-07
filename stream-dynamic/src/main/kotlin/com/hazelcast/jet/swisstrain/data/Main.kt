@@ -1,11 +1,11 @@
 package com.hazelcast.jet.swisstrain.data
 
 import com.hazelcast.client.config.ClientConfig
-import com.hazelcast.internal.json.JsonObject
 import com.hazelcast.jet.Jet
+import com.hazelcast.jet.JetInstance
 import com.hazelcast.jet.config.JobConfig
-import com.hazelcast.jet.pipeline.ContextFactory
 import com.hazelcast.jet.pipeline.Pipeline
+import com.hazelcast.jet.pipeline.ServiceFactories
 import com.hazelcast.jet.pipeline.Sinks
 import com.hazelcast.jet.swisstrain.common.withCloseable
 
@@ -20,25 +20,25 @@ fun main() {
 private fun pipeline() = Pipeline.create().apply {
     val service = if (System.getProperty("mock") != null) mockService()
     else remoteService(URL, System.getProperty("token"))
-    drawFrom(service)
+    readFrom(service)
         .withTimestamps(TimestampExtractor, 200)
         .flatMap(SplitPayload)
         .mapUsingIMap("trips", TripIdExtractor, MergeWithTrip)
-        .mapUsingContext(
-            ContextFactory.withCreateFn(ContextCreator),
+        .mapUsingService(
+            ServiceFactories.iMapService("stop_times"),
             MergeWithStopTimes
         )
         .map(HourToTimestamp)
-        .mapUsingContext(
-            ContextFactory.withCreateFn(ContextCreator),
+        .mapUsingService(
+            ServiceFactories.iMapService("stops"),
             MergeWithLocation
         ).peek()
         .map(ToEntry)
-        .drainTo(Sinks.remoteMap<String, JsonObject>("update", clientConfig))
+        .writeTo(Sinks.remoteMap("update", clientConfig))
 }
 
 private val clientConfig = ClientConfig().apply {
-    groupConfig.name = "jet"
+    clusterName = "jet"
 }
 
 private val jobConfig = JobConfig()
@@ -53,7 +53,6 @@ private val jobConfig = JobConfig()
         CountHolder::class.java,
         ToEntry::class.java,
         HourToTimestamp::class.java,
-        ContextCreator::class.java,
         TripIdExtractor::class.java,
         MergeWithTrip::class.java,
         MergeWithStopTimes::class.java,

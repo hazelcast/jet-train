@@ -1,7 +1,7 @@
 package com.hazelcast.jet.swisstrain.refs
 
+import com.hazelcast.function.FunctionEx
 import com.hazelcast.internal.json.JsonObject
-import com.hazelcast.jet.function.FunctionEx
 
 sealed class ToJson(private val mappings: Map<String, Int>) : FunctionEx<List<String>, JsonObject?> {
     override fun applyEx(list: List<String>) =

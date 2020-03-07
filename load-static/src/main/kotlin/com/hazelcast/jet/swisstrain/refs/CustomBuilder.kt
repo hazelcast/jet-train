@@ -1,9 +1,9 @@
 package com.hazelcast.jet.swisstrain.refs
 
+import com.hazelcast.function.BiConsumerEx
+import com.hazelcast.function.ConsumerEx
+import com.hazelcast.function.FunctionEx
 import com.hazelcast.jet.core.Processor.Context
-import com.hazelcast.jet.function.BiConsumerEx
-import com.hazelcast.jet.function.ConsumerEx
-import com.hazelcast.jet.function.FunctionEx
 import com.hazelcast.jet.pipeline.SourceBuilder
 import java.io.BufferedReader
 import java.io.File

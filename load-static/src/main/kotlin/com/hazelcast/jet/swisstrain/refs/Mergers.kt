@@ -1,8 +1,8 @@
 package com.hazelcast.jet.swisstrain.refs
 
+import com.hazelcast.function.BiFunctionEx
+import com.hazelcast.function.FunctionEx
 import com.hazelcast.internal.json.JsonObject
-import com.hazelcast.jet.function.BiFunctionEx
-import com.hazelcast.jet.function.FunctionEx
 
 sealed class IdExtractorFn(private val id: String) : FunctionEx<JsonObject?, String?> {
     override fun applyEx(entity: JsonObject?) =
