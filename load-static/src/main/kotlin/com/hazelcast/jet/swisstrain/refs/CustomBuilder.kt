@@ -11,7 +11,7 @@ import java.io.FileReader
 
 fun file(filename: String) =
     SourceBuilder
-        .batch("$filename-source", CreateReader(filename))
+        .batch("$filename-source", CreateReader(filename, System.getProperty("data.path")))
         .fillBufferFn(FillBuffer())
         .destroyFn(CloseReader)
         .build()
@@ -32,9 +32,9 @@ object CloseReader : ConsumerEx<BufferedReader> {
     }
 }
 
-class CreateReader(private val filename: String) : FunctionEx<Context, BufferedReader> {
+class CreateReader(private val filename: String, private val root: String) : FunctionEx<Context, BufferedReader> {
     override fun applyEx(ctx: Context) =
         BufferedReader(
-            FileReader(File("${System.getProperty("data.path")}/infrastructure/data/gtfsfp20202020-03-04/$filename.txt"))
+            FileReader(File("$root/infrastructure/data/gtfsfp20202020-03-04/$filename.txt"))
         )
 }
