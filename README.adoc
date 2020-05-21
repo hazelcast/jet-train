@@ -138,11 +138,11 @@ To get dynamic data::
 In the Hazelcast Jet distribution folder:
 +
 [source,bash]
-java -Dtoken=<MY_TOKEN> com.hazelcast.jet.swisstrain.data.MainKt
+java -Dtoken=$MY_TOKEN com.hazelcast.jet.swisstrain.data.MainKt
 +
 NOTE: There's a rate limiter on the server side:
 the endpoint returns a 429 status if it's queried more than once per 30 seconds.
-Hence, the Jet job is configured to runly only once per 31 seconds.
+Hence, the Jet job is configured to runl only once per 31 seconds.
 To display the map on screen::
 In the `web` module:
 +
@@ -174,4 +174,3 @@ To use mock data instead, in the `stream-dynamic` module, type:
 
 [source,bash]
 java -Dmock com.hazelcast.jet.swisstrain.data.MainKt
-
