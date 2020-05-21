@@ -40,21 +40,4 @@ internal val clientConfig = ClientConfig().apply {
     clusterName = "jet"
 }
 
-internal val jobConfig = JobConfig()
-    .addClass(
-        SplitPayload::class.java,
-        TripTraverser::class.java,
-        FillBuffer::class.java,
-        MockBuffer::class.java,
-        CreateContext::class.java,
-        CreateMockContext::class.java,
-        TimeHolder::class.java,
-        CountHolder::class.java,
-        ToEntry::class.java,
-        HourToTimestamp::class.java,
-        TripIdExtractor::class.java,
-        MergeWithTrip::class.java,
-        MergeWithStopTimes::class.java,
-        MergeWithLocation::class.java,
-        TimestampExtractor::class.java
-    )
+internal val jobConfig = JobConfig().addPackage(SplitPayload::class.java.`package`.name)

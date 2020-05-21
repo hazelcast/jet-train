@@ -29,25 +29,4 @@ object CleanUp : FunctionEx<BatchStage<String>, BatchStage<List<String>>> {
         )
 }
 
-private val jobConfig = JobConfig()
-    .addClass(
-        CleanUp::class.java,
-        CreateReader::class.java,
-        FillBuffer::class.java,
-        CloseReader::class.java,
-        RemoveFirstAndLastChars::class.java,
-        SplitByDoubleQuotes::class.java,
-        RemoveDoubleQuotes::class.java,
-        ToJson::class.java,
-        ToEntry::class.java,
-        ToStop::class.java,
-        ToAgency::class.java,
-        ToRoute::class.java,
-        ToTrip::class.java,
-        ToStopTime::class.java,
-        IdExtractorFn::class.java,
-        GetAgencyId::class.java,
-        GetRouteId::class.java,
-        MergeWithAgency::class.java,
-        MergeWithRoute::class.java
-    )
+private val jobConfig = JobConfig().addPackage(CleanUp::class.java.`package`.name)
