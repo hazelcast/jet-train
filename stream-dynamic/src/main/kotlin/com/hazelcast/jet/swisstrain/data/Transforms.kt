@@ -56,7 +56,7 @@ object HourToTimestamp : FunctionEx<JsonObject, JsonObject> {
         return LocalTime
             .from(formatter.parse(this))
             .atDate(LocalDate.now())
-            .atZone(ZoneId.of("GMT"))
+            .atZone(ZoneId.of("Europe/Paris"))
             .toInstant()
             .epochSecond
     }
