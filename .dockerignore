@@ -1,0 +1,8 @@
+*
+!pom.xml
+!common/pom.xml
+!load-static/pom.xml
+!local-jet/pom.xml
+!stream-dynamic/pom.xml
+!web
+target

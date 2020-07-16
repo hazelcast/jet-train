@@ -11,7 +11,7 @@ import java.io.FileReader
 
 fun file(filename: String) =
     SourceBuilder
-        .batch("$filename-source", CreateReader(filename, System.getProperty("data.path")))
+        .batch("$filename-source", CreateReader(filename, System.getProperty("data.path") ?: "/opt/hazelcast/data"))
         .fillBufferFn(FillBuffer())
         .destroyFn(CloseReader)
         .build()
