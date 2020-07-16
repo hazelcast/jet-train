@@ -2,18 +2,19 @@ version: '3'
 services:
   server:
     container_name: jet
-    image: hazelcast/hazelcast-jet:4.1
+    image: hazelcast/hazelcast-jet:4.2
     volumes:
       - /Users/nico/.m2/repository:/opt/hazelcast/classpath
       - /Users/nico/projects/hazelcast/jet-train:/opt/hazelcast/data
     environment:
       - MIN_HEAP_SIZE=1G
-      - CLASSPATH=/opt/hazelcast/classpath/org/json/json/20190722/json-20190722.jar:/opt/hazelcast/classpath/org/jetbrains/kotlin/kotlin-stdlib/1.3.50/kotlin-stdlib-1.3.50.jar:/opt/hazelcast/classpath/com/github/kittinunf/fuel/fuel/2.2.1/fuel-2.2.1.jar:/opt/hazelcast/classpath/com/github/kittinunf/result/result/2.2.0/result-2.2.0.jar
-      - JAVA_OPTS=-Xmx24g -XX:+UseStringDeduplication -Ddata.path=/opt/hazelcast/data
+      - CLASSPATH=/opt/hazelcast/classpath/org/json/json/20200518/json-20200518.jar:/opt/hazelcast/classpath/org/jetbrains/kotlin/kotlin-stdlib/1.3.72/kotlin-stdlib-1.3.72.jar:/opt/hazelcast/classpath/com/github/kittinunf/fuel/fuel/2.2.3/fuel-2.2.3.jar:/opt/hazelcast/classpath/com/github/kittinunf/result/result/3.0.1/result-3.0.1.jar
+      - JAVA_OPTS=-Xmx18g -XX:+UseStringDeduplication -Ddata.path=/opt/hazelcast/data
     ports:
       - 5701:5701
   management-center:
     container_name: jet-management-center
+    image: hazelcast/hazelcast-jet-management-center:4.2
     volumes:
       - /Users/nico/projects/hazelcast/jet-train/infrastructure/etc:/opt/hazelcast/etc
     environment:
