@@ -1,4 +1,4 @@
-= Jet Train
+= Jet Trains
 Author: <nicolas.frankel@hazelcast.com>
 v1.0, 2019-12-17
 :icons: font
@@ -7,7 +7,7 @@ This project is a demo of https://jet.hazelcast.org/[Hazelcast Jet^], a data str
 
 It displays the position of public transport in Switzerland in near real-time.
 
-// Insert image there
+image::https://img.youtube.com/vi/tP1czEIK6OY/sddefault.jpg[Screenshot of the demo,640,480,align=center,title=Demo screenshot (click to watch a recording sample),link=https://www.youtube.com/watch?v=tP1czEIK6OY]
 
 The technology stack consists of:
 
@@ -48,6 +48,8 @@ It requires Docker compose.
 The web UI subscribes to the endpoint, and displays each data point on an Open Street Map.
 
 |===
+
+image:architecture.png[]
 
 == Running the demo
 
@@ -100,11 +102,17 @@ java -Dtoken=<MY_TOKEN> com.hazelcast.jet.swisstrain.data.MainKt
 * Docker compose
 * JDK 8+
 * Maven
-* Hazelcast Jet distribution
+* Hazelcast Jet distribution (optional)
 
 === The demo
 
 The following steps need to be executed in order:
+
+To containerize the webapp::
+In the root module:
+
+[source,bash]
+docker build -t hazelcast/jettrain .
 
 To set up the "infrastructure"::
 In the `infrastructure` module:
@@ -116,7 +124,7 @@ To create the artefacts::
 In the project root folder:
 +
 [source,bash]
-mvn package
+mvn package -pl common,load-static,stream-dynamic
 +
 To load static data::
 In the Hazelcast Jet distribution folder:
@@ -134,8 +142,13 @@ In the Hazelcast Jet distribution folder:
 There are dependencies between the jobs.
 Hence, one should wait for a required job to have finished before launching the dependable one.
 +
+Alternatively, one can submit all the jobs at once by using the embedded Jet client of the JAR:
++
+[source,bash]
+java -jar $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
++
 To get dynamic data::
-In the Hazelcast Jet distribution folder:
+In the `stream-dynamic` folder:
 +
 [source,bash]
 java -Dtoken=$MY_TOKEN com.hazelcast.jet.swisstrain.data.MainKt
@@ -143,13 +156,10 @@ java -Dtoken=$MY_TOKEN com.hazelcast.jet.swisstrain.data.MainKt
 NOTE: There's a rate limiter on the server side:
 the endpoint returns a 429 status if it's queried more than once per 30 seconds.
 Hence, the Jet job is configured to runl only once per 31 seconds.
-To display the map on screen::
-In the `web` module:
 +
-[source,bash]
-java com.hazelcast.jet.swisstrain.JetDemoKt
-+
-Then, open a browser to <http://localhost:8080/>
+To display the map::
+
+Open a browser to <http://localhost:8080/>
 
 == Local setup
 
@@ -165,7 +175,14 @@ Then, run the `MainKt` classes from each module _i.e._:
 java com.hazelcast.jet.swisstrain.refs.MainKt
 
 [source,bash]
-java com.hazelcast.jet.swisstrain.data.MainKt
+java -Ddata.path=/path/to/local/folder/infrastructure/data com.hazelcast.jet.swisstrain.data.MainKt
+
+=== Local webapp
+
+In the `web` module:
+
+[source,bash]
+java com.hazelcast.jet.swisstrain.JetDemoKt
 
 === Mocking the webservices call
 
