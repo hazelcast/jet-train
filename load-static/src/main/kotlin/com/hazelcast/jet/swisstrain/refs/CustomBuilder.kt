@@ -35,6 +35,6 @@ object CloseReader : ConsumerEx<BufferedReader> {
 class CreateReader(private val filename: String, private val root: String) : FunctionEx<Context, BufferedReader> {
     override fun applyEx(ctx: Context) =
         BufferedReader(
-            FileReader(File("$root/infrastructure/data/gtfsfp20202020-07-29/$filename.txt"))
+            FileReader(File("$root/infrastructure/data/gtfs_fp2020_2020-09-02/$filename.txt"))
         )
 }
