@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>web</artifactId>
     <properties>
-        <spring.version>2.3.1.RELEASE</spring.version>
+        <spring.version>2.3.4.RELEASE</spring.version>
     </properties>
     <build>
         <plugins>
