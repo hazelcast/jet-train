@@ -2,7 +2,7 @@ version: '3'
 services:
   server:
     container_name: jet
-    image: hazelcast/hazelcast-jet:4.2
+    image: hazelcast/hazelcast-jet:4.3
     volumes:
       - /Users/nico/.m2/repository:/opt/hazelcast/classpath
       - /Users/nico/projects/hazelcast/jet-train:/opt/hazelcast/data
@@ -23,7 +23,7 @@ services:
       - server
   management-center:
     container_name: jet-management-center
-    image: hazelcast/hazelcast-jet-management-center:4.2
+    image: hazelcast/hazelcast-jet-management-center:4.3
     volumes:
       - /Users/nico/projects/hazelcast/jet-train/infrastructure/etc:/opt/hazelcast/etc
     ports:
