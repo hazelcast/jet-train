@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: jettrain
+  name: cluster
+spec:
+  selector:
+    role: engine
+  ports:
+    - port: 5701
+      nodePort: 31781
+  type: NodePort
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jet-config
+data:
+  hazelcast.yaml: |-
+    hazelcast:
+      network:
+        join:
+          multicast:
+            enabled: false
+          kubernetes:
+            enabled: true
+            namespace: jettrain
+            service-name: cluster
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: jet
+  namespace: jettrain
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: engine
+  serviceName: cluster
+  template:
+    metadata:
+      labels:
+        role: engine
+    spec:
+      serviceAccountName: hazelcast-account
+      containers:
+        - name: engine
+          image: hazelcast/hazelcast-jet:4.3
+          ports:
+            - containerPort: 5701
+          volumeMounts:
+            - name: data
+              mountPath: /opt/hazelcast/data
+            - name: classpath
+              mountPath: /opt/hazelcast/classpath
+            - name: jet-config
+              mountPath: /etc/jet
+          env:
+            - name: CLASSPATH
+              value: /opt/hazelcast/classpath/org/json/json/20200518/json-20200518.jar:/opt/hazelcast/classpath/org/jetbrains/kotlin/kotlin-stdlib/1.4.10/kotlin-stdlib-1.4.10.jar:/opt/hazelcast/classpath/com/github/kittinunf/fuel/fuel/2.3.0/fuel-2.3.0.jar:/opt/hazelcast/classpath/com/github/kittinunf/result/result/3.1.0/result-3.1.0.jar
+            - name: JAVA_OPTS
+              value: >-
+                -Xmx24g
+                -XX:+UseStringDeduplication
+                -Dhazelcast.jet.config=/etc/jet/hazelcast.yaml
+                --add-modules java.se
+                --add-exports java.base/jdk.internal.ref=ALL-UNNAMED
+                --add-opens java.base/java.lang=ALL-UNNAMED
+                --add-opens java.base/java.nio=ALL-UNNAMED
+                --add-opens java.base/sun.nio.ch=ALL-UNNAMED
+                --add-opens java.management/sun.management=ALL-UNNAMED
+                --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED
+      volumes:
+        - name: data
+          hostPath:
+            path: /Users/nico/projects/hazelcast/jet-train
+        - name: classpath
+          hostPath:
+            path: /Users/nico/.m2/repository
+        - name: jet-config
+          configMap:
+            name: jet-config

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jettrain
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: client-config
+data:
+  hazelcast-client.yaml: |-
+    hazelcast-client:
+      cluster-name: jet
+      network:
+        multicast:
+          enabled: false
+        kubernetes:
+          enabled: true
+          namespace: jettrain
+          service-name: cluster
