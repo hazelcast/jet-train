@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: jettrain
+  name: cluster
+spec:
+  selector:
+    role: engine
+  ports:
+    - port: 5701
+      protocol: TCP
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jet-config
+data:
+  hazelcast.yaml: |-
+    hazelcast:
+      network:
+        join:
+          multicast:
+            enabled: false
+          kubernetes:
+            enabled: true
+            namespace: jettrain
+            service-name: cluster
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: jet
+  namespace: jettrain
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: engine
+  serviceName: cluster
+  template:
+    metadata:
+      labels:
+        role: engine
+    spec:
+      serviceAccountName: hazelcast-account
+      containers:
+        - name: engine
+          image: hazelcast/hazelcast-jet:4.3
+          ports:
+            - containerPort: 5701
+          volumeMounts:
+            - name: data
+              mountPath: /opt/hazelcast/data
+            - name: classpath
+              mountPath: /opt/hazelcast/classpath
+            - name: jet-config
+              mountPath: /etc/jet
+          env:
+            - name: JAVA_OPTS
+              value: "-Dhazelcast.jet.config=/etc/jet/hazelcast.yaml"
+      volumes:
+        - name: data
+          hostPath:
+            path: /Users/nico/projects/hazelcast/jet-train
+        - name: classpath
+          hostPath:
+            path: /Users/nico/.m2/repository
+        - name: jet-config
+          configMap:
+            name: jet-config

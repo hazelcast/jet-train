@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: jettrain
+  name: management-center
+spec:
+  selector:
+    role: monitoring
+  ports:
+    - port: 8080
+      nodePort: 31081
+  type: NodePort
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: client-config
+data:
+  hazelcast-client.yaml: |-
+    hazelcast-client:
+      cluster-name: jet
+      network:
+        multicast:
+          enabled: false
+        kubernetes:
+          enabled: true
+          namespace: jettrain
+          service-name: cluster
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitor
+  namespace: jettrain
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: monitoring
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        role: monitoring
+    spec:
+      serviceAccountName: hazelcast-account
+      containers:
+        - name: monitor
+          image: hazelcast/management-center:4.2020.10
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: client-config
+              mountPath: /etc/client
+          env:
+            - name: MC_CLIENT_CONFIG
+              value: /etc/client/hazelcast-client.yml
+            - name: ROCKSDB_SHAREDLIB_DIR
+              value: /opt/hazelcast/management-center
+            - name: MC_INIT_CMD
+              value: >-
+                ./mc-conf.sh dev-mode configure;
+                ./mc-conf.sh cluster add --lenient -H=/data -cn=jet -ma=cluster -v
+      volumes:
+        - name: client-config
+          configMap:
+            name: client-config
