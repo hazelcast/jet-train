@@ -47,6 +47,10 @@ spec:
       containers:
         - name: engine
           image: hazelcast/hazelcast-jet:4.3
+          resources:
+            requests:
+              memory: "22Gi"
+              cpu: "4000m"
           ports:
             - containerPort: 5701
           volumeMounts:
@@ -61,7 +65,6 @@ spec:
               value: /opt/hazelcast/classpath/org/json/json/20200518/json-20200518.jar:/opt/hazelcast/classpath/org/jetbrains/kotlin/kotlin-stdlib/1.4.10/kotlin-stdlib-1.4.10.jar:/opt/hazelcast/classpath/com/github/kittinunf/fuel/fuel/2.3.0/fuel-2.3.0.jar:/opt/hazelcast/classpath/com/github/kittinunf/result/result/3.1.0/result-3.1.0.jar
             - name: JAVA_OPTS
               value: >-
-                -Xmx24g
                 -XX:+UseStringDeduplication
                 -Dhazelcast.jet.config=/etc/jet/hazelcast.yaml
                 --add-modules java.se
