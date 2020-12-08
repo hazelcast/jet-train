@@ -29,4 +29,4 @@ object CleanUp : FunctionEx<BatchStage<String>, BatchStage<List<String>>> {
         )
 }
 
-private val jobConfig = JobConfig().addPackage(CleanUp::class.java.`package`.name)
+internal val jobConfig = JobConfig().addPackage(CleanUp::class.java.`package`.name)

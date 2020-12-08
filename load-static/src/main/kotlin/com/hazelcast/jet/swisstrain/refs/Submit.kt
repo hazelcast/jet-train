@@ -1,13 +1,15 @@
 package com.hazelcast.jet.swisstrain.refs
 
 import com.hazelcast.jet.impl.JetBootstrap
+import com.hazelcast.jet.pipeline.Pipeline
+import com.hazelcast.jet.swisstrain.common.withCloseable
 
 @Suppress("Unused")
 class Stops {
     companion object {
         @JvmStatic
         fun main(vararg args: String) {
-            execute(JetBootstrap.getInstance(), stops)
+            submit(stops)
         }
     }
 }
@@ -17,7 +19,7 @@ class Agencies {
     companion object {
         @JvmStatic
         fun main(vararg args: String) {
-            execute(JetBootstrap.getInstance(), agencies)
+            submit(agencies)
         }
     }
 }
@@ -27,7 +29,7 @@ class Routes {
     companion object {
         @JvmStatic
         fun main(vararg args: String) {
-            execute(JetBootstrap.getInstance(), routes)
+            submit(routes)
         }
     }
 }
@@ -37,7 +39,7 @@ class Trips {
     companion object {
         @JvmStatic
         fun main(vararg args: String) {
-            execute(JetBootstrap.getInstance(), trips)
+            submit(trips)
         }
     }
 }
@@ -47,7 +49,13 @@ class StopTimes {
     companion object {
         @JvmStatic
         fun main(vararg args: String) {
-            execute(JetBootstrap.getInstance(), stopTimes)
+            submit(stopTimes)
         }
     }
 }
+
+fun submit(pipeline: Pipeline) {
+    JetBootstrap.getInstance().withCloseable().use { jet ->
+        jet.newJob(pipeline, jobConfig)
+    }
+} 
