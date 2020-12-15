@@ -73,10 +73,10 @@ They require to be stored on https://git-lfs.github.com/[Git LFS^].
 . Go to the https://opentransportdata.swiss/en/dataset/timetable-2020-gtfs[download page^].
 . Download the data archive for the week - it's updated each week on Wednesday
 . Extract the files from the archive
-. Move the folder to `common/infrastructure/data`
-. Delete the old folder from `common/infrastructure/data`
+. Move the folder to `infrastructure/data`
+. Delete the old folder from `infrastructure/data`
 . Update `load-static/src/main/kotlin/com/hazelcast/jet/swisstrain/refs/CustomBuilder.kt`
-// TODO: automate this step by reading the latest folder from common/infrastructure/data
+// TODO: automate this step by reading the latest folder from infrastructure/data
 . Add each new file individually under Git LFS:
 +
 [source,bash]
