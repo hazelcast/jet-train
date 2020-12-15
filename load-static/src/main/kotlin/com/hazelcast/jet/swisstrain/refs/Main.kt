@@ -22,11 +22,7 @@ internal fun execute(jetInstance: JetInstance, vararg pipeline: Pipeline) {
 
 object CleanUp : FunctionEx<BatchStage<String>, BatchStage<List<String>>> {
     override fun applyEx(stage: BatchStage<String>) =
-        stage.map(
-            RemoveFirstAndLastChars
-                .andThen(SplitByDoubleQuotes)
-                .andThen(RemoveDoubleQuotes)
-        )
+        stage.map { it.split(",") }
 }
 
 internal val jobConfig = JobConfig().addPackage(CleanUp::class.java.`package`.name)

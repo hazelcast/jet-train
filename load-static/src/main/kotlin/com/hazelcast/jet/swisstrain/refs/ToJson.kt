@@ -19,8 +19,8 @@ object ToStop : ToJson(
     mapOf(
         "id" to 0,
         "stop_name" to 1,
-        "stop_lat" to 2,
-        "stop_long" to 3
+        "stop_lat" to 4,
+        "stop_long" to 5
     )
 )
 
@@ -36,7 +36,7 @@ object ToRoute : ToJson(
         "id" to 0,
         "agency_id" to 1,
         "route_name" to 2,
-        "route_type" to 4
+        "route_type" to 5
     )
 )
 
@@ -44,7 +44,7 @@ object ToTrip : ToJson(
     mapOf(
         "route_id" to 0,
         "id" to 2,
-        "trip_headsign" to 3
+        "trip_headsign" to 2
     )
 )
 
@@ -52,12 +52,13 @@ object ToStopTime : FunctionEx<List<String>, JsonObject?> {
     override fun applyEx(t: List<String>) =
         if (t.size > 4) JsonObject()
             .apply {
+                val seq = t[4].toIntOrNull() ?: 0 // Handle the case of the first line
                 set("trip", t[0])
                 set("arrival", t[1])
                 set("departure", t[2])
                 set("stop", t[3])
-                set("sequence", t[4].toInt())
-                set("id", JsonObject().add("trip", t[0]).add("sequence", t[4].toInt()))
+                set("sequence", seq)
+                set("id", JsonObject().add("trip", t[0]).add("sequence", seq))
             }
         else null
 }

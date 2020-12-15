@@ -53,5 +53,10 @@
             <groupId>com.hazelcast.jet</groupId>
             <artifactId>hazelcast-jet</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.mobilitydata.transit</groupId>
+            <artifactId>gtfs-realtime-bindings</artifactId>
+            <version>0.0.5</version>
+        </dependency>
     </dependencies>
 </project>
