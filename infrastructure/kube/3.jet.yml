@@ -62,7 +62,7 @@ spec:
               mountPath: /etc/jet
           env:
             - name: CLASSPATH
-              value: /opt/hazelcast/classpath/org/json/json/20200518/json-20200518.jar:/opt/hazelcast/classpath/org/jetbrains/kotlin/kotlin-stdlib/1.4.10/kotlin-stdlib-1.4.10.jar:/opt/hazelcast/classpath/com/github/kittinunf/fuel/fuel/2.3.0/fuel-2.3.0.jar:/opt/hazelcast/classpath/com/github/kittinunf/result/result/3.1.0/result-3.1.0.jar
+              value: /opt/hazelcast/classpath/org/json/json/20200518/json-20200518.jar:/opt/hazelcast/classpath/org/jetbrains/kotlin/kotlin-stdlib/1.4.21/kotlin-stdlib-1.4.21.jar:/opt/hazelcast/classpath/com/github/kittinunf/fuel/fuel/2.3.0/fuel-2.3.0.jar:/opt/hazelcast/classpath/com/github/kittinunf/result/result/3.1.0/result-3.1.0.jar
             - name: JAVA_OPTS
               value: >-
                 -XX:+UseStringDeduplication
