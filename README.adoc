@@ -92,10 +92,10 @@ Calling the endpoint requires an API key.
 
 . First, https://opentransportdata.swiss/en/register[create an account^]
 . Then, https://opentransportdata.swiss/en/dev-dashboard/[create a token^]
-. The token should be used as the `token` System property when launching the `com.hazelcast.jet.swisstrain.data.MainKt` class from the `stream-dynamic` module:
+. The token should be used as the `token` System property when launching the `com.hazelcast.jettrain.data.MainKt` class from the `stream-dynamic` module:
 +
 [source,bash]
-java -Dtoken=<MY_TOKEN> com.hazelcast.jet.swisstrain.data.MainKt
+java -Dtoken=<MY_TOKEN> com.hazelcast.jettrain.data.MainKt
 
 === Requirements
 
@@ -130,14 +130,14 @@ To load static data::
 In the Hazelcast Jet distribution folder:
 +
 [source,bash]
-./jet submit -v -c com.hazelcast.jet.swisstrain.refs.Stops $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
-./jet submit -v -c com.hazelcast.jet.swisstrain.refs.Agencies $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+./jet submit -v -c com.hazelcast.jettrain.refs.Stops $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+./jet submit -v -c com.hazelcast.jettrain.refs.Agencies $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
 # Wait until the `Agencies` job has finished running
-./jet submit -v -c com.hazelcast.jet.swisstrain.refs.Routes $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+./jet submit -v -c com.hazelcast.jettrain.refs.Routes $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
 # Wait until the `Routes` job has finished running
-./jet submit -v -c com.hazelcast.jet.swisstrain.refs.Trips $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+./jet submit -v -c com.hazelcast.jettrain.refs.Trips $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
 # Wait until all jobs have finished running
-./jet submit -v -c com.hazelcast.jet.swisstrain.refs.StopTimes $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+./jet submit -v -c com.hazelcast.jettrain.refs.StopTimes $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
 +
 There are dependencies between the jobs.
 Hence, one should wait for a required job to have finished before launching the dependable one.
@@ -151,7 +151,7 @@ To get dynamic data::
 In the `stream-dynamic` folder:
 +
 [source,bash]
-java -Dtoken=$MY_TOKEN com.hazelcast.jet.swisstrain.data.MainKt
+java -Dtoken=$MY_TOKEN com.hazelcast.jettrain.data.MainKt
 +
 NOTE: There's a rate limiter on the server side:
 the endpoint returns a 429 status if it's queried more than once per 30 seconds.
@@ -167,22 +167,22 @@ Open a browser to <http://localhost:8080/>
 
 The normal setup splits the client and the server into two different parts.
 To ease debugging and understanding, the `local-jet` demo is provided.
-To use it, just run the `com.hazelcast.jet.swisstrain.LocalJet.kt` class instead of `docker-compose`.
+To use it, just run the `com.hazelcast.jettrain.LocalJet.kt` class instead of `docker-compose`.
 
 Then, run the `MainKt` classes from each module _i.e._:
 
 [source,bash]
-java com.hazelcast.jet.swisstrain.refs.MainKt
+java com.hazelcast.jettrain.refs.MainKt
 
 [source,bash]
-java -Ddata.path=/path/to/local/folder/infrastructure/data com.hazelcast.jet.swisstrain.data.MainKt
+java -Ddata.path=/path/to/local/folder/infrastructure/data com.hazelcast.jettrain.data.MainKt
 
 === Local webapp
 
 In the `web` module:
 
 [source,bash]
-java com.hazelcast.jet.swisstrain.JetDemoKt
+java com.hazelcast.jettrain.JetDemoKt
 
 === Mocking the webservices call
 
@@ -190,4 +190,4 @@ Using the Internet in a conference might be a big PITA.
 To use mock data instead, in the `stream-dynamic` module, type:
 
 [source,bash]
-java -Dmock com.hazelcast.jet.swisstrain.data.MainKt
+java -Dmock com.hazelcast.jettrain.data.MainKt
