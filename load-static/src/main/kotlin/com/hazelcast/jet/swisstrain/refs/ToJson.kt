@@ -3,7 +3,7 @@ package com.hazelcast.jet.swisstrain.refs
 import com.hazelcast.function.FunctionEx
 import com.hazelcast.internal.json.JsonObject
 
-sealed class ToJson(private val mappings: Map<String, Int>) : FunctionEx<List<String>, JsonObject?> {
+sealed class ToJson(private val mappings: Map<String, Int>) : FunctionEx<List<String>, String?> {
     override fun applyEx(list: List<String>) =
         if (list.size > mappings.size) JsonObject()
             .apply {
@@ -11,7 +11,7 @@ sealed class ToJson(private val mappings: Map<String, Int>) : FunctionEx<List<St
                     val value = list[it.value]
                     set(it.key, value)
                 }
-            }
+            }.toString()
         else null
 }
 
@@ -44,12 +44,12 @@ object ToTrip : ToJson(
     mapOf(
         "route_id" to 0,
         "id" to 2,
-        "trip_headsign" to 2
+        "trip_headsign" to 3
     )
 )
 
-object ToStopTime : FunctionEx<List<String>, JsonObject?> {
-    override fun applyEx(t: List<String>): JsonObject? {
+object ToStopTime : FunctionEx<List<String>, String?> {
+    override fun applyEx(t: List<String>): String? {
         val seq = t[4].toIntOrNull() // Handle the case of the first line
         return when {
             seq == null -> null
@@ -61,7 +61,7 @@ object ToStopTime : FunctionEx<List<String>, JsonObject?> {
                     set("stop", t[3])
                     set("sequence", seq)
                     set("id", JsonObject().add("trip", t[0]).add("sequence", seq))
-                }
+                }.toString()
             else -> null
         }
     }

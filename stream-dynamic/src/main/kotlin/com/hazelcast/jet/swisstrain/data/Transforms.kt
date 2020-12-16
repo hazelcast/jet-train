@@ -35,7 +35,8 @@ class TripTraverser(private val agency: String, entities: MutableList<FeedEntity
 object ProtobufToJsonWithAgency : FunctionEx<Pair<String, FeedEntity>, com.google.gson.JsonObject> {
     override fun applyEx(t: Pair<String, FeedEntity>): com.google.gson.JsonObject {
         val string = JsonFormat.printer().print(t.second)
-        return JsonParser().parse(string)
+        return JsonParser()
+            .parse(string)
             .asJsonObject
             .apply {
                 addProperty("agencyId", t.first)

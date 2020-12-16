@@ -22,8 +22,8 @@ internal val stopTimes = pipeline("stop_times", ToStopTime)
 
 private fun pipeline(
     name: String,
-    jsonify: FunctionEx<List<String>, JsonObject?>,
-    mergeWith: Triple<String, IdExtractorFn, BiFunctionEx<JsonObject?, JsonObject?, JsonObject?>>? = null
+    jsonify: FunctionEx<List<String>, String?>,
+    mergeWith: Triple<String, IdExtractorFn, BiFunctionEx<String?, String?, String?>>? = null
 ) =
     Pipeline.create().apply {
         val commonMap = readFrom(file(name))

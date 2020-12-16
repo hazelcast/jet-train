@@ -1,14 +1,20 @@
 package com.hazelcast.jet.swisstrain.refs
 
 import com.hazelcast.function.FunctionEx
-import com.hazelcast.internal.json.JsonObject
-import java.util.*
+import com.hazelcast.internal.json.Json
+import com.hazelcast.jet.Util
+import java.io.Serializable
 
-object ToEntry : FunctionEx<JsonObject?, Map.Entry<Any, JsonObject>> {
-    override fun applyEx(json: JsonObject?) =
-        if (json != null) {
-            val id = json.get("id")
-            if (id.isString) AbstractMap.SimpleEntry(id.asString(), json)
-            else AbstractMap.SimpleEntry(id.asObject(), json)
-        } else null
+object ToEntry : FunctionEx<String?, Map.Entry<Serializable, String>> {
+    override fun applyEx(string: String?): Map.Entry<Serializable, String>? {
+        return if (string == null) null
+        else {
+            val id = Json.parse(string)?.asObject()?.get("id")
+            when {
+                id == null -> null
+                id.isString -> Util.entry(id.asString(), string)
+                else -> Util.entry(id.asObject(), string)
+            }
+        }
+    }
 }

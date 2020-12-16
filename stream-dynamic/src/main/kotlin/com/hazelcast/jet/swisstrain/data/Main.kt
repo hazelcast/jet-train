@@ -1,9 +1,5 @@
 package com.hazelcast.jet.swisstrain.data
 
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
-import com.google.protobuf.util.JsonFormat
-import com.google.transit.realtime.GtfsRealtime.FeedEntity
 import com.hazelcast.client.config.ClientConfig
 import com.hazelcast.jet.Jet
 import com.hazelcast.jet.config.JobConfig
