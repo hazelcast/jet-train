@@ -106,6 +106,16 @@
                 <artifactId>result</artifactId>
                 <version>3.1.0</version>
             </dependency>
+            <dependency>
+                <groupId>io.mobilitydata.transit</groupId>
+                <artifactId>gtfs-realtime-bindings</artifactId>
+                <version>0.0.5</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java-util</artifactId>
+                <version>3.9.2</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <repositories>

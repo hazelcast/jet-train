@@ -1,14 +1,15 @@
 package com.hazelcast.jet.swisstrain.data
 
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+import com.google.protobuf.util.JsonFormat
+import com.google.transit.realtime.GtfsRealtime.FeedEntity
 import com.hazelcast.client.config.ClientConfig
 import com.hazelcast.jet.Jet
 import com.hazelcast.jet.config.JobConfig
 import com.hazelcast.jet.pipeline.Pipeline
-import com.hazelcast.jet.pipeline.ServiceFactories
 import com.hazelcast.jet.pipeline.Sinks
 import com.hazelcast.jet.swisstrain.common.withCloseable
-
-internal const val URL = "https://api.opentransportdata.swiss/gtfs-rt?format=JSON"
 
 fun main() {
     Jet.newJetClient().withCloseable().use {
@@ -17,13 +18,13 @@ fun main() {
 }
 
 internal fun pipeline() = Pipeline.create().apply {
-    val service = if (System.getProperty("mock") != null) mockService()
-    else remoteService(URL, System.getProperty("token"))
+    val service = remoteService(token = System.getProperty("token"))
     readFrom(service)
         .withTimestamps(TimestampExtractor, 200)
         .flatMap(SplitPayload)
+        .map(ProtobufToJsonWithAgency)
         .mapUsingIMap("trips", TripIdExtractor, MergeWithTrip)
-        .mapUsingService(
+        .writeTo(Sinks.logger { it.toString() })
             ServiceFactories.iMapService("stop_times"),
             MergeWithStopTimes
         )

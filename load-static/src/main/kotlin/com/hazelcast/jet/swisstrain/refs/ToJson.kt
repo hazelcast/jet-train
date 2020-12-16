@@ -49,16 +49,20 @@ object ToTrip : ToJson(
 )
 
 object ToStopTime : FunctionEx<List<String>, JsonObject?> {
-    override fun applyEx(t: List<String>) =
-        if (t.size > 4) JsonObject()
-            .apply {
-                val seq = t[4].toIntOrNull() ?: 0 // Handle the case of the first line
-                set("trip", t[0])
-                set("arrival", t[1])
-                set("departure", t[2])
-                set("stop", t[3])
-                set("sequence", seq)
-                set("id", JsonObject().add("trip", t[0]).add("sequence", seq))
-            }
-        else null
+    override fun applyEx(t: List<String>): JsonObject? {
+        val seq = t[4].toIntOrNull() // Handle the case of the first line
+        return when {
+            seq == null -> null
+            t.size > 4 -> JsonObject()
+                .apply {
+                    set("trip", t[0])
+                    set("arrival", t[1])
+                    set("departure", t[2])
+                    set("stop", t[3])
+                    set("sequence", seq)
+                    set("id", JsonObject().add("trip", t[0]).add("sequence", seq))
+                }
+            else -> null
+        }
+    }
 }

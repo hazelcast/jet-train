@@ -1,5 +1,9 @@
 package com.hazelcast.jet.swisstrain.data
 
+import com.google.gson.JsonParser
+import com.google.protobuf.util.JsonFormat
+import com.google.transit.realtime.GtfsRealtime
+import com.google.transit.realtime.GtfsRealtime.FeedEntity
 import com.hazelcast.function.FunctionEx
 import com.hazelcast.function.ToLongFunctionEx
 import com.hazelcast.internal.json.Json
@@ -14,20 +18,29 @@ import java.time.format.DateTimeFormatter
 import java.time.format.ResolverStyle
 import java.util.*
 
-object SplitPayload : FunctionEx<String, Traverser<JsonObject>> {
-    override fun applyEx(payload: String): Traverser<JsonObject> {
-        val json = Json.parse(payload).asObject()
-        val timestamp = json.get("header").asObject().getLong("timestamp", 0)
-        val entities = json.get("entity").asArray()
-        return TripTraverser(entities, timestamp)
+object SplitPayload : FunctionEx<Pair<String, ByteArray>, Traverser<Pair<String, FeedEntity>>> {
+    override fun applyEx(payload: Pair<String, ByteArray>): Traverser<Pair<String, FeedEntity>> {
+        val message = GtfsRealtime.FeedMessage.parseFrom(payload.second)
+        return TripTraverser(payload.first, message.entityList)
     }
 }
 
-class TripTraverser(entities: JsonArray, private val timestamp: Long) : Traverser<JsonObject>, Serializable {
+class TripTraverser(private val agency: String, entities: MutableList<FeedEntity>) : Traverser<Pair<String, FeedEntity>>, Serializable {
     private val iterator = entities.iterator()
     override fun next() =
-        if (iterator.hasNext()) iterator.next().asObject().add("timestamp", timestamp)
+        if (iterator.hasNext()) agency to iterator.next()
         else null
+}
+
+object ProtobufToJsonWithAgency : FunctionEx<Pair<String, FeedEntity>, com.google.gson.JsonObject> {
+    override fun applyEx(t: Pair<String, FeedEntity>): com.google.gson.JsonObject {
+        val string = JsonFormat.printer().print(t.second)
+        return JsonParser().parse(string)
+            .asJsonObject
+            .apply {
+                addProperty("agencyId", t.first)
+            }
+    }
 }
 
 object HourToTimestamp : FunctionEx<JsonObject, JsonObject> {
