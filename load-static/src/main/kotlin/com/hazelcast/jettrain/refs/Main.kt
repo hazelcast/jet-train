@@ -12,7 +12,7 @@ fun main() {
     execute(Jet.newJetClient(), stops, agencies, routes, trips)
 }
 
-object CleanUp : FunctionEx<BatchStage<String>, BatchStage<List<String>>> {
+object SplitByComma : FunctionEx<BatchStage<String>, BatchStage<List<String>>> {
     override fun applyEx(stage: BatchStage<String>) =
         stage.map { it.split(",") }
 }
@@ -25,4 +25,4 @@ internal fun execute(jetInstance: JetInstance, vararg pipeline: Pipeline) {
     }
 }
 
-internal val jobConfig = JobConfig().addPackage(CleanUp::class.java.`package`.name)
+internal val jobConfig = JobConfig().addPackage(SplitByComma::class.java.`package`.name)

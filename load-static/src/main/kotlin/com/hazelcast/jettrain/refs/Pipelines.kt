@@ -9,11 +9,11 @@ internal val agencies = pipeline("agency", ToAgency)
 internal val routes = pipeline("routes", ToRoute)
 internal val trips = pipeline("trips", ToTrip)
 
-private fun pipeline(name: String, jsonify: FunctionEx<List<String>, String?>) =
+private fun pipeline(name: String, toJson: FunctionEx<List<String>, String?>) =
     Pipeline.create().apply {
         readFrom(file(name))
-            .apply(CleanUp)
-            .map(jsonify)
+            .apply(SplitByComma)
+            .map(toJson)
             .peek()
             .map(ToEntry)
             .writeTo(Sinks.map(name))
