@@ -12,7 +12,7 @@ import com.hazelcast.jet.Traverser
 import com.hazelcast.jet.Util
 import java.io.Serializable
 
-object SplitPayload : FunctionEx<Pair<String, ByteArray>, Traverser<Pair<String, FeedEntity>>> {
+object ToEntities : FunctionEx<Pair<String, ByteArray>, Traverser<Pair<String, FeedEntity>>> {
     override fun applyEx(payload: Pair<String, ByteArray>): Traverser<Pair<String, FeedEntity>> {
         val message = GtfsRealtime.FeedMessage.parseFrom(payload.second)
         return TripTraverser(payload.first, message.entityList)
@@ -27,14 +27,14 @@ class TripTraverser(private val agency: String, entities: MutableList<FeedEntity
         else null
 }
 
-object ProtobufToJsonWithAgency : FunctionEx<Pair<String, FeedEntity>, JsonObject> {
-    override fun applyEx(t: Pair<String, FeedEntity>): JsonObject {
-        val string = JsonFormat.printer().print(t.second)
+object ToJson : FunctionEx<Pair<String, FeedEntity>, JsonObject> {
+    override fun applyEx(payload: Pair<String, FeedEntity>): JsonObject {
+        val string = JsonFormat.printer().print(payload.second)
         return JsonParser()
             .parse(string)
             .asJsonObject
             .apply {
-                addProperty("agencyId", t.first)
+                addProperty("agencyId", payload.first)
             }
     }
 }

@@ -7,7 +7,7 @@ import com.hazelcast.function.FunctionEx
 
 object TripIdExtractor : FunctionEx<JsonObject, String> {
     override fun applyEx(json: JsonObject): String {
-        val tripId: String? = json
+        val tripId = json
             .getAsJsonObject("vehicle")
             ?.getAsJsonObject("trip")
             ?.getAsJsonPrimitive("tripId")
@@ -16,11 +16,10 @@ object TripIdExtractor : FunctionEx<JsonObject, String> {
     }
 }
 
-object MergeWithTrip : BiFunctionEx<JsonObject, String?, JsonObject> {
+object EnrichWithTrip : BiFunctionEx<JsonObject, String?, JsonObject> {
     private val parser = JsonParser()
-    override fun applyEx(json: JsonObject, tripString: String?): JsonObject =
-        if (tripString == null) json
-        else json.apply {
+    override fun applyEx(json: JsonObject, tripString: String?) =
+        json.apply {
             val trip = parser.parse(tripString).asJsonObject
             val headsign = trip.getAsJsonPrimitive("trip_headsign").asString
             getAsJsonObject("vehicle")
@@ -30,22 +29,20 @@ object MergeWithTrip : BiFunctionEx<JsonObject, String?, JsonObject> {
 }
 
 object RouteIdExtractor : FunctionEx<JsonObject, String?> {
-    override fun applyEx(json: JsonObject): String? {
-        val routeId: String? = json
+    override fun applyEx(json: JsonObject): String {
+        val routeId = json
             .getAsJsonObject("vehicle")
             ?.getAsJsonObject("trip")
             ?.getAsJsonPrimitive("routeId")
             ?.asString
-        return if (routeId == null) null
-        else "${json.getAsJsonPrimitive("agencyId").asString}:$routeId"
+        return "${json.getAsJsonPrimitive("agencyId").asString}:$routeId"
     }
 }
 
-object MergeWithRoute : BiFunctionEx<JsonObject, String?, JsonObject> {
+object EnrichWithRoute : BiFunctionEx<JsonObject, String?, JsonObject> {
     private val parser = JsonParser()
-    override fun applyEx(json: JsonObject, routeString: String?): JsonObject =
-        if (routeString == null) json
-        else json.apply {
+    override fun applyEx(json: JsonObject, routeString: String?) =
+        json.apply {
             val route = parser.parse(routeString).asJsonObject
             getAsJsonObject("vehicle")
                 .getAsJsonObject("trip").apply {
@@ -56,17 +53,16 @@ object MergeWithRoute : BiFunctionEx<JsonObject, String?, JsonObject> {
 }
 
 object StopIdExtractor : FunctionEx<JsonObject, String?> {
-    override fun applyEx(json: JsonObject): String? = json
+    override fun applyEx(json: JsonObject) = json
         .getAsJsonObject("vehicle")
         ?.getAsJsonPrimitive("stopId")
         ?.asString
 }
 
-object MergeWithStop : BiFunctionEx<JsonObject, String?, JsonObject> {
+object EnrichWithStop : BiFunctionEx<JsonObject, String?, JsonObject> {
     private val parser = JsonParser()
-    override fun applyEx(json: JsonObject, stopString: String?): JsonObject =
-        if (stopString == null) json
-        else json.apply {
+    override fun applyEx(json: JsonObject, stopString: String?) =
+        json.apply {
             val stop = parser.parse(stopString).asJsonObject
             getAsJsonObject("vehicle").apply {
                 add("stop", stop)

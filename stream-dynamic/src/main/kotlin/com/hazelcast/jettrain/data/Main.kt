@@ -14,15 +14,15 @@ fun main() {
 }
 
 internal fun pipeline() = Pipeline.create().apply {
-    val service = remoteService(token = System.getProperty("token"))
+    val service = remoteService(System.getProperty("token"))
     readFrom(service)
 //        .withTimestamps(TimestampExtractor, 200)
-        .flatMap(SplitPayload)
-        .map(ProtobufToJsonWithAgency)
+        .flatMap(ToEntities)
+        .map(ToJson)
         .filter(OnlyEntityWithTrip.and(OnlyEntityWithStop))
-        .mapUsingIMap("trips", TripIdExtractor, MergeWithTrip)
-        .mapUsingIMap("routes", RouteIdExtractor, MergeWithRoute)
-        .mapUsingIMap("stops", StopIdExtractor, MergeWithStop)
+        .mapUsingIMap("trips", TripIdExtractor, EnrichWithTrip)
+        .mapUsingIMap("routes", RouteIdExtractor, EnrichWithRoute)
+        .mapUsingIMap("stops", StopIdExtractor, EnrichWithStop)
         .peek()
         .map(ToEntry)
         .writeTo(Sinks.remoteMap("update", clientConfig))
@@ -32,4 +32,4 @@ internal val clientConfig = ClientConfig().apply {
     clusterName = "jet"
 }
 
-internal val jobConfig = JobConfig().addPackage(SplitPayload::class.java.`package`.name)
+internal val jobConfig = JobConfig().addPackage(ToEntities::class.java.`package`.name)
