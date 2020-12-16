@@ -1,4 +1,4 @@
-package com.hazelcast.jet.swisstrain.data
+package com.hazelcast.jettrain.data
 
 import com.hazelcast.function.BiConsumerEx
 import com.hazelcast.function.FunctionEx
@@ -9,7 +9,7 @@ import java.io.Serializable
 import java.time.Instant
 
 fun mockService() = SourceBuilder
-    .stream("mock-source", CreateMockContext())
+    .batch("mock-source", CreateMockContext())
     .fillBufferFn(MockBuffer())
     .build()
 

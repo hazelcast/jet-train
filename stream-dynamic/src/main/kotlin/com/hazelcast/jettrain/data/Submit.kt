@@ -1,7 +1,7 @@
-package com.hazelcast.jet.swisstrain.data
+package com.hazelcast.jettrain.data
 
 import com.hazelcast.jet.impl.JetBootstrap
-import com.hazelcast.jet.swisstrain.common.withCloseable
+import com.hazelcast.jettrain.common.withCloseable
 
 fun main() {
     JetBootstrap.getInstance().withCloseable().use {

@@ -1,11 +1,11 @@
-package com.hazelcast.jet.swisstrain.data
+package com.hazelcast.jettrain.data
 
 import com.hazelcast.client.config.ClientConfig
 import com.hazelcast.jet.Jet
 import com.hazelcast.jet.config.JobConfig
 import com.hazelcast.jet.pipeline.Pipeline
 import com.hazelcast.jet.pipeline.Sinks
-import com.hazelcast.jet.swisstrain.common.withCloseable
+import com.hazelcast.jettrain.common.withCloseable
 
 fun main() {
     Jet.newJetClient().withCloseable().use {
@@ -16,7 +16,7 @@ fun main() {
 internal fun pipeline() = Pipeline.create().apply {
     val service = remoteService(token = System.getProperty("token"))
     readFrom(service)
-        .withTimestamps(TimestampExtractor, 200)
+//        .withTimestamps(TimestampExtractor, 200)
         .flatMap(SplitPayload)
         .map(ProtobufToJsonWithAgency)
         .filter(OnlyEntityWithTrip.and(OnlyEntityWithStop))

@@ -1,4 +1,4 @@
-package com.hazelcast.jet.swisstrain
+package com.hazelcast.jettrain
 
 import com.hazelcast.core.EntryEvent
 import com.hazelcast.internal.json.JsonObject

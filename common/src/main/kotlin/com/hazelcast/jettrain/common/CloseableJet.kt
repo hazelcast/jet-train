@@ -1,4 +1,4 @@
-package com.hazelcast.jet.swisstrain.common
+package com.hazelcast.jettrain.common
 
 import com.hazelcast.jet.JetInstance
 import java.io.Closeable
@@ -10,4 +10,3 @@ class CloseableJet(private val instance: JetInstance) : Closeable, JetInstance b
 }
 
 fun JetInstance.withCloseable() = CloseableJet(this)
-

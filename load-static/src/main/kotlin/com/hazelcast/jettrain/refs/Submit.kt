@@ -1,8 +1,8 @@
-package com.hazelcast.jet.swisstrain.refs
+package com.hazelcast.jettrain.refs
 
 import com.hazelcast.jet.impl.JetBootstrap
 import com.hazelcast.jet.pipeline.Pipeline
-import com.hazelcast.jet.swisstrain.common.withCloseable
+import com.hazelcast.jettrain.common.withCloseable
 
 @Suppress("Unused")
 class Stops {

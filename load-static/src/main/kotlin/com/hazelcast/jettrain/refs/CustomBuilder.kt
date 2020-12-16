@@ -1,4 +1,4 @@
-package com.hazelcast.jet.swisstrain.refs
+package com.hazelcast.jettrain.refs
 
 import com.hazelcast.function.BiConsumerEx
 import com.hazelcast.function.ConsumerEx

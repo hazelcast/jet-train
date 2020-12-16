@@ -1,4 +1,4 @@
-package com.hazelcast.jet.swisstrain.refs
+package com.hazelcast.jettrain.refs
 
 import com.hazelcast.function.FunctionEx
 import com.hazelcast.internal.json.Json

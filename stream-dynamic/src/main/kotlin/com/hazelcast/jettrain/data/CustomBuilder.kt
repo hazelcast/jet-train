@@ -1,4 +1,4 @@
-package com.hazelcast.jet.swisstrain.data
+package com.hazelcast.jettrain.data
 
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.result.Result
@@ -10,11 +10,11 @@ import com.hazelcast.jet.pipeline.SourceBuilder.SourceBuffer
 import java.io.Serializable
 import java.time.Instant
 
-    .stream("http-source", CreateContext)
 fun remoteService(
     url: String = "http://api.511.org/transit/vehiclepositions",
     token: String
 ) = SourceBuilder
+    .batch("http-source", CreateContext)
     .fillBufferFn(FillBuffer(url, token))
     .build()
 

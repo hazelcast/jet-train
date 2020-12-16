@@ -1,4 +1,4 @@
-package com.hazelcast.jet.swisstrain.refs
+package com.hazelcast.jettrain.refs
 
 import com.hazelcast.function.FunctionEx
 import com.hazelcast.jet.Jet
@@ -6,10 +6,15 @@ import com.hazelcast.jet.JetInstance
 import com.hazelcast.jet.config.JobConfig
 import com.hazelcast.jet.pipeline.BatchStage
 import com.hazelcast.jet.pipeline.Pipeline
-import com.hazelcast.jet.swisstrain.common.withCloseable
+import com.hazelcast.jettrain.common.withCloseable
 
 fun main() {
     execute(Jet.newJetClient(), stops, agencies, routes, trips)
+}
+
+object CleanUp : FunctionEx<BatchStage<String>, BatchStage<List<String>>> {
+    override fun applyEx(stage: BatchStage<String>) =
+        stage.map { it.split(",") }
 }
 
 internal fun execute(jetInstance: JetInstance, vararg pipeline: Pipeline) {
@@ -18,11 +23,6 @@ internal fun execute(jetInstance: JetInstance, vararg pipeline: Pipeline) {
             jet.newJob(pipeline, jobConfig).join()
         }
     }
-}
-
-object CleanUp : FunctionEx<BatchStage<String>, BatchStage<List<String>>> {
-    override fun applyEx(stage: BatchStage<String>) =
-        stage.map { it.split(",") }
 }
 
 internal val jobConfig = JobConfig().addPackage(CleanUp::class.java.`package`.name)

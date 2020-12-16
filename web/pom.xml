@@ -39,7 +39,7 @@
                 <version>2.7.0</version>
                 <configuration>
                     <container>
-                        <mainClass>com.hazelcast.jet.swisstrain.JetDemoKt</mainClass>
+                        <mainClass>com.hazelcast.jettrain.JetDemoKt</mainClass>
                         <extraClasspath>/etc/client</extraClasspath>
                     </container>
                     <from>
