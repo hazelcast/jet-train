@@ -1,7 +1,6 @@
 package com.hazelcast.jet.swisstrain.data
 
 import com.github.kittinunf.fuel.Fuel
-import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.result.Result
 import com.hazelcast.function.BiConsumerEx
 import com.hazelcast.function.FunctionEx

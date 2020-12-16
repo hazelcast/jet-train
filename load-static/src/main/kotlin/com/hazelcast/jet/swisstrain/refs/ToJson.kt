@@ -47,22 +47,3 @@ object ToTrip : ToJson(
         "trip_headsign" to 3
     )
 )
-
-object ToStopTime : FunctionEx<List<String>, String?> {
-    override fun applyEx(t: List<String>): String? {
-        val seq = t[4].toIntOrNull() // Handle the case of the first line
-        return when {
-            seq == null -> null
-            t.size > 4 -> JsonObject()
-                .apply {
-                    set("trip", t[0])
-                    set("arrival", t[1])
-                    set("departure", t[2])
-                    set("stop", t[3])
-                    set("sequence", seq)
-                    set("id", JsonObject().add("trip", t[0]).add("sequence", seq))
-                }.toString()
-            else -> null
-        }
-    }
-}

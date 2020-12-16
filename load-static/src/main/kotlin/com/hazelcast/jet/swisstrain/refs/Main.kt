@@ -9,7 +9,7 @@ import com.hazelcast.jet.pipeline.Pipeline
 import com.hazelcast.jet.swisstrain.common.withCloseable
 
 fun main() {
-    execute(Jet.newJetClient(), stops, agencies, routes, trips, stopTimes)
+    execute(Jet.newJetClient(), stops, agencies, routes, trips)
 }
 
 internal fun execute(jetInstance: JetInstance, vararg pipeline: Pipeline) {

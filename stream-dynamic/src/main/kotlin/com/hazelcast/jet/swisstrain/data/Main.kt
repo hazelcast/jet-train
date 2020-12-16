@@ -19,16 +19,11 @@ internal fun pipeline() = Pipeline.create().apply {
         .withTimestamps(TimestampExtractor, 200)
         .flatMap(SplitPayload)
         .map(ProtobufToJsonWithAgency)
+        .filter(OnlyEntityWithTrip.and(OnlyEntityWithStop))
         .mapUsingIMap("trips", TripIdExtractor, MergeWithTrip)
-        .writeTo(Sinks.logger { it.toString() })
-            ServiceFactories.iMapService("stop_times"),
-            MergeWithStopTimes
-        )
-        .map(HourToTimestamp)
-        .mapUsingService(
-            ServiceFactories.iMapService("stops"),
-            MergeWithLocation
-        ).peek()
+        .mapUsingIMap("routes", RouteIdExtractor, MergeWithRoute)
+        .mapUsingIMap("stops", StopIdExtractor, MergeWithStop)
+        .peek()
         .map(ToEntry)
         .writeTo(Sinks.remoteMap("update", clientConfig))
 }
