@@ -19,6 +19,9 @@
         <kotlin.version>1.4.21</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+        <sonar.organization>hazelcast</sonar.organization>
+        <sonar.projectKey>${project.groupId}:${project.artifactId}</sonar.projectKey>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
