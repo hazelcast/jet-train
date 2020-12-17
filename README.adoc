@@ -149,67 +149,44 @@ With this setup, you'll build the demo from source.
 You'll need:
 
 * Docker compose
-* JDK 8+
-* Maven
 * Hazelcast Jet distribution
 
 === Steps
 
-. Start Docker.
-A local Docker daemon needs to be running for the build to succeed as the `web` module uses Jib to build a Docker image.
-. Build the application.
-In the parent project's root folder:
-+
-[source, bash]
-mnv clean package
-+
+. Start Docker
 . Adapt the `docker-compose.yml` file to your file hierarchy.
 I found no way to use relative files path in Docker Compose (hints/PRs welcome).
 You need to update the file to use the correct paths.
 Look for paths starting with `/Users/nico/projects/hazelcast/` and update accordingly.
 +
-. "Deploy" the containers:
+. Start the containers:
 In the `infrastructure/compose` folder :
 +
 [source,bash]
+----
 docker-compose up
-+
-To create the artefacts::
-In the project root folder:
-+
-[source,bash]
-mvn package -pl common,load-static,stream-dynamic
+----
 +
 To load static data::
 In the Hazelcast Jet distribution folder:
 +
 [source,bash]
-./jet submit -v -c com.hazelcast.jettrain.refs.Stops $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
-./jet submit -v -c com.hazelcast.jettrain.refs.Agencies $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
-# Wait until the `Agencies` job has finished running
-./jet submit -v -c com.hazelcast.jettrain.refs.Routes $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
-# Wait until the `Routes` job has finished running
-./jet submit -v -c com.hazelcast.jettrain.refs.Trips $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
-# Wait until all jobs have finished running
-./jet submit -v -c com.hazelcast.jettrain.refs.StopTimes $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+----
+./jet submit -n Agencies -v -c com.hazelcast.jettrain.refs.Agencies $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+./jet submit -n Stops -v -c com.hazelcast.jettrain.refs.Stops $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+./jet submit -n Routes -v -c com.hazelcast.jettrain.refs.Routes $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+./jet submit -n Trips -v -c com.hazelcast.jettrain.refs.Trips $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+----
 +
-There are dependencies between the jobs.
-Hence, one should wait for a required job to have finished before launching the dependable one.
-+
-Alternatively, one can submit all the jobs at once by using the embedded Jet client of the JAR:
-+
-[source,bash]
-java -jar $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
-+
-To get dynamic data::
+. To query dynamic data:
 In the `stream-dynamic` folder:
 +
 [source,bash]
-java -Dtoken=$MY_TOKEN com.hazelcast.jettrain.data.MainKt
+./jet submit -v -c com.hazelcast.jettrain.data.SubmitKt $PROJECT_ROOT/stream-dynamic/target/stream-dynamic-1.0-SNAPSHOT.jar $TOKEN
 +
 NOTE: There's a rate limiter on the server side:
 the endpoint returns a 429 status if it's queried more than once per 30 seconds.
-Hence, the Jet job is configured to runl only once per 31 seconds.
+Hence, the Jet job is configured to run only once per 31 seconds.
 +
 To display the map::
 

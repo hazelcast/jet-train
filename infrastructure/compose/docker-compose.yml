@@ -20,7 +20,7 @@ services:
     ports:
       - 8080:8080
     environment:
-      - JAVA_OPTS=-Dhazelcast.client.config=/etc/jettrain/hazelcast-client.xml
+      - JAVA_TOOL_OPTIONS=-Dhazelcast.client.config=/etc/jettrain/hazelcast-client.xml
     depends_on:
       - server
   management-center:
