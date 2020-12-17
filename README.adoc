@@ -90,15 +90,20 @@ Calling the endpoint requires an API key.
 . First, https://511.org/open-data/token[register^]
 . You'll receive a confirmation email
 . When you've confirmed the email, you'll receive a new email with the token
-. The token should be used as the `token` System property when launching the `com.hazelcast.jettrain.data.MainKt` class from the `stream-dynamic` module:
+. The token should be used as an argument when launching the `com.hazelcast.jettrain.data.MainKt` class from the `stream-dynamic` module:
 +
 [source,bash]
-java -Dtoken=<MY_TOKEN> com.hazelcast.jettrain.data.MainKt
+java com.hazelcast.jettrain.data.MainKt $TOKEN
+
+NOTE: There's a rate limiter on the server side:
+the endpoint returns a 429 status if it's queried more than 60 times per hour.
+In order to not go over this limit too soon, the Jet job is configured to run only once per 31 seconds.
 
 == Running the demo: developer setup
 
 If you're a Java developer, this approach will be fastest as you probably have all the tools ready.
-You'll need:
+
+=== Requirements
 
 * Git
 * A Java IDE _e.g._ IntelliJ IDEA, Eclipse, etc.
@@ -146,7 +151,8 @@ The webapp is available at http://localhost:8080.
 == Running the demo: Docker-Compose
 
 With this setup, you'll build the demo from source.
-You'll need:
+
+=== Requirements
 
 * Docker compose
 * Hazelcast Jet distribution
@@ -154,6 +160,13 @@ You'll need:
 === Steps
 
 . Start Docker
+. Get the webapp image:
++
+[source,bash]
+----
+docker pull nfrankel/jettrain:latest
+----
++
 . Adapt the `docker-compose.yml` file to your file hierarchy.
 I found no way to use relative files path in Docker Compose (hints/PRs welcome).
 You need to update the file to use the correct paths.
@@ -167,8 +180,10 @@ In the `infrastructure/compose` folder :
 docker-compose up
 ----
 +
-To load static data::
-In the Hazelcast Jet distribution folder:
+. Get the https://github.com/hazelcast/jet-train/releases/download/1.0-SNAPSHOT/load-static-1.0-SNAPSHOT.jar[latest "static" JAR^]
+. To load static data:
++
+In the Hazelcast Jet distribution folder, run the following commands:
 +
 [source,bash]
 ----
@@ -178,16 +193,12 @@ In the Hazelcast Jet distribution folder:
 ./jet submit -n Trips -v -c com.hazelcast.jettrain.refs.Trips $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
 ----
 +
+. Get the https://github.com/hazelcast/jet-train/releases/download/1.0-SNAPSHOT/stream-dynamic-1.0-SNAPSHOT.jar[latest "dynamic" JAR^]
 . To query dynamic data:
-In the `stream-dynamic` folder:
++
+In the Hazelcast Jet distribution folder, run the following command:
 +
 [source,bash]
 ./jet submit -v -c com.hazelcast.jettrain.data.SubmitKt $PROJECT_ROOT/stream-dynamic/target/stream-dynamic-1.0-SNAPSHOT.jar $TOKEN
 +
-NOTE: There's a rate limiter on the server side:
-the endpoint returns a 429 status if it's queried more than once per 30 seconds.
-Hence, the Jet job is configured to run only once per 31 seconds.
-+
-To display the map::
-
-Open a browser to <http://localhost:8080/>
+.The map is available at <http://localhost:8080/>
