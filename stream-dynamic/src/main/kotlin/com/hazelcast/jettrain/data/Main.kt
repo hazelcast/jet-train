@@ -7,14 +7,14 @@ import com.hazelcast.jet.pipeline.Pipeline
 import com.hazelcast.jet.pipeline.Sinks
 import com.hazelcast.jettrain.common.withCloseable
 
-fun main() {
+fun main(vararg args: String) {
     Jet.newJetClient().withCloseable().use {
-        it.newJob(pipeline(), jobConfig)
+        it.newJob(pipeline(args[0]), jobConfig)
     }
 }
 
-internal fun pipeline() = Pipeline.create().apply {
-    val service = remoteService(System.getProperty("token"))
+internal fun pipeline(token: String) = Pipeline.create().apply {
+    val service = remoteService(token)
     readFrom(service)
 //        .withTimestamps(TimestampExtractor, 200)
         .flatMap(ToEntities)
