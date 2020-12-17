@@ -5,21 +5,24 @@ v1.0, 2019-12-17
 
 This project is a demo of https://jet.hazelcast.org/[Hazelcast Jet^], a data streaming engine based on https://hazelcast.org/[Hazelcast IMDG^].
 
-It displays the position of public transport in Switzerland in near real-time.
+It displays the position of public transports in the Bay Area in near real-time.
+
+NOTE: It used to showcase Switzerland's public transports.
+Unfortunately, the Swiss data provider doesn't provide the GTFS-RT feed anymore.
 
 image::https://img.youtube.com/vi/tP1czEIK6OY/sddefault.jpg[Screenshot of the demo,640,480,align=center,title=Demo screenshot (click to watch a recording sample),link=https://www.youtube.com/watch?v=tP1czEIK6OY]
 
 The technology stack consists of:
 
-* Hazelcast Jet
-* Hazelcast IMDG
-* Spring Boot
-* Kotlin
-* Maven
+* https://jet-start.sh/[Hazelcast Jet^]
+* https://hazelcast.org/imdg/[Hazelcast IMDG^]
+* https://kotlinlang.org/[Kotlin^] for the code
+* https://spring.io/projects/spring-boot[Spring Boot^] for the webapp
+* https://maven.apache.org/[Maven^] for the build system
 
-== Module structure
+== Overall structure
 
-Modules are as follows:
+The project contains several modules with dedicated responsibilities:
 
 [options="header,autowidth"]
 |===
@@ -30,92 +33,143 @@ Modules are as follows:
 | Code shared across modules
 
 | `infrastructure`
-| Starts a fully-configured "remote" Jet instance and a management center instance.
-This is the infrastructure the demo should run on.
-It requires Docker compose.
+| Contain the static data files, as well as configuration files for Docker Compose and Kubernetes
 
 | `local-jet`
-| Alternative to the previous module, starts a local Jet instance to be able to easily debug
+| As an alternative to the previous module, start a local Jet instance to be able to debug inside the IDE
 
 | `load-static`
-| Loads reference data from files in memory, to enrich streamed data
+| Load GTFS-RT static data from files in memory.
+Those files contain reference data that are used later to enrich the data pipeline
 
 | `stream-dynamic`
-| Calls an OpenData endpoint to get the data, and streams it to an IMDG map.
+| Call an OpenData endpoint to get dynamic data, transform it, enrich it, and store it into an IMDG map
 
 | `web`
-| Loads the aforementioned IMDG map and publishes changes to a web-socket endpoint.
-The web UI subscribes to the endpoint, and displays each data point on an Open Street Map.
+| Subscribe to the aforementioned IMDG map and publish changes to a web-socket endpoint.
+The UI subscribes to the endpoint and displays each data point on an Open Street Map.
 
 |===
 
 image:architecture.png[]
 
-== Running the demo
+== Reference documentation
 
-The demo is based on data taken from https://opentransportdata.swiss/en/[Open Data Platform Swiss Public Transport^].
+The data provider releases data compliant with the https://developers.google.com/transit[General Transport Feed Specification^] (by Google).
 
-=== Reference documentation
+Two types of data are available:
 
-The official documentation is a mess.
-However, reading the general explanation on https://opentransportdata.swiss/en/cookbook/gtfs/[General Transit Feed Specification] is a good start.
-Note that GTFS is a format proposed by Google.
-The endpoint makes use of some, not all.
+. https://developers.google.com/transit/gtfs[Static files^] that contain reference data that don't change often _e.g._ schedules, stops, etc.
+. A REST endpoint serves https://developers.google.com/transit/gtfs-realtime[dynamic data^] _e.g._ vehicle positions
+
+== Running the demo: data
+
+The demo is based on data provided by https://511.org/open-data[511 SF Bay’s Open Data Portal^].
 
 === Data update
 
-Every week, new reference data (_e.g._ expected stop times) are published.
+Every day, new reference data (_e.g._ expected stop times) are published.
 Hence, the infrastructure project that contains said data needs to be updated with new files.
+Note that only 4 files are required for the demo: `agency.txt`, `routes.txt`, `stops.txt` and `trips.txt`.
 
-WARNING: Some files are quite huge (> 100 Mo).
-They require to be stored on https://git-lfs.github.com/[Git LFS^].
+[quote,https://511.org/open-data/transit]
+____
+GTFS Feed Download allows the user to download a zip file containing GTFS dataset for the specified operator/agency.
+It also contains additional files, called the GTFS+ files, that provide information not contained in the GTFS files such as the direction names, fare zone names, etc.
 
-. Go to the https://opentransportdata.swiss/en/dataset/timetable-2020-gtfs[download page^].
-. Download the data archive for the week - it's updated each week on Wednesday
-. Extract the files from the archive
-. Move the folder to `infrastructure/data`
-. Delete the old folder from `infrastructure/data`
-. Update `load-static/src/main/kotlin/com/hazelcast/jet/swisstrain/refs/CustomBuilder.kt`
-// TODO: automate this step by reading the latest folder from infrastructure/data
-. Add each new file individually under Git LFS:
-+
-[source,bash]
-git lfs track infrastructure/data/gtfsfp20192019-12-11/agency.txt
-git lfs track infrastructure/data/gtfsfp20192019-12-11/calendar.txt
-...
-+
-. Git add, commit & push
+
+*Endpoint*: \http://api.511.org/transit/datafeeds?api_key=[your_key]&operator_id=RG
+
+*Allowable parameters*: `api_key` (mandatory), `operator_id` (mandatory), and `historic` (optional)
+____
 
 === API Key
 
 Calling the endpoint requires an API key.
 
-. First, https://opentransportdata.swiss/en/register[create an account^]
-. Then, https://opentransportdata.swiss/en/dev-dashboard/[create a token^]
+. First, https://511.org/open-data/token[register^]
+. You'll receive a confirmation email
+. When you've confirmed the email, you'll receive a new email with the token
 . The token should be used as the `token` System property when launching the `com.hazelcast.jettrain.data.MainKt` class from the `stream-dynamic` module:
 +
 [source,bash]
 java -Dtoken=<MY_TOKEN> com.hazelcast.jettrain.data.MainKt
 
-=== Requirements
+== Running the demo: developer setup
+
+If you're a Java developer, this approach will be fastest as you probably have all the tools ready.
+You'll need:
+
+* Git
+* A Java IDE _e.g._ IntelliJ IDEA, Eclipse, etc.
+
+=== Steps
+
+. Clone the repo
+. Import the code into your IDE
+. In the `local-jet` module, run the `com.hazelcast.jettrain.LocalJet.kt` class inside the IDE with the following parameters:
++
+[source,bash]
+----
+-Xmx8g \                                                             <1>
+-XX:+UseStringDeduplication \                                        <2>
+--add-modules java.se \                                              <3>
+--add-exports java.base/jdk.internal.ref=ALL-UNNAMED \               <3>
+--add-opens java.base/java.lang=ALL-UNNAMED \                        <3>
+--add-opens java.base/java.nio=ALL-UNNAMED \                         <3>
+--add-opens java.base/sun.nio.ch=ALL-UNNAMED \                       <3>
+--add-opens java.management/sun.management=ALL-UNNAMED \             <3>
+--add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED   <3>
+----
++
+<1> Reserve extra memory
+<2> Improve memory efficiency when storing strings
+<3> Necessary when working with Java 9+
++
+. To import static data files, run the `MainKt` class from inside the `load-static` module:
++
+[source,bash]
+java -Ddata.path=/path/to/local/infrastructure/data com.hazelcast.jettrain.refs.MainKt
++
+. To query dynamic data, run the `MainKt` class from inside the `stream-dynamic` module:
++
+[source,bash]
+java -Dtoken=$YOUR_511_TOKEN com.hazelcast.jettrain.data.MainKt
++
+In the `web` module:
++
+[source,bash]
+java com.hazelcast.jettrain.JetDemoKt
++
+The webapp is available at http://localhost:8080.
+
+== Running the demo: Docker-Compose
+
+With this setup, you'll build the demo from source.
+You'll need:
 
 * Docker compose
 * JDK 8+
 * Maven
-* Hazelcast Jet distribution (optional)
+* Hazelcast Jet distribution
 
-=== The demo
+=== Steps
 
-The following steps need to be executed in order:
-
-To containerize the webapp::
-In the root module:
-
-[source,bash]
-docker build -t hazelcast/jettrain .
-
-To set up the "infrastructure"::
-In the `infrastructure` module:
+. Start Docker.
+A local Docker daemon needs to be running for the build to succeed as the `web` module uses Jib to build a Docker image.
+. Build the application.
+In the parent project's root folder:
++
+[source, bash]
+mnv clean package
++
+. Adapt the `docker-compose.yml` file to your file hierarchy.
+I found no way to use relative files path in Docker Compose (hints/PRs welcome).
+You need to update the file to use the correct paths.
+Look for paths starting with `/Users/nico/projects/hazelcast/` and update accordingly.
++
+. "Deploy" the containers:
+In the `infrastructure/compose` folder :
 +
 [source,bash]
 docker-compose up
@@ -160,34 +214,3 @@ Hence, the Jet job is configured to runl only once per 31 seconds.
 To display the map::
 
 Open a browser to <http://localhost:8080/>
-
-== Local setup
-
-=== Co-located Jet
-
-The normal setup splits the client and the server into two different parts.
-To ease debugging and understanding, the `local-jet` demo is provided.
-To use it, just run the `com.hazelcast.jettrain.LocalJet.kt` class instead of `docker-compose`.
-
-Then, run the `MainKt` classes from each module _i.e._:
-
-[source,bash]
-java com.hazelcast.jettrain.refs.MainKt
-
-[source,bash]
-java -Ddata.path=/path/to/local/folder/infrastructure/data com.hazelcast.jettrain.data.MainKt
-
-=== Local webapp
-
-In the `web` module:
-
-[source,bash]
-java com.hazelcast.jettrain.JetDemoKt
-
-=== Mocking the webservices call
-
-Using the Internet in a conference might be a big PITA.
-To use mock data instead, in the `stream-dynamic` module, type:
-
-[source,bash]
-java -Dmock com.hazelcast.jettrain.data.MainKt
