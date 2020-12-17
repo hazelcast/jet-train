@@ -20,7 +20,7 @@ class UpdateController(val ops: SimpMessageSendingOperations) {
 
     init {
         Jet.newJetClient().hazelcastInstance
-            .getMap<String, JsonObject>("update")
+            .getMap<String, String>("update")
             .addEntryListener(listener, true)
     }
 
@@ -37,18 +37,18 @@ class UpdateController(val ops: SimpMessageSendingOperations) {
     }
 }
 
-class UpdateMapListener : MapListener, EntryAddedListener<String, JsonObject>,
-    EntryUpdatedListener<String, JsonObject> {
+class UpdateMapListener : MapListener, EntryAddedListener<String, String>,
+    EntryUpdatedListener<String, String> {
 
-    private val queue = ConcurrentLinkedQueue<JsonObject>()
+    private val queue = ConcurrentLinkedQueue<String>()
 
-    override fun entryAdded(event: EntryEvent<String, JsonObject>) {
+    override fun entryAdded(event: EntryEvent<String, String>) {
         queue.add(event.value)
     }
 
-    override fun entryUpdated(event: EntryEvent<String, JsonObject>?) {
+    override fun entryUpdated(event: EntryEvent<String, String>?) {
         event?.value?.let { queue.add(it) }
     }
 
-    fun poll(): JsonObject? = queue.poll()
+    fun poll(): String? = queue.poll()
 }
