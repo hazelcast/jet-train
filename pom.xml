@@ -99,7 +99,7 @@
             <dependency>
                 <groupId>com.github.kittinunf.fuel</groupId>
                 <artifactId>fuel</artifactId>
-                <version>2.3.0</version>
+                <version>2.3.1</version>
             </dependency>
             <dependency>
                 <groupId>com.github.kittinunf.result</groupId>
