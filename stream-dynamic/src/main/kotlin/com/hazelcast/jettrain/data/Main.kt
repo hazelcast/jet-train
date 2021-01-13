@@ -19,7 +19,7 @@ internal fun pipeline(token: String) = Pipeline.create().apply {
 //        .withTimestamps(TimestampExtractor, 200)
         .flatMap(ToEntities)
         .map(ToJson)
-        .filter(OnlyEntityWithTrip.and(OnlyEntityWithStop).and(OnlyEntityWithRouteId))
+        .filter(OnlyEntityWithTrip.and(OnlyEntityWithStop))
         .mapUsingIMap("trips", TripIdExtractor, EnrichWithTrip)
         .mapUsingIMap("routes", RouteIdExtractor, EnrichWithRoute)
         .mapUsingIMap("stops", StopIdExtractor, EnrichWithStop)
