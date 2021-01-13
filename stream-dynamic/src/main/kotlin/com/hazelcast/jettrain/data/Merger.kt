@@ -19,7 +19,8 @@ object TripIdExtractor : FunctionEx<JsonObject, String> {
 object EnrichWithTrip : BiFunctionEx<JsonObject, String?, JsonObject> {
     private val parser = JsonParser()
     override fun applyEx(json: JsonObject, tripString: String?) =
-        json.apply {
+        if (tripString == null) json
+        else json.apply {
             val trip = parser.parse(tripString).asJsonObject
             val headsign = trip.getAsJsonPrimitive("trip_headsign").asString
             getAsJsonObject("vehicle")
@@ -42,7 +43,8 @@ object RouteIdExtractor : FunctionEx<JsonObject, String?> {
 object EnrichWithRoute : BiFunctionEx<JsonObject, String?, JsonObject> {
     private val parser = JsonParser()
     override fun applyEx(json: JsonObject, routeString: String?) =
-        json.apply {
+        if (routeString == null) json
+        else json.apply {
             val route = parser.parse(routeString).asJsonObject
             getAsJsonObject("vehicle")
                 .getAsJsonObject("trip").apply {
