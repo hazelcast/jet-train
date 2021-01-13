@@ -1,7 +1,6 @@
 package com.hazelcast.jettrain
 
 import com.hazelcast.core.EntryEvent
-import com.hazelcast.internal.json.JsonObject
 import com.hazelcast.jet.Jet
 import com.hazelcast.map.listener.EntryAddedListener
 import com.hazelcast.map.listener.EntryUpdatedListener
@@ -30,7 +29,7 @@ class UpdateController(val ops: SimpMessageSendingOperations) {
         while (true) {
             listener.poll()?.let {
                 println(it)
-                ops.convertAndSend("/topic/updates", it.toString())
+                ops.convertAndSend("/topic/updates", it)
                 Thread.sleep(100)
             }
         }
