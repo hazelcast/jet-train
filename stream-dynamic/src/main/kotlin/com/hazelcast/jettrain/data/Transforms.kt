@@ -41,15 +41,13 @@ object ToJson : FunctionEx<Pair<String, FeedEntity>, JsonObject> {
 
 object OnlyEntityWithTrip : PredicateEx<JsonObject> {
     override fun testEx(json: JsonObject) = json
-        .get("vehicle")
-        .asJsonObject
+        .getAsJsonObject("vehicle")
         .has("trip")
 }
 
 object OnlyEntityWithStop : PredicateEx<JsonObject> {
     override fun testEx(json: JsonObject) = json
-        .get("vehicle")
-        .asJsonObject
+        .getAsJsonObject("vehicle")
         .has("stopId")
 }
 
