@@ -53,6 +53,16 @@ object OnlyEntityWithStop : PredicateEx<JsonObject> {
         .has("stopId")
 }
 
+object OnlyEntityWithRouteId : PredicateEx<JsonObject> {
+    override fun testEx(json: JsonObject) = json
+        .getAsJsonObject("vehicle")
+        ?.getAsJsonObject("trip")
+        ?.getAsJsonPrimitive("routeId")
+        ?.asString
+        ?.isNotEmpty()
+        ?: false
+}
+
 object ToEntry : FunctionEx<JsonObject, Map.Entry<String, String>> {
     override fun applyEx(json: JsonObject): MutableMap.MutableEntry<String, String> =
         Util.entry(
