@@ -7,6 +7,12 @@ const otherColor = '#00FF00';
 
 const currentTime = () => Date.now() / 1000;
 
+const fontAwesomeIcon = L.divIcon({
+  html: '<i class="fa fa-train fa-2x"></i>',
+  iconSize: [20, 20],
+  className: 'myDivIcon'
+});
+
 class Route {
   static stopToLatLong({ latitude, longitude }) {
     return [latitude, longitude];
@@ -18,12 +24,12 @@ class Route {
       color: routeDefaultColor,
     });
     this.polyline.addTo(map);
-    console.log(666666)
+    console.log(666, 'route constr')
     this.stops = schedule.map(({ stop, latitude, longitude }) => {
-      console.log(777777)
-      const circle = L.circle([latitude, longitude], {
+      console.log(777, 'iter stops')
+      const circle = L.circleMarker([latitude, longitude], {
         color: routeDefaultColor,
-        radius: 10,
+        radius: 5,
         fill: true,
         fillOpacity: 0.8,
       });
@@ -73,7 +79,7 @@ class Train {
     this._map = map;
     this._onFinalStopCb = onFinalStopCb;
     this._route = new Route(this.routeType, this._map, this.schedule);
-    this._train = undefined;
+    this._train = undefined; // todo: rename to _marker
     this._heartbeatIntervalId = undefined;
 
     this._createHeartbeat();
@@ -113,7 +119,8 @@ class Train {
   }
 
   _createNewTrain() {
-    this._train = L.marker(this._currentLatLong);
+    // this._train = L.marker(this._currentLatLong);
+    this._train = L.marker(this._currentLatLong, {icon: fontAwesomeIcon});
     this._train.bindTooltip(this.name);
     this._train.addTo(this._map);
   }
