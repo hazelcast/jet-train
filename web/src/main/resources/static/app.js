@@ -1,6 +1,7 @@
 const routeDefaultColor = '#808080';
 
 const trainColor = '#FF0000';
+const busColor = 'purple'; // todo
 const boatColor = '#0000FF';
 const otherColor = '#00FF00';
 
@@ -17,7 +18,9 @@ class Route {
       color: routeDefaultColor,
     });
     this.polyline.addTo(map);
+    console.log(666666)
     this.stops = schedule.map(({ stop, latitude, longitude }) => {
+      console.log(777777)
       const circle = L.circle([latitude, longitude], {
         color: routeDefaultColor,
         radius: 10,
@@ -32,33 +35,22 @@ class Route {
 
   setColor() {
     let newColor;
+    // route types are here:
+    // https://sites.google.com/site/gtfschanges/proposals/route-type
     switch(this.type) {
-      case('InterRegio'):
-      case('Intercity'):
-      case('Schnelles Nachtnetz'):
-      case('Standseilbahn'):
-      case('Regionalzug'):
-      case('Luftseilbahn'):
-      case('Eurocity'):
-      case('EN'):
-      case('Ice'):
-      case('TGV'):
-      case('Drahtseilbahn'):
-      case('Sesselbahn'):
-      case('Extrazug'):
-      case('RegioExpress'):
-      case('TER200'):
-      case('PanoramaExpress'):
-      case('Aufzug'):
-      case('Zahnradbahn'):
-      case('S-Bahn'):
+      case('0'):
+      case('1'):
+      case('2'):
         newColor = trainColor;
         break;
-      case('Schiff'):
+      case('3'):
+        newColor = busColor;
+        break;
+      case('4'):
         newColor = boatColor;
         break;
       default:
-        newColor = otherColor;
+        newColor = otherColor; // todo: green dots - type needed
         break;
     }
     this.polyline.setStyle({ color: newColor });
@@ -98,15 +90,19 @@ class Train {
   }
 
   _refresh() {
-    if (this._hasMovementEnded) {
-      this._onFinalStop();
-      return;
-    }
+    // console.log(999, this._hasMovementEnded, this._hasMovementStarted)
 
-    if (!this._hasMovementStarted) {
-      return;
-    }
+    // disable these to see
+    // if (this._hasMovementEnded) {
+    //   this._onFinalStop();
+    //   return;
+    // }
 
+    // if (!this._hasMovementStarted) {
+    //   return;
+    // }
+
+    //console.log(555555555)
     if (!this._train) {
       this._createNewTrain();
       this._route.setColor();
@@ -183,9 +179,20 @@ class Train {
   }
 }
 
+function randomTimeToday() {
+  // get the difference between the 2 dates, multiply it by 0-1,
+  // and add it to the start date to get a new date
+  const start = new Date(Date.now() - 86400000); // yesterday
+  const end = new Date()
+  var diff =  end.getTime() - start.getTime();
+  var new_diff = diff * Math.random();
+  var date = new Date(start.getTime() + new_diff);
+  return date;
+}
+
 class Container {
   constructor() {
-    this.map = L.map('map').setView([46.819382, 8.416515], 9);
+    this.map = L.map('map').setView([37.6688, -122.0810], 10);
     this._trains = {};
     this._socket = undefined;
     this._stomp = undefined;
@@ -207,10 +214,35 @@ class Container {
     this._stomp.connect({}, () => {
       this._stomp.subscribe('/topic/updates', (update) => {
         const data = JSON.parse(update.body);
+
+        //
+        // todo: patch step 1. bogus .schedules .departure, .arrival.
+        //
+        const stop = data.vehicle.stop
+        data.schedule = [
+          {
+            ...stop,
+            longitude: stop.stop_long,
+            latitude: stop.stop_lat,
+            departure: randomTimeToday(),
+            arrival: randomTimeToday()
+          }
+        ]
+
         data.schedule.forEach((stop) => {
           stop.longitude = parseFloat(stop.longitude);
           stop.latitude = parseFloat(stop.latitude);
         });
+
+        //
+        // todo: patch step 2. adapt to _processData
+        //
+        data.route_id = data.vehicle.trip.route.id
+        data.route_name = data.vehicle.trip.route.route_name
+        data.route_type = data.vehicle.trip.route.route_type
+        data.agency_name = data.agencyId
+        // console.log(11111, data.route_id)
+
         this._processData(data);
       });
     });
@@ -230,6 +262,7 @@ class Container {
     }
 
     const existingTrain = this._trains[routeId];
+    // console.log(222, 'existingTrain', existingTrain)
 
     if (!existingTrain) {
       const newTrain = new Train(
@@ -241,6 +274,7 @@ class Container {
         (train) => this._onTrainFinalStop(train),
       );
       this._trains[routeId] = newTrain;
+      // console.log(333, newTrain)
       return;
     }
 
