@@ -10,7 +10,7 @@
     </parent>
     <artifactId>web</artifactId>
     <properties>
-        <spring.version>2.4.1</spring.version>
+        <spring.version>2.4.2</spring.version>
     </properties>
     <build>
         <plugins>
