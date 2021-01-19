@@ -248,7 +248,8 @@ class Container {
         data.route_name = data.vehicle.trip.route.route_name
         data.route_type = data.vehicle.trip.route.route_type
         data.agency_name = data.agencyId
-        // console.log(11111, data.route_id)
+
+        // if (data.route_type !== "3") alert(data.route_type)
 
         this._processData(data);
       });
