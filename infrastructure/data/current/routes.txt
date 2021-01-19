@@ -1,8 +1,5 @@
 route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color,route_sort_order
 SS:CW,SS,CW,Free South City Shuttle - Blue,"Clockwise route starting at SSF BART station bay 6 through Hillside Blvd, Linden Ave, Grand Ave, Downtown South San Francisco, West Orange Library and El Camino Real.",3,,293adb,293adb,0
-AM:Shuttle,AM,Shuttle,Shuttle_Auburn,Shuttle to Auburn,3,https://www.capitolcorridor.org/wp-content/uploads/2020/03/Bus_Schedules_3.21.20.pdf,,,0
-AM:SF,AM,SF,Shuttle_SF,Shuttle to San Francisco Transbay Terminal,3,http://capitolcorridor.org/route_and_schedules/,,,0
-AM:CC,AM,CC,Capitol Corridor,"Daily train service between Auburn, Sacramento, Oakland and San Jose",2,http://capitolcorridor.org/route_and_schedules/,,,0
 SA:SMART,SA,SMART,Main Line,Sonoma County Airport to Larkspur,2,,4d6d51,,0
 3D:379,3D,379,Antioch BART / Kaiser Deer Valley,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=379,A0FFFF,FFFFFF,0
 3D:388,3D,388,Pittsburg BART / Kaiser Deer Valley,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=388,5080A3,FFFFFF,0
@@ -85,30 +82,6 @@ ST:4,ST,4,Tuolumne,,3,,00A6CE,FFFFFF,0
 ST:5,ST,5,Six Flags,,3,,F47B20,FFFFFF,0
 ST:6,ST,6,Tennessee,,3,,666EB3,FFFFFF,0
 ST:8,ST,8,Glen Cove,,3,,009577,FFFFFF,0
-CM:RLC Shuttle,CM,RLC Shuttle,Redwood LIFE Caltrain,,3,http://commute.org/shuttles/routes-and-schedules/248-redwood-shores-bayshore-technology-park-caltrain,5b91cc,,0
-CM:SCC Shuttle,CM,SCC Shuttle,San Carlos Commuter,,3,http://commute.org/shuttles/routes-and-schedules/290-san-carlos-commuter,5b91cc,,0
-CM:MPT Shuttle,CM,MPT Shuttle,Redwood City Midpoint Caltrain,,3,http://commute.org/shuttles/routes-and-schedules/25-redwood-city-midpoint-caltrain,5b91cc,,0
-CM:LC Shuttle,CM,LC Shuttle,Lincoln Centre,,3,http://commute.org/shuttles/routes-and-schedules/106-foster-city-lincoln-centre-caltrain,5b91cc,,0
-CM:NB Shuttle,CM,NB Shuttle,North Burlingame,,3,http://commute.org/shuttles/routes-and-schedules/89-burlingame-north-bartcaltrain,5b91cc,,0
-CM:OPC Shuttle,CM,OPC Shuttle,Oyster Point Caltrain,,3,http://commute.org/shuttles/routes-and-schedules/78-so-san-francisco-oyster-pt-caltrain,5b91cc,,0
-CM:OPF Shuttle,CM,OPF Shuttle,Oyster Point Ferry,,3,http://commute.org/shuttles/routes-and-schedules/129-so-san-francisco-oyster-point-ferry,5b91cc,,0
-CM:SEA Shuttle,CM,SEA Shuttle,Seaport Centre,,3,http://commute.org/shuttles/routes-and-schedules/122-redwood-city-seaport-caltrain,5b91cc,,0
-CM:OTP Shuttle,CM,OTP Shuttle,Genesis One Tower Place BART/Caltrain,,3,http://commute.org/shuttles-info/127-so-san-francisco-genesis-one-tower-place,5b91cc,,0
-CM:MB Shuttle,CM,MB Shuttle,Millbrae Broadway,,3,http://www.smctd.com/Shuttles/Millbrae_Broadway_Shuttle.html,5b91cc,,0
-CM:BH Shuttle,CM,BH Shuttle,Belmont Hillsdale,,3,http://www.smctd.com/Shuttles/Belmont_Hillsdale_Shuttle.html,5b91cc,,0
-CM:TD Shuttle,CM,TD Shuttle,Twin Dolphin,,3,https://www.smctd.com/Shuttles/Twin_Dolphin_Shuttle.html,5b91cc,,0
-CM:PS Shuttle,CM,PS Shuttle,Pacific Shores,,3,http://www.smctd.com/Shuttles/Pacific_Shores_Shuttle.html,5b91cc,,0
-CM:MAR Shuttle,CM,MAR Shuttle,Mariners' Island,,3,http://commute.org/shuttles/routes-and-schedules/27-san-mateo-mariners-island-caltrain,5b91cc,,0
-CM:NOR Shuttle,CM,NOR Shuttle,San Mateo Norfolk,,3,http://commute.org/shuttles/routes-and-schedules/28-san-mateo-norfolk-caltrain,5b91cc,,0
-CM:UGC Shuttle,CM,UGC Shuttle,Utah-Grand Caltrain,,3,http://commute.org/shuttles/routes-and-schedules/82-so-san-francisco-utahgrand-caltrain,5b91cc,,0
-CM:BAY Shuttle,CM,BAY Shuttle,Burlingame Bayside,,3,http://commute.org/shuttles/routes-and-schedules/87-burlingame-bayside-bartcaltrain,5b91cc,,0
-CM:NFC Shuttle,CM,NFC Shuttle,North Foster City,,3,http://commute.org/shuttles/routes-and-schedules/22-foster-city-north-bartcaltrain,5b91cc,,0
-CM:CAM Shuttle,CM,CAM Shuttle,Campus Drive,,3,http://commute.org/shuttles/routes-and-schedules/26-san-mateo-campus-drive-caltrain,5b91cc,,0
-CM:BBC Shuttle,CM,BBC Shuttle,Brisbane-Bayshore Caltrain,,3,http://commute.org/shuttles/routes-and-schedules/15-brisbane-bayshore-caltrain,5b91cc,,0
-CM:OPB Shuttle,CM,OPB Shuttle,Oyster Point BART,,3,http://commute.org/shuttles/routes-and-schedules/98-so-san-francisco-oyster-pt-bart,5b91cc,,0
-CM:UGB Shuttle,CM,UGB Shuttle,Utah-Grand BART,,3,http://commute.org/shuttles/routes-and-schedules/81-so-san-francisco-utahgrand-bart,5b91cc,,0
-CM:UGF Shuttle,CM,UGF Shuttle,Utah-Grand Ferry,,3,http://commute.org/shuttles/routes-and-schedules/120-so-san-francisco-utahgrand-ferry,5b91cc,,0
-CM:BCP Shuttle,CM,BCP Shuttle,Brisbane Crocker Park,,3,http://commute.org/shuttles/routes-and-schedules/16-brisbane-crocker-park-bartcaltrain,5b91cc,,0
 RV:50,RV,50,,,3,,ccd7e8,000000,0
 RV:52,RV,52,,,3,,e9caca,000000,0
 MA:23X,MA,23X,Canal - Fairfax Manor,via San Rafael/Fairfax,3,http://marintransit.org/routes/23x,53A946,FFFFFF,0
@@ -154,37 +127,6 @@ WH:15,WH,15,Springtown,,3,,004080,FFFFFF,0
 WH:3,WH,3,Stoneridge,,3,,3399FF,FFFFFF,0
 WH:30R,WH,30R,Dublin - Livermore via College,,3,,00CC00,FFFFFF,0
 WH:10R,WH,10R,Pleasanton - Livermore via Stanley,,3,,FF0000,FFFFFF,0
-SM:FCX,SM,FCX,Foster City - San Francisco,,3,,,,0
-SM:FLX,SM,FLX,Flex Route Pacifica,,3,,,,0
-SM:713,SM,713,SF Transit Center - San Francisco International,,3,,,,0
-SM:SFO,SM,SFO,SFO - Millbrae,,3,,,,0
-SM:110,SM,110,Daly City BART - Linda Mar Park & Ride,,3,,,,0
-SM:120,SM,120,Colma BART - Brunswick/Templeton,,3,,,,0
-SM:83,SM,83,Hillview School - Bay/Marsh,,3,,,,0
-SM:130,SM,130,Daly City BART - Airport/Linden,,3,,,,0
-SM:270,SM,270,Redwood City Caltrain - Florence/17th loop,,3,,,,0
-SM:140,SM,140,Airtrain - West Manor/Palmetto,,3,,,,0
-SM:112,SM,112,Linda Mar Park & Ride - Colma BART,,3,,,,0
-SM:250,SM,250,5th/El Camino - College of San Mateo,,3,,,,0
-SM:256,SM,256,Hillsdale Mall - Foster City,,3,,,,0
-SM:121,SM,121,Lowell/Hanover - Skyline College,,3,,,,0
-SM:122,SM,122,South SF BART - Stonestown/SF State,,3,,,,0
-SM:141,SM,141,Airport/Linden - Shelter Creek,,3,,,,0
-SM:260,SM,260,San Carlos Caltrain - College of San Mateo,,3,,,,0
-SM:251,SM,251,Foster City - Hillsdale Mall,,3,,,,0
-SM:17,SM,17,Linda Mar Park & Ride - Pescadero,,3,,,,0
-SM:38,SM,38,Safe Harbor Shelter,,3,,,,0
-SM:280,SM,280,Purdue/Fordham - Stanford Mall,,3,,,,0
-SM:281,SM,281,Onetta Harris Ctr - Stanford Mall,,3,,,,0
-SM:292,SM,292,San Francisco - SFO - Hillsdale Mall,,3,,,,0
-SM:296,SM,296,Redwood City Transit Center - Bayshore/Donohoe,,3,,,,0
-SM:ECR,SM,ECR,Daly City BART - Palo Alto Transit Ctr,,3,,,,0
-SM:398,SM,398,Redwood City Transit Center to SF Transbay Termina,,3,,,,0
-SM:278,SM,278,Woodside/Alameda - Canada College - Saturday Only,,3,,,,0
-SM:286,SM,286,Ringwood/Arlington - Monte Rosa/Eastridge,,3,,,,0
-SM:294,SM,294,SM Med Ctr - Hillsdale - CSM - Half Moon Bay,,3,,,,0
-SM:295,SM,295,San Mateo Caltrain - Redwood City Transit Center,,3,,,,0
-SM:397,SM,397,San Francisco - Palo Alto Transit Ctr,,3,,,,0
 VC:1,VC,1,Route 1,,3,,ff0000,ffffff,0
 VC:2,VC,2,Route 2,,3,,c45911,ffffff,0
 VC:3,VC,3,Route 3,,3,,ff00ff,ffffff,0
@@ -207,87 +149,6 @@ BA:PR-N,BA,PR-N,Millbrae to San Francisco International Airport,,2,http://www.ba
 BA:PR-S,BA,PR-S,San Francisco International Airport to Millbrae,,2,http://www.bart.gov/schedules/bylineresults?route=14,C463C5,,0
 BA:BG-N,BA,BG-N,Oakland Airport to Coliseum,,2,http://www.bart.gov/schedules/bylineresults?route=19,D5CFA3,,0
 BA:BG-S,BA,BG-S,Coliseum to Oakland Airport,,2,http://www.bart.gov/schedules/bylineresults?route=20,D5CFA3,,0
-AC:G,AC,G,Colusa - Solano Transbay,,3,http://www.actransit.org/bus-lines-schedules/G,FFFF00,000000,0
-AC:65,AC,65,Grizzly Peak - Euclid,,3,http://www.actransit.org/bus-lines-schedules/65,EE82EE,000000,0
-AC:46L,AC,46L,82nd Ave. - Grass Valley Limited,,3,http://www.actransit.org/bus-lines-schedules/46L,87CEEB,000000,0
-AC:14,AC,14,14th St - San Antonio - High St,,3,http://www.actransit.org/bus-lines-schedules/14,E0B0FF,000000,0
-AC:72M,AC,72M,Macdonald - San Pablo,,3,http://www.actransit.org/bus-lines-schedules/72M,EE82EE,000000,0
-AC:99,AC,99,Mission - Decoto - Fremont Blvd.,,3,http://www.actransit.org/bus-lines-schedules/99,008000,000000,0
-AC:18,AC,18,Solano - Shattuck - MLK Jr.,,3,http://www.actransit.org/bus-lines-schedules/18,A52A2A,000000,0
-AC:51B,AC,51B,University - College - Rockridge,,3,http://www.actransit.org/bus-lines-schedules/51B,008000,000000,0
-AC:210,AC,210,Fremont Blvd. - Mission San Jose,,3,http://www.actransit.org/bus-lines-schedules/210,EE82EE,000000,0
-AC:54,AC,54,35th Ave. - Merritt College,,3,http://www.actransit.org/bus-lines-schedules/54,008080,000000,0
-AC:62,AC,62,7th St. - San Antonio - 23rd Av.,,3,http://www.actransit.org/bus-lines-schedules/62,A52A2A,000000,0
-AC:51A,AC,51A,Broadway - Santa Clara,,3,http://www.actransit.org/bus-lines-schedules/51A,808000,000000,0
-AC:45,AC,45,Seminary - Sobrante Park,,3,http://www.actransit.org/bus-lines-schedules/45,008080,000000,0
-AC:840,AC,840,Foothill - Eastmont All Nighter,,3,http://www.actransit.org/bus-lines-schedules/840,FFC0CB,000000,0
-AC:93,AC,93,Ashland - San Lorenzo - A St.,,3,http://www.actransit.org/bus-lines-schedules/93,FFC0CB,000000,0
-AC:95,AC,95,D St. - Maud - Fairview,,3,http://www.actransit.org/bus-lines-schedules/95,E0B0FF,000000,0
-AC:251,AC,251,Paseo Padre - Thornton - Cherry,,3,http://www.actransit.org/bus-lines-schedules/251,4f7942,000000,0
-AC:J,AC,J,Sacramento -  Christie Transbay,,3,http://www.actransit.org/bus-lines-schedules/J,FFFF00,000000,0
-AC:L,AC,L,San Pablo Transbay,,3,http://www.actransit.org/bus-lines-schedules/L,0000FF,FFFFFF,0
-AC:19,AC,19,Buena Vista - Fruitvale,,3,http://www.actransit.org/bus-lines-schedules/19,87CEEB,000000,0
-AC:98,AC,98,Eastmont - 98th Ave. - Edgewater,,3,http://www.actransit.org/bus-lines-schedules/98,FFC0CB,000000,0
-AC:F,AC,F,Adeline - Market Transbay,,3,http://www.actransit.org/bus-lines-schedules/F,FFA500,000000,0
-AC:57,AC,57,40th St. - MacArthur,,3,http://www.actransit.org/bus-lines-schedules/57,0000FF,FFFFFF,0
-AC:88,AC,88,Sacramento - Market,,3,http://www.actransit.org/bus-lines-schedules/88,808000,000000,0
-AC:21,AC,21,Dimond - Fruitvale - Bay Farm,,3,http://www.actransit.org/bus-lines-schedules/21,008000,000000,0
-AC:40,AC,40,Foothill - Bancroft - Bay Fair,,3,http://www.actransit.org/bus-lines-schedules/40,EE82EE,000000,0
-AC:LA,AC,LA,Hilltop - Pierce Transbay,,3,http://www.actransit.org/bus-lines-schedules/LA,FFA500,000000,0
-AC:7,AC,7,Arlington - 1000 Oaks - Shattuck,,3,http://www.actransit.org/bus-lines-schedules/7,4f7942,000000,0
-AC:1T,AC,1T,Uptown Oakland\ San Leandro BART Southbound OWL,,3,http://www.actransit.org/bus-lines-schedules/1T,00ABC8,000000,0
-AC:NL,AC,NL,MacArthur Transbay Limited,,3,http://www.actransit.org/bus-lines-schedules/NL,FFA500,000000,0
-AC:200,AC,200,Decoto - Newark Blvd. - Mowry,,3,http://www.actransit.org/bus-lines-schedules/200,A52A2A,000000,0
-AC:216,AC,216,Niles - Stevenson - NewPark,,3,http://www.actransit.org/bus-lines-schedules/216,FFA500,000000,0
-AC:239,AC,239,Grimmer - Warm Springs,,3,http://www.actransit.org/bus-lines-schedules/239,008080,000000,0
-AC:20,AC,20,Dimond - Fruitvale - South Shore,,3,http://www.actransit.org/bus-lines-schedules/20,FFA500,000000,0
-AC:NX,AC,NX,Grand Lake - Laurel  Transbay,,3,http://www.actransit.org/bus-lines-schedules/NX,FFFF00,000000,0
-AC:376,AC,376,Cutting - North Richmond Nights,,3,http://www.actransit.org/bus-lines-schedules/376,FFFF00,000000,0
-AC:39,AC,39,Skyline - Dimond - Fruitvale,,3,http://www.actransit.org/bus-lines-schedules/39,E6E6FA,000000,0
-AC:NX2,AC,NX2,MacArthur - Laurel Transbay,,3,http://www.actransit.org/bus-lines-schedules/NX2,87CEEB,000000,0
-AC:O,AC,O,Santa Clara - Encinal Transbay,,3,http://www.actransit.org/bus-lines-schedules/O,E6E6FA,000000,0
-AC:P,AC,P,Piedmont - Oakland Ave. Transbay,,3,http://www.actransit.org/bus-lines-schedules/P,E6E6FA,000000,0
-AC:U,AC,U,Stanford - Dumbarton - Fremont,,3,http://www.actransit.org/bus-lines-schedules/U,800000,FFFFFF,0
-AC:W,AC,W,High - South Shore Transbay,,3,http://www.actransit.org/bus-lines-schedules/W,FFC0CB,000000,0
-AC:800,AC,800,Rich - Oak Transbay All Nighter,,3,http://www.actransit.org/bus-lines-schedules/800,7FFF00,000000,0
-AC:52,AC,52,UC Village - Cedar - UC Campus,,3,http://www.actransit.org/bus-lines-schedules/52,FFC0CB,000000,0
-AC:60,AC,60,CSUEB - Southland - Chabot Coll,,3,http://www.actransit.org/bus-lines-schedules/60,E6E6FA,000000,0
-AC:67,AC,67,Tilden Park - Spruce - Oxford,,3,http://www.actransit.org/bus-lines-schedules/67,FFFF00,000000,0
-AC:802,AC,802,San Pablo All Nighter,,3,http://www.actransit.org/bus-lines-schedules/802,4f7942,000000,0
-AC:851,AC,851,College - Broadway All Nighter,,3,http://www.actransit.org/bus-lines-schedules/851,E0B0FF,000000,0
-AC:NX1,AC,NX1,MacArthur - Grand Lake Transbay,,3,http://www.actransit.org/bus-lines-schedules/NX1,7FFF00,000000,0
-AC:V,AC,V,Montclair - Park Blvd. Transbay,,3,http://www.actransit.org/bus-lines-schedules/V,E6E6FA,000000,0
-AC:212,AC,212,Fremont Blvd. - Pacific Commons,,3,http://www.actransit.org/bus-lines-schedules/212,0000FF,FFFFFF,0
-AC:217,AC,217,Mission San Jose - Milpitas,,3,http://www.actransit.org/bus-lines-schedules/217,E6E6FA,000000,0
-AC:71,AC,71,Parchester - Rumrill - Carlson,,3,http://www.actransit.org/bus-lines-schedules/71,0000FF,FFFFFF,0
-AC:702,AC,702,Pleas Hill Transbay Early Bird,,3,http://www.actransit.org/bus-lines-schedules/702,ffffff,000000,0
-AC:232,AC,232,Mission - Decoto - NewPark,,3,http://www.actransit.org/bus-lines-schedules/232,EE82EE,000000,0
-AC:34,AC,34,Estudillo - Davis - Meekland,,3,http://www.actransit.org/bus-lines-schedules/34,EE82EE,000000,0
-AC:35,AC,35,Estudillo - Davis -  Lewelling,,3,http://www.actransit.org/bus-lines-schedules/35,008000,000000,0
-AC:41,AC,41,Whitman - Huntwood - Union Landg,,3,http://www.actransit.org/bus-lines-schedules/41,7FFF00,000000,0
-AC:56,AC,56,Santa Clara - Weekes - Huntwood,,3,http://www.actransit.org/bus-lines-schedules/56,87CEEB,000000,0
-AC:6,AC,6,Berkeley - Telegraph - Oakland,,3,http://www.actransit.org/bus-lines-schedules/6,0000FF,FFFFFF,0
-AC:72,AC,72,Hilltop - CCC - San Pablo,,3,http://www.actransit.org/bus-lines-schedules/72,008000,000000,0
-AC:10,AC,10,E. 14th St. - Mission,,3,http://www.actransit.org/bus-lines-schedules/10,A52A2A,000000,0
-AC:801,AC,801,E 14th - Mission  All Nighter,,3,http://www.actransit.org/bus-lines-schedules/801,FFFF00,000000,0
-AC:86,AC,86,Winton - Industrial - Tennyson,,3,http://www.actransit.org/bus-lines-schedules/86,FFA500,000000,0
-AC:805,AC,805,MacArthur - Airport All Nighter,,3,http://www.actransit.org/bus-lines-schedules/805,FFC0CB,000000,0
-AC:74,AC,74,San Pablo Dam - 23rd St.,,3,http://www.actransit.org/bus-lines-schedules/74,E6E6FA,000000,0
-AC:90,AC,90,85th Ave. - Elmhurst - 90th Ave.,,3,http://www.actransit.org/bus-lines-schedules/90,800000,FFFFFF,0
-AC:97,AC,97,Hesperian - Alvarado - Decoto,,3,http://www.actransit.org/bus-lines-schedules/97,008080,000000,0
-AC:73,AC,73,73rd Ave. - Coliseum - Airport,,3,http://www.actransit.org/bus-lines-schedules/73,A52A2A,000000,0
-AC:12,AC,12,MLK Jr. - Temescal - Grand,,3,http://www.actransit.org/bus-lines-schedules/12,87CEEB,000000,0
-AC:701,AC,701,Pittsburg/BP Transbay Early Bird,,3,http://www.actransit.org/bus-lines-schedules/701,ffffff,000000,0
-AC:706,AC,706,Bay Fair Transbay Early Bird,,3,http://www.actransit.org/bus-lines-schedules/706,ffffff,000000,0
-AC:70,AC,70,Rheem - San Pablo Dam - Appian,,3,http://www.actransit.org/bus-lines-schedules/70,4f7942,000000,0
-AC:72R,AC,72R,San Pablo Rapid,,3,http://www.actransit.org/bus-lines-schedules/72R,008080,000000,0
-AC:76,AC,76,Hilltop - Market -  Cutting,,3,http://www.actransit.org/bus-lines-schedules/76,FFC0CB,000000,0
-AC:29,AC,29,Hollis - Peralta - Lakeshore,,3,http://www.actransit.org/bus-lines-schedules/29,800000,FFFFFF,0
-AC:33,AC,33,Piedmont - Harrison - Park Blvd.,,3,http://www.actransit.org/bus-lines-schedules/33,4f7942,000000,0
-AC:36,AC,36,Dwight - Shellmound - Adeline,,3,http://www.actransit.org/bus-lines-schedules/36,E6E6FA,000000,0
-AC:79,AC,79,Colusa - The Alameda - Claremont,,3,http://www.actransit.org/bus-lines-schedules/79,008080,000000,0
-AC:96,AC,96,Alameda Pt. - 14th Ave. - Dimond,,3,http://www.actransit.org/bus-lines-schedules/96,008080,000000,0
-AC:28,AC,28,Alvarado - Castro Valley - B St.,,3,http://www.actransit.org/bus-lines-schedules/28,4f7942,000000,0
 WC:11,WC,11,Crockett - Rodeo - Hercules,,3,http://www.westcat.org/schedules/route11cs.html,916085,ffffff,0
 WC:JL,WC,JL,Hercules Transit Center - Pinole - Richmond - BART,,3,http://www.westcat.org/schedules/routeJcs.html,ce413d,000000,0
 WC:16,WC,16,Pinole Valley - Old Town Pinole - Richmond Parkway Transit Center,,3,http://www.westcat.org/schedules/route16cs.html,6c8fb8,000000,0
@@ -328,16 +189,6 @@ VN:21,VN,21,Napa-Solano Express,,3,https://vinetransit.com/routes/route-21/,74c0
 VN:10,VN,10,Up Valley Connector,,3,https://vinetransit.com/routes/route-10/,3195c9,FFFFFF,0
 VN:A,VN,A,Browns Valley | North Napa,,3,https://vinetransit.com/routes/route-a/,984A2B,FFFFFF,0
 VN:B,VN,B,Westwood | South Napa,,3,https://vinetransit.com/routes/route-b/,434C3D,FFFFFF,0
-GG:705,GG,705,Oakland - San Francisco,,3,,CC3333,FFFFFF,0
-GG:71,GG,71,Novato -Marin City,,3,,53A946,FFFFFF,0
-GG:101,GG,101,Santa Rosa - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_101.php,3366FF,FFFFFF,0
-GG:704,GG,704,Del Norte BART Station - San Francisco,,3,,CC3333,FFFFFF,0
-GG:54,GG,54,Novato - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_54.php,CC3333,FFFFFF,0
-GG:30,GG,30,San Rafael - San Francisco,,3,,3366FF,FFFFFF,0
-GG:40,GG,40,Del Norte BART Station - San Rafael,,3,http://goldengatetransit.org/schedules/current/route_40.php,3366FF,FFFFFF,0
-GG:70,GG,70,Novato - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_70.php,3366FF,FFFFFF,0
-GG:72,GG,72,Santa Rosa - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_72.php,CC3333,FFFFFF,0
-GG:27,GG,27,San Rafael - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_27.php,CC3333,FFFFFF,0
 SC:Express 168,SC,Express 168,Gilroy/Morgan Hill - San Jose Diridon,,3,https://www.vta.org/go/routes/168,00b140,000000,0
 SC:47,SC,47,Milpitas BART - McCarthy Ranch via Park Victoria,,3,https://www.vta.org/go/routes/47,29588c,FFFFFF,0
 SC:25,SC,25,De Anza College - Alum Rock Station via Valley Med,,3,https://www.vta.org/go/routes/25,e4002b,FFFFFF,0
@@ -399,13 +250,6 @@ SC:22,SC,22,Palo Alto Transit Center - Eastridge,,3,https://www.vta.org/go/route
 GF:LF,GF,LF,Larkspur - San Francisco Ferry,,4,http://goldengateferry.org/schedules/Larkspur.php,0000FF,FFFFFF,0
 GF:SF,GF,SF,Sausalito - San Francisco Ferry,,4,http://goldengateferry.org/schedules/Sausalito.php,0000FF,FFFFFF,0
 GF:TF,GF,TF,Tiburon - San Francisco Ferry,,4,,0000FF,FFFFFF,0
-EM:Hollis South,EM,Hollis South,,,3,https://www.emerygoround.com/commute-service.html,ffb311,000000,0
-EM:Hollis North,EM,Hollis North,,,3,https://www.emerygoround.com/commute-service.html,ff0001,ffffff,0
-EM:North Shellmound,EM,North Shellmound,,,3,https://www.emerygoround.com/commute-service.html,603669,ffffff,0
-EM:Hollis,EM,Hollis,,,3,https://www.emerygoround.com/standard-service.html,ff0001,ffffff,0
-EM:Shellmound/Powell,EM,Shellmound/Powell,,,3,,5e3767,ffffff,0
-EM:South Shellmound/Powell,EM,South Shellmound/Powell,,,3,,9b6bdf,000000,0
-EM:Watergate Express,EM,Watergate Express,,,3,https://www.emerygoround.com/commute-service.html,00a1ea,000000,0
 CE:ACE,CE,ACE,Altamont Corridor Express,,2,https://acerail.com/schedules/,bd10e0,FFFFFF,0
 UC:1,UC,1,Delores,"Union Landing, Four Corners, Dyer & Union City Blvd, and Union City BART",3,,3ab859,,0
 UC:4,UC,4,Tamarack,"Seven Hills, Whipple Rd, Calaveras Landing, Union Landing, Continues as Route 3 to Tropics and Union City BART",3,,f99523,,0
@@ -510,3 +354,162 @@ SR:1,SR,1,Mendocino Ave,,3,https://santarosaivl.availtec.com/InfoPoint?routes[se
 SR:3,SR,3,Santa Rosa Ave,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=3,ED017F,FFFFFF,0
 SR:12,SR,12,Corby Ave - Roseland,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=12,0BA08E,FFFFFF,0
 SR:10,SR,10,North City Connector,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=10,F99F38,FFFFFF,0
+GG:705,GG,705,Oakland - San Francisco,,3,,CC3333,FFFFFF,0
+GG:71,GG,71,Novato -Marin City,,3,,53A946,FFFFFF,0
+GG:101,GG,101,Santa Rosa - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_101.php,3366FF,FFFFFF,0
+GG:704,GG,704,Del Norte BART Station - San Francisco,,3,,CC3333,FFFFFF,0
+GG:54,GG,54,Novato - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_54.php,CC3333,FFFFFF,0
+GG:30,GG,30,San Rafael - San Francisco,,3,,3366FF,FFFFFF,0
+GG:40,GG,40,Del Norte BART Station - San Rafael,,3,http://goldengatetransit.org/schedules/current/route_40.php,3366FF,FFFFFF,0
+GG:70,GG,70,Novato - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_70.php,3366FF,FFFFFF,0
+GG:72,GG,72,Santa Rosa - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_72.php,CC3333,FFFFFF,0
+GG:27,GG,27,San Rafael - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_27.php,CC3333,FFFFFF,0
+EM:Hollis South,EM,Hollis South,,,3,https://www.emerygoround.com/commute-service.html,ffb311,000000,0
+EM:Hollis North,EM,Hollis North,,,3,https://www.emerygoround.com/commute-service.html,ff0001,ffffff,0
+EM:North Shellmound,EM,North Shellmound,,,3,https://www.emerygoround.com/commute-service.html,603669,ffffff,0
+EM:Hollis,EM,Hollis,,,3,https://www.emerygoround.com/standard-service.html,ff0001,ffffff,0
+EM:Shellmound/Powell,EM,Shellmound/Powell,,,3,,5e3767,ffffff,0
+EM:South Shellmound/Powell,EM,South Shellmound/Powell,,,3,,9b6bdf,000000,0
+EM:Watergate Express,EM,Watergate Express,,,3,https://www.emerygoround.com/commute-service.html,00a1ea,000000,0
+AC:G,AC,G,Colusa - Solano Transbay,,3,http://www.actransit.org/bus-lines-schedules/G,FFFF00,000000,0
+AC:46L,AC,46L,82nd Ave. - Grass Valley Limited,,3,http://www.actransit.org/bus-lines-schedules/46L,87CEEB,000000,0
+AC:604,AC,604,Head Royce - Hebrew Day - Berk.,,3,http://www.actransit.org/bus-lines-schedules/604,ffffff,000000,0
+AC:605,AC,605,Head Royce - Montclair - College,,3,http://www.actransit.org/bus-lines-schedules/605,ffffff,000000,0
+AC:14,AC,14,14th St - San Antonio - High St,,3,http://www.actransit.org/bus-lines-schedules/14,E0B0FF,000000,0
+AC:72M,AC,72M,Macdonald - San Pablo,,3,http://www.actransit.org/bus-lines-schedules/72M,EE82EE,000000,0
+AC:99,AC,99,Mission - Decoto - Fremont Blvd.,,3,http://www.actransit.org/bus-lines-schedules/99,008000,000000,0
+AC:18,AC,18,Solano - Shattuck - MLK Jr.,,3,http://www.actransit.org/bus-lines-schedules/18,A52A2A,000000,0
+AC:606,AC,606,Head Royce - Piedmont,,3,http://www.actransit.org/bus-lines-schedules/606,ffffff,000000,0
+AC:51B,AC,51B,University - College - Rockridge,,3,http://www.actransit.org/bus-lines-schedules/51B,008000,000000,0
+AC:210,AC,210,Fremont Blvd. - Mission San Jose,,3,http://www.actransit.org/bus-lines-schedules/210,EE82EE,000000,0
+AC:54,AC,54,35th Ave. - Merritt College,,3,http://www.actransit.org/bus-lines-schedules/54,008080,000000,0
+AC:51A,AC,51A,Broadway - Santa Clara,,3,http://www.actransit.org/bus-lines-schedules/51A,808000,000000,0
+AC:45,AC,45,Seminary - Sobrante Park,,3,http://www.actransit.org/bus-lines-schedules/45,008080,000000,0
+AC:840,AC,840,Foothill - Eastmont All Nighter,,3,http://www.actransit.org/bus-lines-schedules/840,FFC0CB,000000,0
+AC:93,AC,93,Ashland - San Lorenzo - A St.,,3,http://www.actransit.org/bus-lines-schedules/93,FFC0CB,000000,0
+AC:95,AC,95,D St. - Maud - Fairview,,3,http://www.actransit.org/bus-lines-schedules/95,E0B0FF,000000,0
+AC:251,AC,251,Paseo Padre - Thornton - Cherry,,3,http://www.actransit.org/bus-lines-schedules/251,4f7942,000000,0
+AC:J,AC,J,Sacramento -  Christie Transbay,,3,http://www.actransit.org/bus-lines-schedules/J,FFFF00,000000,0
+AC:L,AC,L,San Pablo Transbay,,3,http://www.actransit.org/bus-lines-schedules/L,8A8AFF,000000,0
+AC:19,AC,19,Buena Vista - Fruitvale,,3,http://www.actransit.org/bus-lines-schedules/19,87CEEB,000000,0
+AC:98,AC,98,Eastmont - 98th Ave. - Edgewater,,3,http://www.actransit.org/bus-lines-schedules/98,FFC0CB,000000,0
+AC:F,AC,F,Adeline - Market Transbay,,3,http://www.actransit.org/bus-lines-schedules/F,FFA500,000000,0
+AC:57,AC,57,40th St. - MacArthur,,3,http://www.actransit.org/bus-lines-schedules/57,8A8AFF,000000,0
+AC:88,AC,88,Sacramento - Market,,3,http://www.actransit.org/bus-lines-schedules/88,808000,000000,0
+AC:21,AC,21,Dimond - Fruitvale - Bay Farm,,3,http://www.actransit.org/bus-lines-schedules/21,008000,000000,0
+AC:62,AC,62,7th St. - San Antonio - 23rd Av.,,3,http://www.actransit.org/bus-lines-schedules/62,A52A2A,000000,0
+AC:40,AC,40,Foothill - Bancroft - Bay Fair,,3,http://www.actransit.org/bus-lines-schedules/40,EE82EE,000000,0
+AC:LA,AC,LA,Hilltop - Pierce Transbay,,3,http://www.actransit.org/bus-lines-schedules/LA,FFA500,000000,0
+AC:65,AC,65,Grizzly Peak - Euclid,,3,http://www.actransit.org/bus-lines-schedules/65,EE82EE,000000,0
+AC:7,AC,7,Arlington - 1000 Oaks - Shattuck,,3,http://www.actransit.org/bus-lines-schedules/7,4f7942,000000,0
+AC:1T,AC,1T,Uptown Oakland\ San Leandro BART Southbound OWL,,3,http://www.actransit.org/bus-lines-schedules/1T,00ABC8,000000,0
+AC:NL,AC,NL,MacArthur Transbay Limited,,3,http://www.actransit.org/bus-lines-schedules/NL,FFA500,000000,0
+AC:200,AC,200,Decoto - Newark Blvd. - Mowry,,3,http://www.actransit.org/bus-lines-schedules/200,A52A2A,000000,0
+AC:216,AC,216,Niles - Stevenson - NewPark,,3,http://www.actransit.org/bus-lines-schedules/216,FFA500,000000,0
+AC:239,AC,239,Grimmer - Warm Springs,,3,http://www.actransit.org/bus-lines-schedules/239,008080,000000,0
+AC:20,AC,20,Dimond - Fruitvale - South Shore,,3,http://www.actransit.org/bus-lines-schedules/20,FFA500,000000,0
+AC:NX,AC,NX,Grand Lake - Laurel  Transbay,,3,http://www.actransit.org/bus-lines-schedules/NX,FFFF00,000000,0
+AC:376,AC,376,Cutting - North Richmond Nights,,3,http://www.actransit.org/bus-lines-schedules/376,FFFF00,000000,0
+AC:39,AC,39,Skyline - Dimond - Fruitvale,,3,http://www.actransit.org/bus-lines-schedules/39,E6E6FA,000000,0
+AC:NX2,AC,NX2,MacArthur - Laurel Transbay,,3,http://www.actransit.org/bus-lines-schedules/NX2,87CEEB,000000,0
+AC:O,AC,O,Santa Clara - Encinal Transbay,,3,http://www.actransit.org/bus-lines-schedules/O,E6E6FA,000000,0
+AC:P,AC,P,Piedmont - Oakland Ave. Transbay,,3,http://www.actransit.org/bus-lines-schedules/P,E6E6FA,000000,0
+AC:U,AC,U,Stanford - Dumbarton - Fremont,,3,http://www.actransit.org/bus-lines-schedules/U,FF6666,000000,0
+AC:W,AC,W,High - South Shore Transbay,,3,http://www.actransit.org/bus-lines-schedules/W,FFC0CB,000000,0
+AC:800,AC,800,Rich - Oak Transbay All Nighter,,3,http://www.actransit.org/bus-lines-schedules/800,7FFF00,000000,0
+AC:52,AC,52,UC Village - Cedar - UC Campus,,3,http://www.actransit.org/bus-lines-schedules/52,FFC0CB,000000,0
+AC:60,AC,60,CSUEB - Southland - Chabot Coll,,3,http://www.actransit.org/bus-lines-schedules/60,E6E6FA,000000,0
+AC:67,AC,67,Tilden Park - Spruce - Oxford,,3,http://www.actransit.org/bus-lines-schedules/67,FFFF00,000000,0
+AC:802,AC,802,San Pablo All Nighter,,3,http://www.actransit.org/bus-lines-schedules/802,4f7942,000000,0
+AC:851,AC,851,College - Broadway All Nighter,,3,http://www.actransit.org/bus-lines-schedules/851,E0B0FF,000000,0
+AC:NX1,AC,NX1,MacArthur - Grand Lake Transbay,,3,http://www.actransit.org/bus-lines-schedules/NX1,7FFF00,000000,0
+AC:V,AC,V,Montclair - Park Blvd. Transbay,,3,http://www.actransit.org/bus-lines-schedules/V,E6E6FA,000000,0
+AC:212,AC,212,Fremont Blvd. - Pacific Commons,,3,http://www.actransit.org/bus-lines-schedules/212,8A8AFF,000000,0
+AC:217,AC,217,Mission San Jose - Milpitas,,3,http://www.actransit.org/bus-lines-schedules/217,E6E6FA,000000,0
+AC:71,AC,71,Parchester - Rumrill - Carlson,,3,http://www.actransit.org/bus-lines-schedules/71,8A8AFF,000000,0
+AC:702,AC,702,Pleas Hill Transbay Early Bird,,3,http://www.actransit.org/bus-lines-schedules/702,ffffff,000000,0
+AC:232,AC,232,Mission - Decoto - NewPark,,3,http://www.actransit.org/bus-lines-schedules/232,EE82EE,000000,0
+AC:34,AC,34,Estudillo - Davis - Meekland,,3,http://www.actransit.org/bus-lines-schedules/34,EE82EE,000000,0
+AC:35,AC,35,Estudillo - Davis -  Lewelling,,3,http://www.actransit.org/bus-lines-schedules/35,008000,000000,0
+AC:41,AC,41,Whitman - Huntwood - Union Landg,,3,http://www.actransit.org/bus-lines-schedules/41,7FFF00,000000,0
+AC:56,AC,56,Santa Clara - Weekes - Huntwood,,3,http://www.actransit.org/bus-lines-schedules/56,87CEEB,000000,0
+AC:6,AC,6,Berkeley - Telegraph - Oakland,,3,http://www.actransit.org/bus-lines-schedules/6,8A8AFF,000000,0
+AC:72,AC,72,Hilltop - CCC - San Pablo,,3,http://www.actransit.org/bus-lines-schedules/72,008000,000000,0
+AC:10,AC,10,E. 14th St. - Mission,,3,http://www.actransit.org/bus-lines-schedules/10,A52A2A,000000,0
+AC:801,AC,801,E 14th - Mission  All Nighter,,3,http://www.actransit.org/bus-lines-schedules/801,FFFF00,000000,0
+AC:86,AC,86,Winton - Industrial - Tennyson,,3,http://www.actransit.org/bus-lines-schedules/86,FFA500,000000,0
+AC:805,AC,805,MacArthur - Airport All Nighter,,3,http://www.actransit.org/bus-lines-schedules/805,FFC0CB,000000,0
+AC:74,AC,74,San Pablo Dam - 23rd St.,,3,http://www.actransit.org/bus-lines-schedules/74,E6E6FA,000000,0
+AC:90,AC,90,85th Ave. - Elmhurst - 90th Ave.,,3,http://www.actransit.org/bus-lines-schedules/90,FF6666,000000,0
+AC:97,AC,97,Hesperian - Alvarado - Decoto,,3,http://www.actransit.org/bus-lines-schedules/97,008080,000000,0
+AC:73,AC,73,73rd Ave. - Coliseum - Airport,,3,http://www.actransit.org/bus-lines-schedules/73,A52A2A,000000,0
+AC:12,AC,12,MLK Jr. - Temescal - Grand,,3,http://www.actransit.org/bus-lines-schedules/12,87CEEB,000000,0
+AC:701,AC,701,Pittsburg/BP Transbay Early Bird,,3,http://www.actransit.org/bus-lines-schedules/701,ffffff,000000,0
+AC:706,AC,706,Bay Fair Transbay Early Bird,,3,http://www.actransit.org/bus-lines-schedules/706,ffffff,000000,0
+AC:70,AC,70,Rheem - San Pablo Dam - Appian,,3,http://www.actransit.org/bus-lines-schedules/70,4f7942,000000,0
+AC:72R,AC,72R,San Pablo Rapid,,3,http://www.actransit.org/bus-lines-schedules/72R,008080,000000,0
+AC:76,AC,76,Hilltop - Market -  Cutting,,3,http://www.actransit.org/bus-lines-schedules/76,FFC0CB,000000,0
+AC:29,AC,29,Hollis - Peralta - Lakeshore,,3,http://www.actransit.org/bus-lines-schedules/29,FF6666,000000,0
+AC:33,AC,33,Piedmont - Harrison - Park Blvd.,,3,http://www.actransit.org/bus-lines-schedules/33,4f7942,000000,0
+AC:36,AC,36,Dwight - Shellmound - Adeline,,3,http://www.actransit.org/bus-lines-schedules/36,E6E6FA,000000,0
+AC:79,AC,79,Colusa - The Alameda - Claremont,,3,http://www.actransit.org/bus-lines-schedules/79,008080,000000,0
+AC:96,AC,96,Alameda Pt. - 14th Ave. - Dimond,,3,http://www.actransit.org/bus-lines-schedules/96,008080,000000,0
+AC:28,AC,28,Alvarado - Castro Valley - B St.,,3,http://www.actransit.org/bus-lines-schedules/28,4f7942,000000,0
+AM:Shuttle,AM,Shuttle,Shuttle_Auburn,Shuttle to Auburn,3,https://www.capitolcorridor.org/wp-content/uploads/2020/03/Bus_Schedules_3.21.20.pdf,,,0
+AM:SF,AM,SF,Shuttle_SF,Shuttle to San Francisco Transbay Terminal,3,http://capitolcorridor.org/route_and_schedules/,,,0
+AM:CC,AM,CC,Capitol Corridor,"Daily train service between Auburn, Sacramento, Oakland and San Jose",2,http://capitolcorridor.org/route_and_schedules/,,,0
+CM:SCC Shuttle,CM,SCC Shuttle,San Carlos Commuter,,3,http://commute.org/shuttles/routes-and-schedules/290-san-carlos-commuter,5b91cc,,0
+CM:MPT Shuttle,CM,MPT Shuttle,Redwood City Midpoint Caltrain,,3,http://commute.org/shuttles/routes-and-schedules/25-redwood-city-midpoint-caltrain,5b91cc,,0
+CM:RLC Shuttle,CM,RLC Shuttle,Redwood LIFE Caltrain,,3,http://commute.org/shuttles/routes-and-schedules/248-redwood-shores-bayshore-technology-park-caltrain,5b91cc,,0
+CM:LC Shuttle,CM,LC Shuttle,Lincoln Centre,,3,http://commute.org/shuttles/routes-and-schedules/106-foster-city-lincoln-centre-caltrain,5b91cc,,0
+CM:NB Shuttle,CM,NB Shuttle,North Burlingame,,3,http://commute.org/shuttles/routes-and-schedules/89-burlingame-north-bartcaltrain,5b91cc,,0
+CM:OPC Shuttle,CM,OPC Shuttle,Oyster Point Caltrain,,3,http://commute.org/shuttles/routes-and-schedules/78-so-san-francisco-oyster-pt-caltrain,5b91cc,,0
+CM:OPF Shuttle,CM,OPF Shuttle,Oyster Point Ferry,,3,http://commute.org/shuttles/routes-and-schedules/129-so-san-francisco-oyster-point-ferry,5b91cc,,0
+CM:SEA Shuttle,CM,SEA Shuttle,Seaport Centre,,3,http://commute.org/shuttles/routes-and-schedules/122-redwood-city-seaport-caltrain,5b91cc,,0
+CM:OTP Shuttle,CM,OTP Shuttle,Genesis One Tower Place BART/Caltrain,,3,http://commute.org/shuttles-info/127-so-san-francisco-genesis-one-tower-place,5b91cc,,0
+CM:MB Shuttle,CM,MB Shuttle,Millbrae Broadway,,3,http://www.smctd.com/Shuttles/Millbrae_Broadway_Shuttle.html,5b91cc,,0
+CM:BH Shuttle,CM,BH Shuttle,Belmont Hillsdale,,3,http://www.smctd.com/Shuttles/Belmont_Hillsdale_Shuttle.html,5b91cc,,0
+CM:TD Shuttle,CM,TD Shuttle,Twin Dolphin,,3,https://www.smctd.com/Shuttles/Twin_Dolphin_Shuttle.html,5b91cc,,0
+CM:PS Shuttle,CM,PS Shuttle,Pacific Shores,,3,http://www.smctd.com/Shuttles/Pacific_Shores_Shuttle.html,5b91cc,,0
+CM:MAR Shuttle,CM,MAR Shuttle,Mariners' Island,,3,http://commute.org/shuttles/routes-and-schedules/27-san-mateo-mariners-island-caltrain,5b91cc,,0
+CM:NOR Shuttle,CM,NOR Shuttle,San Mateo Norfolk,,3,http://commute.org/shuttles/routes-and-schedules/28-san-mateo-norfolk-caltrain,5b91cc,,0
+CM:UGC Shuttle,CM,UGC Shuttle,Utah-Grand Caltrain,,3,http://commute.org/shuttles/routes-and-schedules/82-so-san-francisco-utahgrand-caltrain,5b91cc,,0
+CM:BAY Shuttle,CM,BAY Shuttle,Burlingame Bayside,,3,http://commute.org/shuttles/routes-and-schedules/87-burlingame-bayside-bartcaltrain,5b91cc,,0
+CM:NFC Shuttle,CM,NFC Shuttle,North Foster City,,3,http://commute.org/shuttles/routes-and-schedules/22-foster-city-north-bartcaltrain,5b91cc,,0
+CM:CAM Shuttle,CM,CAM Shuttle,Campus Drive,,3,http://commute.org/shuttles/routes-and-schedules/26-san-mateo-campus-drive-caltrain,5b91cc,,0
+CM:BBC Shuttle,CM,BBC Shuttle,Brisbane-Bayshore Caltrain,,3,http://commute.org/shuttles/routes-and-schedules/15-brisbane-bayshore-caltrain,5b91cc,,0
+CM:OPB Shuttle,CM,OPB Shuttle,Oyster Point BART,,3,http://commute.org/shuttles/routes-and-schedules/98-so-san-francisco-oyster-pt-bart,5b91cc,,0
+CM:UGB Shuttle,CM,UGB Shuttle,Utah-Grand BART,,3,http://commute.org/shuttles/routes-and-schedules/81-so-san-francisco-utahgrand-bart,5b91cc,,0
+CM:UGF Shuttle,CM,UGF Shuttle,Utah-Grand Ferry,,3,http://commute.org/shuttles/routes-and-schedules/120-so-san-francisco-utahgrand-ferry,5b91cc,,0
+CM:BCP Shuttle,CM,BCP Shuttle,Brisbane Crocker Park,,3,http://commute.org/shuttles/routes-and-schedules/16-brisbane-crocker-park-bartcaltrain,5b91cc,,0
+SM:FCX,SM,FCX,Foster City - San Francisco,,3,,,,0
+SM:FLX,SM,FLX,Flex Route Pacifica,,3,,,,0
+SM:713,SM,713,SF Transit Center - San Francisco International,,3,,,,0
+SM:SFO,SM,SFO,SFO - Millbrae,,3,,,,0
+SM:83,SM,83,Hillview School - Bay/Marsh,,3,,,,0
+SM:110,SM,110,Daly City BART - Linda Mar Park & Ride,,3,,,,0
+SM:120,SM,120,Colma BART - Brunswick/Templeton,,3,,,,0
+SM:256,SM,256,Hillsdale Mall - Foster City,,3,,,,0
+SM:260,SM,260,San Carlos Caltrain - College of San Mateo,,3,,,,0
+SM:270,SM,270,Redwood City Caltrain - Florence/17th loop,,3,,,,0
+SM:112,SM,112,Linda Mar Park & Ride - Colma BART,,3,,,,0
+SM:121,SM,121,Lowell/Hanover - Skyline College,,3,,,,0
+SM:122,SM,122,South SF BART - Stonestown/SF State,,3,,,,0
+SM:130,SM,130,Daly City BART - Airport/Linden,,3,,,,0
+SM:140,SM,140,Airtrain - West Manor/Palmetto,,3,,,,0
+SM:141,SM,141,Airport/Linden - Shelter Creek,,3,,,,0
+SM:250,SM,250,5th/El Camino - College of San Mateo,,3,,,,0
+SM:251,SM,251,Foster City - Hillsdale Mall,,3,,,,0
+SM:17,SM,17,Linda Mar Park & Ride - Pescadero,,3,,,,0
+SM:38,SM,38,Safe Harbor Shelter,,3,,,,0
+SM:280,SM,280,Purdue/Fordham - Stanford Mall,,3,,,,0
+SM:281,SM,281,Onetta Harris Ctr - Stanford Mall,,3,,,,0
+SM:292,SM,292,San Francisco - SFO - Hillsdale Mall,,3,,,,0
+SM:296,SM,296,Redwood City Transit Center - Bayshore/Donohoe,,3,,,,0
+SM:ECR,SM,ECR,Daly City BART - Palo Alto Transit Ctr,,3,,,,0
+SM:278,SM,278,Woodside/Alameda - Canada College - Saturday Only,,3,,,,0
+SM:286,SM,286,Ringwood/Arlington - Monte Rosa/Eastridge,,3,,,,0
+SM:294,SM,294,SM Med Ctr - Hillsdale - CSM - Half Moon Bay,,3,,,,0
+SM:295,SM,295,San Mateo Caltrain - Redwood City Transit Center,,3,,,,0
+SM:397,SM,397,San Francisco - Palo Alto Transit Ctr,,3,,,,0
+SM:398,SM,398,Redwood City Transit Center to SF Transbay Termina,,3,,,,0
