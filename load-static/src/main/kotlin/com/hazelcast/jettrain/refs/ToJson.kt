@@ -47,3 +47,14 @@ object ToTrip : ToJson(
         "trip_headsign" to 3
     )
 )
+
+
+object ToStopTime : ToJson(
+    mapOf(
+        "route_id" to 0,
+        "arrival_time" to 1,
+        "departure_time" to 2,
+        "stop_id" to 3,
+        "stop_sequence" to 4
+    )
+)

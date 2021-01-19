@@ -8,6 +8,7 @@ internal val stops = pipeline("stops", ToStop)
 internal val agencies = pipeline("agency", ToAgency)
 internal val routes = pipeline("routes", ToRoute)
 internal val trips = pipeline("trips", ToTrip)
+internal val stopTimes = pipeline("stop_times", ToStopTime)
 
 private fun pipeline(name: String, toJson: FunctionEx<List<String>, String?>) =
     Pipeline.create().apply {
