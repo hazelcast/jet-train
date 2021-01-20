@@ -1,6 +1,7 @@
 package com.hazelcast.jettrain.refs
 
 import com.hazelcast.function.FunctionEx
+import com.hazelcast.internal.json.JsonArray
 import com.hazelcast.internal.json.JsonObject
 
 sealed class ToJson(private val mappings: Map<String, Int>) : FunctionEx<List<String>, String?> {
@@ -48,13 +49,22 @@ object ToTrip : ToJson(
     )
 )
 
-
-object ToStopTime : ToJson(
-    mapOf(
-        "route_id" to 0,
-        "arrival_time" to 1,
-        "departure_time" to 2,
-        "stop_id" to 3,
-        "stop_sequence" to 4
-    )
-)
+object ToStopTime : FunctionEx<Pair<String, List<String>>, JsonObject> {
+    override fun applyEx(pair: Pair<String, List<String>>): JsonObject {
+        val wrapper = JsonObject().add("id", pair.first)
+        val schedule = JsonArray()
+        val list = pair.second
+        // Iterating "normally" throws a ConcurrentModificationException
+        list.indices.forEach {
+            val splits = list[it].split(',')
+            val json = JsonObject()
+                .add("departure", splits[1])
+                .add("arrival", splits[2])
+                .add("stopId", splits[3])
+                .add("sequence", splits[4])
+            schedule.add(json)
+        }
+        wrapper.add("schedule", schedule)
+        return wrapper
+    }
+}
