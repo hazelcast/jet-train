@@ -49,22 +49,18 @@ object ToTrip : ToJson(
     )
 )
 
-object ToStopTime : FunctionEx<Pair<String, List<String>>, JsonObject> {
-    override fun applyEx(pair: Pair<String, List<String>>): JsonObject {
-        val wrapper = JsonObject().add("id", pair.first)
-        val schedule = JsonArray()
-        val list = pair.second
-        // Iterating "normally" throws a ConcurrentModificationException
-        list.indices.forEach {
-            val splits = list[it].split(',')
+object ToStopTime : FunctionEx<Map.Entry<String, List<String>>, JsonObject> {
+    override fun applyEx(entry: Map.Entry<String, List<String>>): JsonObject {
+        val wrapper = JsonObject().add("id", entry.key)
+        val schedule = entry.value.fold(JsonArray()) { array, element ->
+            val splits = element.split(',')
             val json = JsonObject()
                 .add("departure", splits[1])
                 .add("arrival", splits[2])
                 .add("stopId", splits[3])
                 .add("sequence", splits[4])
-            schedule.add(json)
+            array.add(json)
         }
-        wrapper.add("schedule", schedule)
-        return wrapper
+        return wrapper.add("schedule", schedule)
     }
 }
