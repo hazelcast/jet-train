@@ -21,12 +21,13 @@ internal fun pipeline(token: String) = Pipeline.create().apply {
         .flatMap(ToEntities)
         .map(ToJson)
         .filter(OnlyEntityWithTrip.and(OnlyEntityWithStop))
-        .mapUsingService(
-            ServiceFactories.iMapService("stop_times"),
-            EnrichWithStopTime
-        ).mapUsingIMap("trips", TripIdExtractor, EnrichWithTrip)
+        .mapUsingIMap("stop_times", TripIdExtractor, EnrichWithStopTimes)
+        .mapUsingIMap("trips", TripIdExtractor, EnrichWithTrip)
         .mapUsingIMap("routes", RouteIdExtractor, EnrichWithRoute)
-        .mapUsingIMap("stops", StopIdExtractor, EnrichWithStop)
+        .mapUsingService(
+            ServiceFactories.iMapService("stops"),
+            EnrichWithStop
+        )
         .peek()
         .map(ToEntry)
         .writeTo(Sinks.remoteMap("update", clientConfig))
