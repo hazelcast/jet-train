@@ -60,7 +60,8 @@ object EnrichWithRoute : BiFunctionEx<JsonObject, String?, JsonObject> {
 object EnrichWithStopTimes : BiFunctionEx<JsonObject, String?, JsonObject> {
     private val parser = JsonParser()
     override fun applyEx(json: JsonObject, scheduleString: String?) =
-        json.apply {
+        if (scheduleString == null) json
+        else json.apply {
             val schedule = parser.parse(scheduleString).asJsonArray
             add("schedule", schedule)
         }
