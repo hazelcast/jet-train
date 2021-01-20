@@ -4,6 +4,8 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.hazelcast.function.BiFunctionEx
 import com.hazelcast.function.FunctionEx
+import com.hazelcast.map.IMap
+import com.hazelcast.query.Predicates
 
 object TripIdExtractor : FunctionEx<JsonObject, String> {
     override fun applyEx(json: JsonObject): String {
@@ -71,4 +73,18 @@ object EnrichWithStop : BiFunctionEx<JsonObject, String?, JsonObject> {
                 remove("stopId")
             }
         }
+}
+
+object EnrichWithStopTime : BiFunctionEx<IMap<String, String>, JsonObject, JsonObject> {
+    override fun applyEx(stopTimes: IMap<String, String>, json: JsonObject): JsonObject {
+        val vehicle = json.getAsJsonObject("vehicle")
+        val tripId = vehicle?.getAsJsonObject("trip")
+            ?.getAsJsonPrimitive("tripId")
+            ?.asString
+        if (tripId != null) {
+            val values: Collection<String> = stopTimes.values(Predicates.equal("trip_id", tripId))
+            println(values)
+        }
+        return json
+    }
 }
