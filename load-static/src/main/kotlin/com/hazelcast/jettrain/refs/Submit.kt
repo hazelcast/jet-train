@@ -44,6 +44,16 @@ class Trips {
     }
 }
 
+@Suppress("Unused")
+class StopTimes {
+    companion object {
+        @JvmStatic
+        fun main(vararg args: String) {
+            submit(stopTimes)
+        }
+    }
+}
+
 private fun submit(pipeline: Pipeline) {
     JetBootstrap.getInstance().withCloseable().use { jet ->
         jet.newJob(pipeline, jobConfig)

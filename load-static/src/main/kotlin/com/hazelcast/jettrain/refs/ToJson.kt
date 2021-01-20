@@ -1,6 +1,7 @@
 package com.hazelcast.jettrain.refs
 
 import com.hazelcast.function.FunctionEx
+import com.hazelcast.internal.json.JsonArray
 import com.hazelcast.internal.json.JsonObject
 
 sealed class ToJson(private val mappings: Map<String, Int>) : FunctionEx<List<String>, String?> {
@@ -47,3 +48,19 @@ object ToTrip : ToJson(
         "trip_headsign" to 3
     )
 )
+
+object ToStopTime : FunctionEx<Map.Entry<String, List<String>>, JsonObject> {
+    override fun applyEx(entry: Map.Entry<String, List<String>>): JsonObject {
+        val wrapper = JsonObject().add("id", entry.key)
+        val schedule = entry.value.fold(JsonArray()) { array, element ->
+            val splits = element.split(',')
+            val json = JsonObject()
+                .add("departure", splits[1])
+                .add("arrival", splits[2])
+                .add("stopId", splits[3])
+                .add("sequence", splits[4])
+            array.add(json)
+        }
+        return wrapper.add("schedule", schedule)
+    }
+}

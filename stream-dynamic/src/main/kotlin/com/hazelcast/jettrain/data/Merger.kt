@@ -1,9 +1,12 @@
 package com.hazelcast.jettrain.data
 
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.hazelcast.function.BiFunctionEx
 import com.hazelcast.function.FunctionEx
+import com.hazelcast.map.IMap
 
 object TripIdExtractor : FunctionEx<JsonObject, String> {
     override fun applyEx(json: JsonObject): String {
@@ -54,21 +57,42 @@ object EnrichWithRoute : BiFunctionEx<JsonObject, String?, JsonObject> {
         }
 }
 
-object StopIdExtractor : FunctionEx<JsonObject, String?> {
-    override fun applyEx(json: JsonObject) = json
-        .getAsJsonObject("vehicle")
-        ?.getAsJsonPrimitive("stopId")
-        ?.asString
+object EnrichWithStopTimes : BiFunctionEx<JsonObject, String?, JsonObject> {
+    private val parser = JsonParser()
+    override fun applyEx(json: JsonObject, scheduleString: String?) =
+        json.apply {
+            val schedule = parser.parse(scheduleString).asJsonArray
+            add("schedule", schedule)
+        }
 }
 
-object EnrichWithStop : BiFunctionEx<JsonObject, String?, JsonObject> {
+object EnrichWithStop : BiFunctionEx<IMap<String, String>, JsonObject, JsonObject> {
     private val parser = JsonParser()
-    override fun applyEx(json: JsonObject, stopString: String?) =
-        json.apply {
-            val stop = parser.parse(stopString).asJsonObject
-            getAsJsonObject("vehicle").apply {
-                add("stop", stop)
+    override fun applyEx(stops: IMap<String, String>, json: JsonObject): JsonObject {
+        return json.apply {
+            val vehicle = json.getAsJsonObject("vehicle")
+            val mainStopId = vehicle
+                ?.getAsJsonPrimitive("stopId")
+                ?.asString
+            stops[mainStopId]?.let {
+                add("stop", parser.parse(it))
                 remove("stopId")
             }
+            val schedule = getAsJsonArray("schedule")
+            val newSchedule = schedule.map {
+                val element = it as JsonObject
+                val stopId = element["stopId"].asString
+                val stopString = stops[stopId]
+                if (stopString == null) it
+                else it.apply {
+                    add("stop", parser.parse(stopString))
+                    remove("stopId")
+                }
+            }.fold(JsonArray()) { acc, element ->
+                acc.add(element)
+                acc
+            }
+            add("schedule", newSchedule)
         }
+    }
 }
