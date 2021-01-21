@@ -269,43 +269,6 @@ PE:311,PE,311,Downtown Kjhs/cghs,,3,http://petaluma.rideralerts.com/infopoint311
 PE:33,PE,33,Eastside Counter-Clock,,3,http://petaluma.rideralerts.com/infopoint33,293F8B,FFFFFF,0
 PE:312,PE,312,Cghs / Eastside Transit Center,,3,http://petaluma.rideralerts.com/infopoint312,559AB4,ffffff,0
 PE:10,PE,10,Petaluma Blvd,,3,http://petaluma.rideralerts.com/infopoint10,B53B2C,FFFFFF,0
-SF:J,SF,J,CHURCH,,0,https://SFMTA.com/J,,,0
-SF:7,SF,7,HAIGHT-NORIEGA,,3,https://SFMTA.com/7,,,0
-SF:30,SF,30,STOCKTON,,3,https://SFMTA.com/30,,,0
-SF:37,SF,37,CORBETT,,3,https://SFMTA.com/37,,,0
-SF:9R,SF,9R,SAN BRUNO RAPID,,3,https://SFMTA.com/9R,,,0
-SF:TBUS,SF,TBUS,THIRD BUS,,3,https://SFMTA.com/TBUS,,,0
-SF:45,SF,45,UNION-STOCKTON,,3,https://SFMTA.com/45,,,0
-SF:48,SF,48,QUINTARA-24TH STREET,,3,https://SFMTA.com/48,,,0
-SF:67,SF,67,BERNAL HEIGHTS,,3,https://SFMTA.com/67,,,0
-SF:43,SF,43,MASONIC,,3,https://SFMTA.com/43,,,0
-SF:54,SF,54,FELTON,,3,https://SFMTA.com/54,,,0
-SF:MBUS,SF,MBUS,OCEAN VIEW BUS,,3,https://SFMTA.com/MBUS,,,0
-SF:KBUS,SF,KBUS,INGLESIDE BUS,,3,https://SFMTA.com/KBUS,,,0
-SF:38R,SF,38R,GEARY RAPID,,3,https://SFMTA.com/38R,,,0
-SF:LBUS,SF,LBUS,TARAVAL BUS,,3,https://SFMTA.com/LBUS,,,0
-SF:714,SF,714,BART EARLY BIRD,,3,https://SFMTA.com/714,,,0
-SF:5,SF,5,FULTON,,3,https://SFMTA.com/5,,,0
-SF:12,SF,12,FOLSOM-PACIFIC,,3,https://SFMTA.com/12,,,0
-SF:28,SF,28,19TH AVENUE,,3,https://SFMTA.com/28,,,0
-SF:NBUS,SF,NBUS,JUDAH BUS,,3,https://SFMTA.com/NBUS,,,0
-SF:14R,SF,14R,MISSION RAPID,,3,https://SFMTA.com/14R,,,0
-SF:8,SF,8,BAYSHORE,,3,https://SFMTA.com/8,,,0
-SF:14,SF,14,MISSION,,3,https://SFMTA.com/14,,,0
-SF:9,SF,9,SAN BRUNO,,3,https://SFMTA.com/9,,,0
-SF:19,SF,19,POLK,,3,https://SFMTA.com/19,,,0
-SF:22,SF,22,FILLMORE,,3,https://SFMTA.com/22,,,0
-SF:25,SF,25,TREASURE ISLAND,,3,https://SFMTA.com/25,,,0
-SF:29,SF,29,SUNSET,,3,https://SFMTA.com/29,,,0
-SF:44,SF,44,O'SHAUGHNESSY,,3,https://SFMTA.com/44,,,0
-SF:24,SF,24,DIVISADERO,,3,https://SFMTA.com/24,,,0
-SF:38,SF,38,GEARY,,3,https://SFMTA.com/38,,,0
-SF:49,SF,49,VAN NESS-MISSION,,3,https://SFMTA.com/49,,,0
-SF:90,SF,90,SAN BRUNO OWL,,3,https://SFMTA.com/90,,,0
-SF:L-OWL,SF,L-OWL,OWL TARAVAL,,3,https://SFMTA.com/L-OWL,,,0
-SF:91,SF,91,3RD-19TH AVE OWL,,3,https://SFMTA.com/91,,,0
-SF:N-OWL,SF,N-OWL,OWL JUDAH,,3,https://SFMTA.com/N-OWL,,,0
-SF:1,SF,1,CALIFORNIA,,3,https://SFMTA.com/1,,,0
 CC:35,CC,35,ROUTE 35,,3,,006493,000000,0
 CC:10,CC,10,ROUTE 10,,3,,006493,000000,0
 CC:17,CC,17,ROUTE 17,,3,,006493,000000,0
@@ -354,16 +317,6 @@ SR:1,SR,1,Mendocino Ave,,3,https://santarosaivl.availtec.com/InfoPoint?routes[se
 SR:3,SR,3,Santa Rosa Ave,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=3,ED017F,FFFFFF,0
 SR:12,SR,12,Corby Ave - Roseland,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=12,0BA08E,FFFFFF,0
 SR:10,SR,10,North City Connector,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=10,F99F38,FFFFFF,0
-GG:705,GG,705,Oakland - San Francisco,,3,,CC3333,FFFFFF,0
-GG:71,GG,71,Novato -Marin City,,3,,53A946,FFFFFF,0
-GG:101,GG,101,Santa Rosa - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_101.php,3366FF,FFFFFF,0
-GG:704,GG,704,Del Norte BART Station - San Francisco,,3,,CC3333,FFFFFF,0
-GG:54,GG,54,Novato - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_54.php,CC3333,FFFFFF,0
-GG:30,GG,30,San Rafael - San Francisco,,3,,3366FF,FFFFFF,0
-GG:40,GG,40,Del Norte BART Station - San Rafael,,3,http://goldengatetransit.org/schedules/current/route_40.php,3366FF,FFFFFF,0
-GG:70,GG,70,Novato - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_70.php,3366FF,FFFFFF,0
-GG:72,GG,72,Santa Rosa - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_72.php,CC3333,FFFFFF,0
-GG:27,GG,27,San Rafael - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_27.php,CC3333,FFFFFF,0
 EM:Hollis South,EM,Hollis South,,,3,https://www.emerygoround.com/commute-service.html,ffb311,000000,0
 EM:Hollis North,EM,Hollis North,,,3,https://www.emerygoround.com/commute-service.html,ff0001,ffffff,0
 EM:North Shellmound,EM,North Shellmound,,,3,https://www.emerygoround.com/commute-service.html,603669,ffffff,0
@@ -513,3 +466,56 @@ SM:294,SM,294,SM Med Ctr - Hillsdale - CSM - Half Moon Bay,,3,,,,0
 SM:295,SM,295,San Mateo Caltrain - Redwood City Transit Center,,3,,,,0
 SM:397,SM,397,San Francisco - Palo Alto Transit Ctr,,3,,,,0
 SM:398,SM,398,Redwood City Transit Center to SF Transbay Termina,,3,,,,0
+SF:7,SF,7,HAIGHT-NORIEGA,,3,https://SFMTA.com/7,,,0
+SF:37,SF,37,CORBETT,,3,https://SFMTA.com/37,,,0
+SF:J,SF,J,CHURCH,,0,https://SFMTA.com/J,,,0
+SF:48,SF,48,QUINTARA-24TH STREET,,3,https://SFMTA.com/48,,,0
+SF:TBUS,SF,TBUS,THIRD BUS SHUTTLE,,3,https://SFMTA.com/TBUS,,,0
+SF:67,SF,67,BERNAL HEIGHTS,,3,https://SFMTA.com/67,,,0
+SF:8AX,SF,8AX,BAYSHORE A EXPRESS,,3,https://SFMTA.com/8AX,,,0
+SF:9R,SF,9R,SAN BRUNO RAPID,,3,https://SFMTA.com/9R,,,0
+SF:15,SF,15,BAYVIEW HUNTERS POINT EXPRESS,,3,https://SFMTA.com/15,,,0
+SF:27,SF,27,BRYANT,,3,https://SFMTA.com/27,,,0
+SF:KBUS,SF,KBUS,INGLESIDE BUS,,3,https://SFMTA.com/KBUS,,,0
+SF:30,SF,30,STOCKTON,,3,https://SFMTA.com/30,,,0
+SF:54,SF,54,FELTON,,3,https://SFMTA.com/54,,,0
+SF:MBUS,SF,MBUS,OCEAN VIEW BUS,,3,https://SFMTA.com/MBUS,,,0
+SF:43,SF,43,MASONIC,,3,https://SFMTA.com/43,,,0
+SF:33,SF,33,ASHBURY-18TH ST,,3,https://SFMTA.com/33,,,0
+SF:38R,SF,38R,GEARY RAPID,,3,https://SFMTA.com/38R,,,0
+SF:45,SF,45,UNION-STOCKTON,,3,https://SFMTA.com/45,,,0
+SF:55,SF,55,DOGPATCH,,3,https://SFMTA.com/55,,,0
+SF:5,SF,5,FULTON,,3,https://SFMTA.com/5,,,0
+SF:12,SF,12,FOLSOM-PACIFIC,,3,https://SFMTA.com/12,,,0
+SF:28,SF,28,19TH AVENUE,,3,https://SFMTA.com/28,,,0
+SF:714,SF,714,BART EARLY BIRD,,3,https://SFMTA.com/714,,,0
+SF:LBUS,SF,LBUS,TARAVAL BUS,,3,https://SFMTA.com/LBUS,,,0
+SF:NBUS,SF,NBUS,JUDAH BUS,,3,https://SFMTA.com/NBUS,,,0
+SF:T,SF,T,THIRD,,0,https://SFMTA.com/T,,,0
+SF:14R,SF,14R,MISSION RAPID,,3,https://SFMTA.com/14R,,,0
+SF:8,SF,8,BAYSHORE,,3,https://SFMTA.com/8,,,0
+SF:14,SF,14,MISSION,,3,https://SFMTA.com/14,,,0
+SF:9,SF,9,SAN BRUNO,,3,https://SFMTA.com/9,,,0
+SF:19,SF,19,POLK,,3,https://SFMTA.com/19,,,0
+SF:22,SF,22,FILLMORE,,3,https://SFMTA.com/22,,,0
+SF:25,SF,25,TREASURE ISLAND,,3,https://SFMTA.com/25,,,0
+SF:29,SF,29,SUNSET,,3,https://SFMTA.com/29,,,0
+SF:44,SF,44,O'SHAUGHNESSY,,3,https://SFMTA.com/44,,,0
+SF:24,SF,24,DIVISADERO,,3,https://SFMTA.com/24,,,0
+SF:38,SF,38,GEARY,,3,https://SFMTA.com/38,,,0
+SF:49,SF,49,VAN NESS-MISSION,,3,https://SFMTA.com/49,,,0
+SF:90,SF,90,SAN BRUNO OWL,,3,https://SFMTA.com/90,,,0
+SF:L-OWL,SF,L-OWL,OWL TARAVAL,,3,https://SFMTA.com/L-OWL,,,0
+SF:91,SF,91,3RD-19TH AVE OWL,,3,https://SFMTA.com/91,,,0
+SF:N-OWL,SF,N-OWL,OWL JUDAH,,3,https://SFMTA.com/N-OWL,,,0
+SF:1,SF,1,CALIFORNIA,,3,https://SFMTA.com/1,,,0
+GG:705,GG,705,Oakland - San Francisco,,3,,CC3333,FFFFFF,0
+GG:71,GG,71,Novato -Marin City,,3,,53A946,FFFFFF,0
+GG:101,GG,101,Santa Rosa - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_101.php,3366FF,FFFFFF,0
+GG:704,GG,704,Del Norte BART Station - San Francisco,,3,,CC3333,FFFFFF,0
+GG:54,GG,54,Novato - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_54.php,CC3333,FFFFFF,0
+GG:30,GG,30,San Rafael - San Francisco,,3,,3366FF,FFFFFF,0
+GG:40,GG,40,Del Norte BART Station - San Rafael,,3,http://goldengatetransit.org/schedules/current/route_40.php,3366FF,FFFFFF,0
+GG:70,GG,70,Novato - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_70.php,3366FF,FFFFFF,0
+GG:72,GG,72,Santa Rosa - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_72.php,CC3333,FFFFFF,0
+GG:27,GG,27,San Rafael - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_27.php,CC3333,FFFFFF,0
