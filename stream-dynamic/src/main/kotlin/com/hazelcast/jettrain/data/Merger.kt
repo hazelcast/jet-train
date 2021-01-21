@@ -80,7 +80,7 @@ object EnrichWithStop : BiFunctionEx<IMap<String, String>, JsonObject, JsonObjec
                 remove("stopId")
             }
             val schedule = getAsJsonArray("schedule")
-            val newSchedule = schedule.map {
+            val newSchedule = schedule?.map {
                 val element = it as JsonObject
                 val stopId = element["stopId"].asString
                 val stopString = stops[stopId]
@@ -89,7 +89,7 @@ object EnrichWithStop : BiFunctionEx<IMap<String, String>, JsonObject, JsonObjec
                     add("stop", parser.parse(stopString))
                     remove("stopId")
                 }
-            }.fold(JsonArray()) { acc, element ->
+            }?.fold(JsonArray()) { acc, element ->
                 acc.add(element)
                 acc
             }
