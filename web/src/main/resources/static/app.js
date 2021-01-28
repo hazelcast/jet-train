@@ -194,6 +194,17 @@ class Vehicle {
   }
 }
 
+// transform smtg. like "05:02:46" to a proper date time
+function transformTime(timeStr) {
+  if (!timeStr) return null
+  const [hour, min, sec] = timeStr.split(":")
+  let d = new Date()
+  d.setHours(hour)
+  d.setMinutes(min)
+  d.setSeconds(sec)
+  return d
+}
+
 class Container {
   constructor() {
     this.map = L.map('map').setView([37.6688, -122.0810], 10);
@@ -231,6 +242,8 @@ class Container {
         data.agencyName = data.agencyId
         data.schedule = data.schedule.map((schobj) => {
           return {
+            departure: transformTime(schobj.departure),
+            arrival: transformTime(schobj.arrival),
             longitude: parseFloat(schobj.stop.stop_long),
             latitude: parseFloat(schobj.stop.stop_lat),
             stopName: schobj.stop.stop_name,
