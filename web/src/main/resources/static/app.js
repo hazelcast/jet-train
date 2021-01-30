@@ -42,7 +42,8 @@ const ROUTE_ICON_MAPPING = {
   // ferry
   '4': BoatMarkerIcon,
 }
-const currentTime = () => Date.now() / 1000;
+
+const currentTime = () => new Date();
 
 class Route {
   static stopToLatLong({ latitude, longitude }) {
@@ -97,6 +98,7 @@ class Vehicle {
   }
 
   updateSchedule(newSchedule) {
+    // console.log(555, 'updateSchedule', this.name, {newSchedule})
     this.schedule = newSchedule;
     this._refresh();
   }
@@ -108,14 +110,18 @@ class Vehicle {
 
   _refresh() {
     // todo dont mind these for now
-    // if (this._hasMovementEnded) {
-    //   this._onFinalStop();
-    //   return;
-    // }
-    //
-    // if (!this._hasMovementStarted) {
-    //   return;
-    // }
+    if (this._hasMovementEnded) {
+      // console.log(555, 'movement has ended, not refreshing, removing.')
+      this._onFinalStop();
+      return;
+    }
+
+    if (!this._hasMovementStarted) {
+      // console.log(555, 'movement not started, not refreshing.')
+      return;
+    }
+
+    console.log(555, 'should see movement...', this.routeId)
 
     if (!this._marker) {
       this._createNewVehicle();
@@ -147,6 +153,10 @@ class Vehicle {
     clearInterval(this._heartbeatIntervalId);
 
     this._onFinalStopCb(this);
+  }
+
+  get _currentLatLongxxx() {
+
   }
 
   get _currentLatLong() {
@@ -199,7 +209,7 @@ function transformTime(timeStr) {
   if (!timeStr) return null
   const [hour, min, sec] = timeStr.split(":")
   let d = new Date()
-  d.setHours(hour)
+  d.setHours(parseInt(hour) + 12) // xxx data lacks am/pm
   d.setMinutes(min)
   d.setSeconds(sec)
   return d
@@ -240,6 +250,7 @@ class Container {
         data.routeName = data.vehicle.trip.route.route_name
         data.routeType = data.vehicle.trip.route.route_type
         data.agencyName = data.agencyId
+
         data.schedule = data.schedule.map((schobj) => {
           return {
             departure: transformTime(schobj.departure),
@@ -265,6 +276,8 @@ class Container {
     routeType,
     agencyName,
   }) {
+    // console.log('processing ', routeId, {now: currentTime(), lastStopArrival: schedule[schedule.length - 1].arrival})
+    /// console.log('processing ', routeId, currentTime(), schedule.map(({arrival}) => arrival))
     if (currentTime() > schedule[schedule.length - 1].arrival) {
       return;
     }
