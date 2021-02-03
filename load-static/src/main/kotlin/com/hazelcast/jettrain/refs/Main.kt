@@ -9,7 +9,7 @@ import com.hazelcast.jet.pipeline.Pipeline
 import com.hazelcast.jettrain.common.withCloseable
 
 fun main() {
-    execute(Jet.newJetClient(), agencies, stops, routes, trips)
+    execute(Jet.newJetClient(), agencies, stops, routes, trips, stopTimes)
 }
 
 object SplitByComma : FunctionEx<BatchStage<String>, BatchStage<List<String>>> {

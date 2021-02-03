@@ -1,17 +1,49 @@
-const routeDefaultColor = '#808080';
+const ROUTE_DEFAULT_COLOR = 'darkred';
+const UNKNOWN_COLOR = 'red';
 
-const trainColor = '#FF0000';
-const busColor = 'purple'; // todo
-const boatColor = '#0000FF';
-const otherColor = '#00FF00';
+// route types are here:
+// https://sites.google.com/site/gtfschanges/proposals/route-type
+const ROUTE_COLOR_MAPPING = {
+  // tram/rail, subway/metro, rail
+  '0': '#FF0000',
+  '1': '#FF0000',
+  '2': '#FF0000',
+  // bus
+  '3': 'FireBrick',
+  // ferry
+  '4': 'DeepSkyBlue',
+}
 
-const currentTime = () => Date.now() / 1000;
-
-const fontAwesomeIcon = L.divIcon({
-  html: '<i class="fa fa-train fa-2x"></i>',
+const TrainMarkerIcon = L.divIcon({
+  html: `<i class="fa train fa-2x"></i>`,
   iconSize: [20, 20],
-  className: 'myDivIcon'
+  className: 'train-marker-icon'
 });
+
+const BusMarkerIcon = L.divIcon({
+  html: `<i class="fa fa-bus fa-2x"></i>`,
+  iconSize: [20, 20],
+  className: 'bus-marker-icon'
+});
+
+const BoatMarkerIcon = L.divIcon({
+  html: `<i class="fa fa-ship fa-2x"></i>`,
+  iconSize: [20, 20],
+  className: 'boat-marker-icon'
+});
+
+const ROUTE_ICON_MAPPING = {
+  // tram/rail, subway/metro, rail
+  '0': TrainMarkerIcon,
+  '1': TrainMarkerIcon,
+  '2': TrainMarkerIcon,
+  // bus
+  '3': BusMarkerIcon,
+  // ferry
+  '4': BoatMarkerIcon,
+}
+
+const currentTime = () => new Date();
 
 class Route {
   static stopToLatLong({ latitude, longitude }) {
@@ -21,46 +53,26 @@ class Route {
   constructor(type, map, schedule) {
     this.type = type;
     this.polyline = L.polyline(schedule.map(Route.stopToLatLong), {
-      color: routeDefaultColor,
+      color: ROUTE_DEFAULT_COLOR,
     });
     this.polyline.addTo(map);
-    console.log(666, 'route constr')
-    this.stops = schedule.map(({ stop, latitude, longitude }) => {
-      console.log(777, 'iter stops')
+    this.stops = schedule.map(({ stopName, latitude, longitude }) => {
       const circle = L.circleMarker([latitude, longitude], {
-        color: routeDefaultColor,
-        radius: 5,
+        color: ROUTE_DEFAULT_COLOR,
+        radius: 2,
         fill: true,
         fillOpacity: 0.8,
       });
-      circle.bindTooltip(stop);
+      circle.bindTooltip('Stop: ' + stopName);
       circle.addTo(map);
       return circle;
     });
   }
 
   setColor() {
-    let newColor;
-    // route types are here:
-    // https://sites.google.com/site/gtfschanges/proposals/route-type
-    switch(this.type) {
-      case('0'):
-      case('1'):
-      case('2'):
-        newColor = trainColor;
-        break;
-      case('3'):
-        newColor = busColor;
-        break;
-      case('4'):
-        newColor = boatColor;
-        break;
-      default:
-        newColor = otherColor; // todo: green dots - type needed
-        break;
-    }
-    this.polyline.setStyle({ color: newColor });
-    this.stops.forEach((stop) => stop.setStyle({ color: newColor }));
+    const color = ROUTE_COLOR_MAPPING[this.type] || UNKNOWN_COLOR
+    this.polyline.setStyle({ color });
+    // this.stops.forEach((stop) => stop.setStyle({ color }));
   }
 
   remove() {
@@ -69,7 +81,7 @@ class Route {
   }
 }
 
-class Train {
+class Vehicle {
   constructor(map, routeId, routeType, schedule, name, onFinalStopCb) {
     this.routeId = routeId;
     this.routeType = routeType;
@@ -79,13 +91,14 @@ class Train {
     this._map = map;
     this._onFinalStopCb = onFinalStopCb;
     this._route = new Route(this.routeType, this._map, this.schedule);
-    this._train = undefined; // todo: rename to _marker
+    this._marker = undefined;
     this._heartbeatIntervalId = undefined;
 
     this._createHeartbeat();
   }
 
   updateSchedule(newSchedule) {
+    // console.log(555, 'updateSchedule', this.name, {newSchedule})
     this.schedule = newSchedule;
     this._refresh();
   }
@@ -96,39 +109,40 @@ class Train {
   }
 
   _refresh() {
-    // console.log(999, this._hasMovementEnded, this._hasMovementStarted)
+    // todo dont mind these for now
+    if (this._hasMovementEnded) {
+      // console.log(555, 'movement has ended, not refreshing, removing.')
+      this._onFinalStop();
+      return;
+    }
 
-    // disable these to see
-    // if (this._hasMovementEnded) {
-    //   this._onFinalStop();
-    //   return;
-    // }
+    if (!this._hasMovementStarted) {
+      // console.log(555, 'movement not started, not refreshing.')
+      return;
+    }
 
-    // if (!this._hasMovementStarted) {
-    //   return;
-    // }
+    console.log(555, 'should see movement...', this.routeId)
 
-    //console.log(555555555)
-    if (!this._train) {
-      this._createNewTrain();
+    if (!this._marker) {
+      this._createNewVehicle();
       this._route.setColor();
       return;
     }
 
-    this._train.setLatLng(this._currentLatLong);
+    this._marker.setLatLng(this._currentLatLong);
   }
 
-  _createNewTrain() {
-    // this._train = L.marker(this._currentLatLong);
-    this._train = L.marker(this._currentLatLong, {icon: fontAwesomeIcon});
-    this._train.bindTooltip(this.name);
-    this._train.addTo(this._map);
+  _createNewVehicle() {
+    const icon = ROUTE_ICON_MAPPING[this.routeType]
+    this._marker = L.marker(this._currentLatLong, {icon});
+    this._marker.bindTooltip(this.name);
+    this._marker.addTo(this._map);
   }
 
   _onFinalStop() {
-    if (this._train) {
-      this._train.remove();
-      this._train = undefined;
+    if (this._marker) {
+      this._marker.remove();
+      this._marker = undefined;
     }
 
     if (this._route) {
@@ -141,6 +155,10 @@ class Train {
     this._onFinalStopCb(this);
   }
 
+  get _currentLatLongxxx() {
+
+  }
+
   get _currentLatLong() {
     if (!this._hasMovementStarted) {
       return Route.stopToLatLong(this.schedule[0]);
@@ -151,7 +169,7 @@ class Train {
     const nextStopI = this.schedule.findIndex(({ arrival }) => t < arrival);
 
     if (nextStopI === -1) {
-      // Train has arrived at the final stop
+      // Vehicle has arrived at the final stop
       return Route.stopToLatLong(this.schedule[this.schedule.length - 1]);
     }
 
@@ -159,7 +177,7 @@ class Train {
     const prevStop = this.schedule[nextStopI - 1];
 
     if (top < prevStop.departure) {
-      // Train hasn't departed yet
+      // Vehicle hasn't departed yet
       return Route.stopToLatLong(prevStop);
     }
 
@@ -186,21 +204,21 @@ class Train {
   }
 }
 
-function randomTimeToday() {
-  // get the difference between the 2 dates, multiply it by 0-1,
-  // and add it to the start date to get a new date
-  const start = new Date(Date.now() - 86400000); // yesterday
-  const end = new Date()
-  var diff =  end.getTime() - start.getTime();
-  var new_diff = diff * Math.random();
-  var date = new Date(start.getTime() + new_diff);
-  return date;
+// transform smtg. like "05:02:46" to a proper date time
+function transformTime(timeStr) {
+  if (!timeStr) return null
+  const [hour, min, sec] = timeStr.split(":")
+  let d = new Date()
+  d.setHours(parseInt(hour) + 12) // xxx data lacks am/pm
+  d.setMinutes(min)
+  d.setSeconds(sec)
+  return d
 }
 
 class Container {
   constructor() {
     this.map = L.map('map').setView([37.6688, -122.0810], 10);
-    this._trains = {};
+    this._vehicles = {};
     this._socket = undefined;
     this._stomp = undefined;
   }
@@ -218,27 +236,30 @@ class Container {
     this._socket = new SockJS('/hazelcast');
     this._stomp = Stomp.over(this._socket);
     this._stomp.reconnect_delay = 2000;
+    this._stomp.debug = null; // turns off logging
     this._stomp.connect({}, () => {
+      console.log('Connected to stomp server.')
       this._stomp.subscribe('/topic/updates', (update) => {
         const data = JSON.parse(update.body);
 
         //
-        // todo: patch step 1. bogus .schedules .departure, .arrival.
+        // transform the data a bit:
         //
-        const stop = data.vehicle.stop
-        data.schedule = [
-          {
-            ...stop,
-            longitude: stop.stop_long,
-            latitude: stop.stop_lat,
-            departure: randomTimeToday(),
-            arrival: randomTimeToday()
-          }
-        ]
+        if (!data.schedule) return // lax it a bit; does hit occasionally
+        data.routeId = data.vehicle.trip.route.id
+        data.routeName = data.vehicle.trip.route.route_name
+        data.routeType = data.vehicle.trip.route.route_type
+        data.agencyName = data.agencyId
 
-        data.schedule.forEach((stop) => {
-          stop.longitude = parseFloat(stop.longitude);
-          stop.latitude = parseFloat(stop.latitude);
+        data.schedule = data.schedule.map((schobj) => {
+          return {
+            departure: transformTime(schobj.departure),
+            arrival: transformTime(schobj.arrival),
+            longitude: parseFloat(schobj.stop.stop_long),
+            latitude: parseFloat(schobj.stop.stop_lat),
+            stopName: schobj.stop.stop_name,
+            stopid: schobj.stop.stop_id
+          }
         });
 
         //
@@ -259,38 +280,38 @@ class Container {
   }
 
   _processData({
-    route_id: routeId,
+    routeId,
     schedule,
-    route_name: routeName,
-    route_type: routeType,
-    agency_name: agencyName,
+    routeName,
+    routeType,
+    agencyName,
   }) {
+    // console.log('processing ', routeId, {now: currentTime(), lastStopArrival: schedule[schedule.length - 1].arrival})
+    /// console.log('processing ', routeId, currentTime(), schedule.map(({arrival}) => arrival))
     if (currentTime() > schedule[schedule.length - 1].arrival) {
       return;
     }
 
-    const existingTrain = this._trains[routeId];
-    // console.log(222, 'existingTrain', existingTrain)
+    const existingVehicle = this._vehicles[routeId];
 
-    if (!existingTrain) {
-      const newTrain = new Train(
+    if (!existingVehicle) {
+      const newVehicle = new Vehicle(
         this.map,
         routeId,
         routeType,
         schedule,
         `${routeType} ${routeName} (${agencyName})`,
-        (train) => this._onTrainFinalStop(train),
+        (vehicle) => this._onVehicleFinalStop(vehicle),
       );
-      this._trains[routeId] = newTrain;
-      // console.log(333, newTrain)
+      this._vehicles[routeId] = newVehicle;
       return;
     }
 
-    existingTrain.updateSchedule(schedule);
+    existingVehicle.updateSchedule(schedule);
   }
 
-  _onTrainFinalStop(train) {
-    delete this._trains[train.routeId];
+  _onVehicleFinalStop(vehicle) {
+    delete this._vehicles[vehicle.routeId];
   }
 }
 
