@@ -54,11 +54,12 @@ object ToStopTime : FunctionEx<Map.Entry<String, List<String>>, JsonObject> {
         val wrapper = JsonObject().add("id", entry.key)
         val schedule = entry.value.fold(JsonArray()) { array, element ->
             val splits = element.split(',')
-            val json = JsonObject()
-                .add("departure", splits[1])
-                .add("arrival", splits[2])
-                .add("stopId", splits[3])
-                .add("sequence", splits[4])
+            val json = JsonObject().apply {
+                if (splits.size > 1) add("departure", splits[1])
+                if (splits.size > 2) add("arrival", splits[2])
+                if (splits.size > 3) add("stopId", splits[3])
+                if (splits.size > 4) add("sequence", splits[4])
+            }
             array.add(json)
         }
         return wrapper.add("schedule", schedule)
