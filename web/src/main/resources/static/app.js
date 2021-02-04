@@ -43,6 +43,7 @@ const ROUTE_ICON_MAPPING = {
   '4': BoatMarkerIcon,
 }
 
+const randomColor = () => "#" + ((1<<24)*Math.random() | 0).toString(16)
 const currentTime = () => new Date();
 
 class Route {
@@ -82,7 +83,7 @@ class Route {
 }
 
 class Vehicle {
-  constructor(map, routeId, routeType, schedule, name, onFinalStopCb) {
+  constructor(map, routeId, routeType, schedule, position, name, onFinalStopCb) {
     this.routeId = routeId;
     this.routeType = routeType;
     this.schedule = schedule;
@@ -93,14 +94,15 @@ class Vehicle {
     this._route = new Route(this.routeType, this._map, this.schedule);
     this._marker = undefined;
     this._heartbeatIntervalId = undefined;
+    this._lastKnownPosition = position;
 
     this._createHeartbeat();
   }
 
-  updateSchedule(newSchedule) {
-    // console.log(555, 'updateSchedule', this.name, {newSchedule})
-    this.schedule = newSchedule;
-    this._refresh();
+  updateData({position, schedule}) {
+    this.schedule = schedule;
+    this._lastKnownPosition = position
+    this._refresh({immediatePosition: position});
   }
 
   _createHeartbeat() {
@@ -108,8 +110,7 @@ class Vehicle {
     this._refresh();
   }
 
-  _refresh() {
-    // todo dont mind these for now
+  _refresh({immediatePosition}={}) {
     if (this._hasMovementEnded) {
       // console.log(555, 'movement has ended, not refreshing, removing.')
       this._onFinalStop();
@@ -121,7 +122,7 @@ class Vehicle {
       return;
     }
 
-    console.log(555, 'should see movement...', this.routeId)
+    // console.log(555, 'should see movement...', this.routeId)
 
     if (!this._marker) {
       this._createNewVehicle();
@@ -129,11 +130,26 @@ class Vehicle {
       return;
     }
 
-    this._marker.setLatLng(this._currentLatLong);
+    if (immediatePosition) {
+      console.log(`immediate position for ${this.routeId}: ${immediatePosition}`)
+      this._marker.setLatLng([immediatePosition.latitude, immediatePosition.longitude]);
+    } else {
+      // hits while waiting for new data. this makes things move...
+      this._marker.setLatLng(this._currentLatLong);
+    }
   }
 
   _createNewVehicle() {
-    const icon = ROUTE_ICON_MAPPING[this.routeType]
+    const DEBUG_ICON = L.divIcon({
+      html: `<i class="fa fa-bus fa-2x" style="color: ${randomColor()}"></i>`,
+      iconSize: [20, 20],
+      className: 'boat-marker-icon'
+    });
+
+    const icon = DEBUG_ICON
+
+    // xxx
+    // const icon = ROUTE_ICON_MAPPING[this.routeType]
     this._marker = L.marker(this._currentLatLong, {icon});
     this._marker.bindTooltip(this.name);
     this._marker.addTo(this._map);
@@ -155,10 +171,6 @@ class Vehicle {
     this._onFinalStopCb(this);
   }
 
-  get _currentLatLongxxx() {
-
-  }
-
   get _currentLatLong() {
     if (!this._hasMovementStarted) {
       return Route.stopToLatLong(this.schedule[0]);
@@ -176,15 +188,22 @@ class Vehicle {
     const nextStop = this.schedule[nextStopI];
     const prevStop = this.schedule[nextStopI - 1];
 
-    if (top < prevStop.departure) {
-      // Vehicle hasn't departed yet
-      return Route.stopToLatLong(prevStop);
-    }
+    // xxx this is a noop from day 1. "top"???
+    // if (top < prevStop.departure) {
+    //   // Vehicle hasn't departed yet
+    //   return Route.stopToLatLong(prevStop);
+    // }
 
     const distancePassed =
       (t - prevStop.departure) / (nextStop.arrival - prevStop.departure);
 
-    const { latitude: prevLat, longitude: prevLong } = prevStop;
+    // xxx
+    //let { latitude: prevLat, longitude: prevLong } = prevStop;
+    //if (this._lastKnownPosition) {
+      //console.log('basing from ', this._lastKnownPosition)
+      let prevLat = this._lastKnownPosition.latitude
+      let prevLong = this._lastKnownPosition.longitude
+    //}
     const { latitude: nextLat, longitude: nextLong } = nextStop;
 
     const currentLat = prevLat + (nextLat - prevLat) * distancePassed;
@@ -239,6 +258,7 @@ class Container {
         data.routeName = data.vehicle.trip.route.route_name
         data.routeType = data.vehicle.trip.route.route_type
         data.agencyName = data.agencyId
+        data.position = data.vehicle.position
 
         data.schedule = data.schedule.map((schobj) => {
           return {
@@ -251,15 +271,7 @@ class Container {
           }
         });
 
-        //
-        // todo: patch step 2. adapt to _processData
-        //
-        data.route_id = data.vehicle.trip.route.id
-        data.route_name = data.vehicle.trip.route.route_name
-        data.route_type = data.vehicle.trip.route.route_type
-        data.agency_name = data.agencyId
-
-        // if (data.route_type !== "3") alert(data.route_type)
+        // if (data.routeType !== "3") alert(data.routeType)
 
         this._processData(data);
       });
@@ -270,6 +282,7 @@ class Container {
 
   _processData({
     routeId,
+    position,
     schedule,
     routeName,
     routeType,
@@ -289,14 +302,15 @@ class Container {
         routeId,
         routeType,
         schedule,
-        `${routeType} ${routeName} (${agencyName})`,
+        position,
+        `${routeName} (${agencyName}) debug: ${routeType}`,
         (vehicle) => this._onVehicleFinalStop(vehicle),
       );
       this._vehicles[routeId] = newVehicle;
       return;
     }
 
-    existingVehicle.updateSchedule(schedule);
+    existingVehicle.updateData({position, schedule});
   }
 
   _onVehicleFinalStop(vehicle) {
