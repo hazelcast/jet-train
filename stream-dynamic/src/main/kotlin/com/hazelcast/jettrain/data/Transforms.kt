@@ -1,5 +1,6 @@
 package com.hazelcast.jettrain.data
 
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.google.protobuf.util.JsonFormat
@@ -11,6 +12,11 @@ import com.hazelcast.function.ToLongFunctionEx
 import com.hazelcast.jet.Traverser
 import com.hazelcast.jet.Util
 import java.io.Serializable
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.ResolverStyle
 
 object ToEntities : FunctionEx<Pair<String, ByteArray>, Traverser<Pair<String, FeedEntity>>> {
     override fun applyEx(payload: Pair<String, ByteArray>): Traverser<Pair<String, FeedEntity>> {
@@ -57,6 +63,40 @@ object ToEntry : FunctionEx<JsonObject, Map.Entry<String, String>> {
             json.getAsJsonPrimitive("id").asString,
             json.toString()
         )
+}
+
+object TimeToTimestamps : FunctionEx<JsonObject, JsonObject> {
+    private const val pattern = "HH:mm:ss"
+    override fun applyEx(json: JsonObject): JsonObject {
+        val schedule = json.get("schedule").asJsonArray
+            .map { it as JsonObject }
+            .map {
+                JsonObject().apply {
+                    val arrival = it.getAsJsonPrimitive("arrival")?.asString?.toTimestamp()
+                    val departure = it.getAsJsonPrimitive("departure")?.asString?.toTimestamp()
+                    addProperty("arrival", arrival)
+                    addProperty("departure", departure)
+                    add("sequence", it.get("sequence"))
+                    add("stop", it.get("stop"))
+                }
+            }.fold(JsonArray()) { jsonArray, currentJson ->
+                jsonArray.apply { add(currentJson) }
+            }
+        json.add("schedule", schedule)
+        return json
+    }
+
+    private fun String.toTimestamp(): Long {
+        val formatter = DateTimeFormatter
+            .ofPattern(pattern)
+            .withResolverStyle(ResolverStyle.LENIENT)
+        return LocalTime
+            .from(formatter.parse(this))
+            .atDate(LocalDate.now())
+            .atZone(ZoneId.of("America/Los_Angeles"))
+            .toInstant()
+            .epochSecond
+    }
 }
 
 object TimestampExtractor : ToLongFunctionEx<String> {
