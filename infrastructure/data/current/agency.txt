@@ -22,12 +22,12 @@ GF,Golden Gate Ferry,http://www.goldengate.org,America/Los_Angeles,en,(415) 455-
 CE,Altamont Corridor Express,http://www.acerail.com/,America/Los_Angeles,en,8004117245,https://acerail.com/schedules/,customerservice@acerail.com
 UC,Union City Transit,http://www.uctransit.org,America/Los_Angeles,en,510-471-1411,,
 PE,Petaluma,http://cityofpetaluma.net/pubworks/transit-sub.html,America/Los_Angeles,en,707-778-4303,http://cityofpetaluma.net/pubworks/fares-transfers.html,publicworks@ci.petaluma.ca.us
-SF,San Francisco Municipal Transportation Agency,https://SFMTA.com,America/Los_Angeles,en,,,
 CC,County Connection,http://www.countyconnection.com/,America/Los_Angeles,en,925-676-7500,,
 SR,Santa Rosa CityBus,https://srcity.org/1036/Transit-and-CityBus,America/Los_Angeles,en,707-543-3333,https://srcity.org/1658/Fares,support@availtec.com
-GG,Golden Gate Transit,http://www.goldengate.org,America/Los_Angeles,en,(415) 455-2000),http://www.goldengatetransit.org/fareprograms/,
 EM,Emery Go-Round,http://www.emerygoround.com/,America/Los_Angeles,en,(510) 451-3862,,
 AC,AC TRANSIT,http://www.actransit.org,America/Los_Angeles,en,5108914777,,
 AM,Capitol Corridor Joint Powers Authority,http://www.capitolcorridor.org,America/Los_Angeles,en,877-974-3322,,
 CM,Commute.org Shuttles,http://www.commute.org,America/Los_Angeles,en,(650) 588-1600,,
 SM,SamTrans,http://www.samtrans.com,America/Los_Angeles,en,800-660-4287,,
+SF,San Francisco Municipal Transportation Agency,https://SFMTA.com,America/Los_Angeles,en,,,
+GG,Golden Gate Transit,http://www.goldengate.org,America/Los_Angeles,en,(415) 455-2000),http://www.goldengatetransit.org/fareprograms/,
