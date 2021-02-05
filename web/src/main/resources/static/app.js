@@ -44,7 +44,16 @@ const ROUTE_ICON_MAPPING = {
 }
 
 const randomColor = () => "#" + ((1<<24)*Math.random() | 0).toString(16)
-const currentTime = () => new Date();
+// const currentTime = () => new Date();
+
+// xxx fake time data
+function currentTime() {
+  var dateOffset = (25*60*60*1000);
+  var fakeNow = new Date();
+  fakeNow.setTime(fakeNow.getTime() - dateOffset);
+  console.log(fakeNow)
+  return fakeNow
+}
 
 class Route {
   static stopToLatLong({ latitude, longitude }) {
@@ -131,7 +140,7 @@ class Vehicle {
     }
 
     if (immediatePosition) {
-      console.log(`immediate position for ${this.routeId}: ${immediatePosition}`)
+      // console.log(`immediate position for ${this.routeId}: ${immediatePosition}`)
       this._marker.setLatLng([immediatePosition.latitude, immediatePosition.longitude]);
     } else {
       // hits while waiting for new data. this makes things move...
@@ -241,43 +250,59 @@ class Container {
       },
     ).addTo(this.map);
 
-    this._socket = new SockJS('/hazelcast');
-    this._stomp = Stomp.over(this._socket);
-    this._stomp.reconnect_delay = 2000;
-    this._stomp.debug = null; // turns off logging
-    this._stomp.connect({}, () => {
-      console.log('Connected to stomp server.')
-      this._stomp.subscribe('/topic/updates', (update) => {
-        const data = JSON.parse(update.body);
+    // this._socket = new SockJS('/hazelcast');
+    // this._stomp = Stomp.over(this._socket);
+    // this._stomp.reconnect_delay = 2000;
+    // this._stomp.debug = null; // turns off logging
+    // this._stomp.connect({}, () => {
+    //   console.log('Connected to stomp server.')
+    //   this._stomp.subscribe('/topic/updates', (update) => {
+    //     const data = JSON.parse(update.body);
+    //
+    //     //
+    //     // transform the data a bit:
+    //     //
+    //     if (!data.schedule) return // lax it a bit; does hit occasionally
+    //     data.routeId = data.vehicle.trip.route.id
+    //     data.routeName = data.vehicle.trip.route.route_name
+    //     data.routeType = data.vehicle.trip.route.route_type
+    //     data.agencyName = data.agencyId
+    //     data.position = data.vehicle.position
+    //
+    //     data.schedule = data.schedule.map((schobj) => {
+    //       return {
+    //         departure: new Date(schobj.departure * 1000),
+    //         arrival: new Date(schobj.arrival * 1000),
+    //         longitude: parseFloat(schobj.stop.stop_long),
+    //         latitude: parseFloat(schobj.stop.stop_lat),
+    //         stopName: schobj.stop.stop_name,
+    //         stopid: schobj.stop.stop_id
+    //       }
+    //     });
+    //
+    //     // if (data.routeType !== "3") alert(data.routeType)
+    //
+    //     this._processData(data);
+    //   });
+    // });
+    //
+    // $.ajax('/data/');
 
-        //
-        // transform the data a bit:
-        //
-        if (!data.schedule) return // lax it a bit; does hit occasionally
-        data.routeId = data.vehicle.trip.route.id
-        data.routeName = data.vehicle.trip.route.route_name
-        data.routeType = data.vehicle.trip.route.route_type
-        data.agencyName = data.agencyId
-        data.position = data.vehicle.position
+    // xxx replay debug data
+    let idx = 0;
+    setInterval(() => {
 
-        data.schedule = data.schedule.map((schobj) => {
-          return {
-            departure: new Date(schobj.departure * 1000),
-            arrival: new Date(schobj.arrival * 1000),
-            longitude: parseFloat(schobj.stop.stop_long),
-            latitude: parseFloat(schobj.stop.stop_lat),
-            stopName: schobj.stop.stop_name,
-            stopid: schobj.stop.stop_id
-          }
-        });
-
-        // if (data.routeType !== "3") alert(data.routeType)
-
+      for (let i=0; i < 10; i++) {
+        if (REPLAYS.length - 1 === idx) return
+          const data = REPLAYS[idx]
+          data.schedule.forEach((schobj) => {
+            schobj.departure = new Date(schobj.departure)
+            schobj.arrival = new Date(schobj.arrival)
+          });
         this._processData(data);
-      });
-    });
-
-    $.ajax('/data/');
+        idx++
+      }
+    }, 1000)
   }
 
   _processData({
@@ -318,4 +343,5 @@ class Container {
   }
 }
 
+let REPLAY_DATA = []
 new Container().initialize();
