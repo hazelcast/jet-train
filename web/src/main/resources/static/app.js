@@ -1,4 +1,3 @@
-const ROUTE_DEFAULT_COLOR = 'darkred';
 const UNKNOWN_COLOR = 'red';
 
 // route types are here:
@@ -9,7 +8,7 @@ const ROUTE_COLOR_MAPPING = {
   '1': '#FF0000',
   '2': '#FF0000',
   // bus
-  '3': 'FireBrick',
+  '3': 'RoyalBlue',
   // ferry
   '4': 'DeepSkyBlue',
 }
@@ -46,14 +45,16 @@ const ROUTE_ICON_MAPPING = {
 const randomColor = () => "#" + ((1<<24)*Math.random() | 0).toString(16)
 // const currentTime = () => new Date();
 
+
 // xxx fake time data
 function currentTime() {
-  var dateOffset = (25*60*60*1000);
+  var dateOffset = ((78)*60*60*1000);
   var fakeNow = new Date();
   fakeNow.setTime(fakeNow.getTime() - dateOffset);
-  console.log(fakeNow)
   return fakeNow
 }
+
+let KNOWN_ROUTES = {}
 
 class Route {
   static stopToLatLong({ latitude, longitude }) {
@@ -63,13 +64,16 @@ class Route {
   constructor(type, map, schedule) {
     this.type = type;
     this.polyline = L.polyline(schedule.map(Route.stopToLatLong), {
-      color: ROUTE_DEFAULT_COLOR,
+      color: ROUTE_COLOR_MAPPING[this.type] || UNKNOWN_COLOR,
+      weight: 2
     });
     this.polyline.addTo(map);
-    this.stops = schedule.map(({ stopName, latitude, longitude }) => {
+    this.latlngs = this.polyline.getLatLngs()
+    this.stops = schedule.map(({ stopName, latitude, longitude }, idx) => {
+      const isLastStop = idx === schedule.length - 1
       const circle = L.circleMarker([latitude, longitude], {
-        color: ROUTE_DEFAULT_COLOR,
-        radius: 2,
+        color: ROUTE_COLOR_MAPPING[this.type] || UNKNOWN_COLOR,
+        radius: isLastStop ? 5 : 2, // make last stops larger
         fill: true,
         fillOpacity: 0.8,
       });
@@ -80,9 +84,10 @@ class Route {
   }
 
   setColor() {
+    // xxx why call this at all
     const color = ROUTE_COLOR_MAPPING[this.type] || UNKNOWN_COLOR
     this.polyline.setStyle({ color });
-    // this.stops.forEach((stop) => stop.setStyle({ color }));
+    this.stops.forEach((stop) => stop.setStyle({ color }));
   }
 
   remove() {
@@ -92,7 +97,8 @@ class Route {
 }
 
 class Vehicle {
-  constructor(map, routeId, routeType, schedule, position, name, onFinalStopCb) {
+  constructor(map, vehicleId, routeId, routeType, schedule, position, name, onFinalStopCb) {
+    this.vehicleId = vehicleId;
     this.routeId = routeId;
     this.routeType = routeType;
     this.schedule = schedule;
@@ -100,55 +106,54 @@ class Vehicle {
 
     this._map = map;
     this._onFinalStopCb = onFinalStopCb;
-    this._route = new Route(this.routeType, this._map, this.schedule);
-    this._marker = undefined;
-    this._heartbeatIntervalId = undefined;
-    this._lastKnownPosition = position;
 
-    this._createHeartbeat();
+    // use existing route if possible
+    this._route = KNOWN_ROUTES[routeId]
+    if (!this._route) {
+      this._route = new Route(this.routeType, this._map, this.schedule);
+      KNOWN_ROUTES[routeId] = this._route
+    }
+    this._marker = undefined;
+
+    this._lastKnownPosition = position;
   }
 
   updateData({position, schedule}) {
     this.schedule = schedule;
-    this._lastKnownPosition = position
-    this._refresh({immediatePosition: position});
-  }
+    this._lastKnownPosition = position;
 
-  _createHeartbeat() {
-    this._heartbeatIntervalId = setInterval(() => this._refresh(), 1000);
-    this._refresh();
-  }
-
-  _refresh({immediatePosition}={}) {
     if (this._hasMovementEnded) {
-      // console.log(555, 'movement has ended, not refreshing, removing.')
+      console.log(555, 'xxx movement has ended, removing.', this.vehicleId)
       this._onFinalStop();
       return;
     }
 
     if (!this._hasMovementStarted) {
-      // console.log(555, 'movement not started, not refreshing.')
+      console.log(555, 'xxx movement not started, not doing anything.', this.vehicleId)
       return;
     }
-
-    // console.log(555, 'should see movement...', this.routeId)
 
     if (!this._marker) {
-      this._createNewVehicle();
+      this._createMarker();
       this._route.setColor();
-      return;
     }
 
-    if (immediatePosition) {
-      // console.log(`immediate position for ${this.routeId}: ${immediatePosition}`)
-      this._marker.setLatLng([immediatePosition.latitude, immediatePosition.longitude]);
-    } else {
-      // hits while waiting for new data. this makes things move...
-      this._marker.setLatLng(this._currentLatLong);
-    }
+    // this._debugMarker(this._lastKnownLatLong, new Date())
+
+    // this._route.latlngs.forEach(latlong => {
+    //   console.log(999, latlong.distanceTo(this._marker.getLatLng()))
+    // })
+
+    // const distancesToMarker = this._route.latlngs.map(latlong => latlong.distanceTo(this._marker.getLatLng()))
+    // const closestDistance = Math.min(...distancesToMarker)
+    // const idx = distancesToMarker.findIndex(distance => distance === closestDistance)
+
+    // xxx problematic: it jumps all around!!!!!
+    // console.log(999999, `closest stop: (${idx}/${this._route.latlngs.length})`)
+    // const nextStopIdx = this.schedule.findIndex(({ latitude, longitude }) => t < arrival);
   }
 
-  _createNewVehicle() {
+  _createMarker() {
     const DEBUG_ICON = L.divIcon({
       html: `<i class="fa fa-bus fa-2x" style="color: ${randomColor()}"></i>`,
       iconSize: [20, 20],
@@ -159,12 +164,20 @@ class Vehicle {
 
     // xxx
     // const icon = ROUTE_ICON_MAPPING[this.routeType]
-    this._marker = L.marker(this._currentLatLong, {icon});
+    this._marker = L.marker([this._lastKnownPosition.latitude, this._lastKnownPosition.longitude], {icon});
     this._marker.bindTooltip(this.name);
     this._marker.addTo(this._map);
   }
 
+  _debugMarker(latlng, s) {
+    if (!this.__order) this.__order = 1
+    let m = L.marker(latlng);
+    m.bindTooltip(s + "order:" + this.__order++);
+    m.addTo(this._map);
+  }
+
   _onFinalStop() {
+    console.log('xxx _onFinalStop')
     if (this._marker) {
       this._marker.remove();
       this._marker = undefined;
@@ -175,50 +188,7 @@ class Vehicle {
       this._route = undefined;
     }
 
-    clearInterval(this._heartbeatIntervalId);
-
     this._onFinalStopCb(this);
-  }
-
-  get _currentLatLong() {
-    if (!this._hasMovementStarted) {
-      return Route.stopToLatLong(this.schedule[0]);
-    }
-
-    const t = currentTime();
-
-    const nextStopI = this.schedule.findIndex(({ arrival }) => t < arrival);
-
-    if (nextStopI === -1) {
-      // Vehicle has arrived at the final stop
-      return Route.stopToLatLong(this.schedule[this.schedule.length - 1]);
-    }
-
-    const nextStop = this.schedule[nextStopI];
-    const prevStop = this.schedule[nextStopI - 1];
-
-    // xxx this is a noop from day 1. "top"???
-    // if (top < prevStop.departure) {
-    //   // Vehicle hasn't departed yet
-    //   return Route.stopToLatLong(prevStop);
-    // }
-
-    const distancePassed =
-      (t - prevStop.departure) / (nextStop.arrival - prevStop.departure);
-
-    // xxx
-    //let { latitude: prevLat, longitude: prevLong } = prevStop;
-    //if (this._lastKnownPosition) {
-      //console.log('basing from ', this._lastKnownPosition)
-      let prevLat = this._lastKnownPosition.latitude
-      let prevLong = this._lastKnownPosition.longitude
-    //}
-    const { latitude: nextLat, longitude: nextLong } = nextStop;
-
-    const currentLat = prevLat + (nextLat - prevLat) * distancePassed;
-    const currentLong = prevLong + (nextLong - prevLong) * distancePassed;
-
-    return [currentLat, currentLong];
   }
 
   get _hasMovementEnded() {
@@ -229,6 +199,22 @@ class Vehicle {
   get _hasMovementStarted() {
     const routeStartTime = this.schedule[0].arrival;
     return currentTime() > routeStartTime;
+  }
+
+  get _lastKnownLatLong() {
+    return [this._lastKnownPosition.latitude, this._lastKnownPosition.longitude]
+  }
+
+  _tick(elapsed) {
+    if (!this._marker) return
+
+    // trick - use css transitions for a smoother animation:
+    const marker = this._marker
+    const speed = 2000 // we could calculate based on speed as well. this looks good enogh.
+    if (marker._icon) { marker._icon.style[L.DomUtil.TRANSITION] = ('all ' + speed + 'ms linear'); }
+    if (marker._shadow) { marker._shadow.style[L.DomUtil.TRANSITION] = 'all ' + speed + 'ms linear'; }
+
+    this._marker.setLatLng(this._lastKnownLatLong);
   }
 }
 
@@ -250,62 +236,103 @@ class Container {
       },
     ).addTo(this.map);
 
-    // this._socket = new SockJS('/hazelcast');
-    // this._stomp = Stomp.over(this._socket);
-    // this._stomp.reconnect_delay = 2000;
-    // this._stomp.debug = null; // turns off logging
-    // this._stomp.connect({}, () => {
-    //   console.log('Connected to stomp server.')
-    //   this._stomp.subscribe('/topic/updates', (update) => {
-    //     const data = JSON.parse(update.body);
-    //
-    //     //
-    //     // transform the data a bit:
-    //     //
-    //     if (!data.schedule) return // lax it a bit; does hit occasionally
-    //     data.routeId = data.vehicle.trip.route.id
-    //     data.routeName = data.vehicle.trip.route.route_name
-    //     data.routeType = data.vehicle.trip.route.route_type
-    //     data.agencyName = data.agencyId
-    //     data.position = data.vehicle.position
-    //
-    //     data.schedule = data.schedule.map((schobj) => {
-    //       return {
-    //         departure: new Date(schobj.departure * 1000),
-    //         arrival: new Date(schobj.arrival * 1000),
-    //         longitude: parseFloat(schobj.stop.stop_long),
-    //         latitude: parseFloat(schobj.stop.stop_lat),
-    //         stopName: schobj.stop.stop_name,
-    //         stopid: schobj.stop.stop_id
-    //       }
-    //     });
-    //
-    //     // if (data.routeType !== "3") alert(data.routeType)
-    //
-    //     this._processData(data);
-    //   });
-    // });
-    //
-    // $.ajax('/data/');
+    //this.listen()
 
+    this.animationLoop()
+
+    this.replayFakeData()
+  }
+
+  replayFakeData() {
+    let allowed = [
+        'AC:72R',
+        'AC:72M',
+        'AC:97'
+    ]
     // xxx replay debug data
     let idx = 0;
     setInterval(() => {
 
       for (let i=0; i < 10; i++) {
         if (REPLAYS.length - 1 === idx) return
-          const data = REPLAYS[idx]
-          data.schedule.forEach((schobj) => {
-            schobj.departure = new Date(schobj.departure)
-            schobj.arrival = new Date(schobj.arrival)
-          });
-        this._processData(data);
+        const data = REPLAYS[idx]
+        data.vehicleId = data.vehicle.vehicle.id
+        data.schedule.forEach((schobj) => {
+          schobj.departure = new Date(schobj.departure)
+          schobj.arrival = new Date(schobj.arrival)
+        });
         idx++
+
+        // if (!allowed.includes(data.routeId)) continue;
+        console.log('processing:', data.routeId, data.vehicleId)
+
+        this._processData(data);
       }
     }, 1000)
   }
 
+
+  listen() {
+    this._socket = new SockJS('/hazelcast');
+    this._stomp = Stomp.over(this._socket);
+    this._stomp.reconnect_delay = 2000;
+    this._stomp.debug = null; // turns off logging
+    this._stomp.connect({}, () => {
+      console.log('Connected to stomp server.')
+      this._stomp.subscribe('/topic/updates', (update) => {
+        const data = JSON.parse(update.body);
+
+        //
+        // transform the data a bit:
+        //
+        if (!data.schedule) return // lax it a bit; does hit occasionally
+
+        data.vehicleId = data.vehicle.vehicle.id
+        data.routeId = data.vehicle.trip.route.id
+        data.routeName = data.vehicle.trip.route.route_name
+        data.routeType = data.vehicle.trip.route.route_type
+        data.agencyName = data.agencyId
+        data.position = data.vehicle.position
+
+        data.schedule = data.schedule.map((schobj) => {
+          return {
+            departure: new Date(schobj.departure * 1000),
+            arrival: new Date(schobj.arrival * 1000),
+            longitude: parseFloat(schobj.stop.stop_long),
+            latitude: parseFloat(schobj.stop.stop_lat),
+            stopName: schobj.stop.stop_name,
+            stopid: schobj.stop.stop_id
+          }
+        });
+
+        this._processData(data);
+      });
+    });
+
+    $.ajax('/data/');
+  }
+
+  animationLoop() {
+    let lastUpdate = new Date();
+    const self = this;
+
+    function worldTick(timestamp) {
+      const now = new Date();
+      const elapsed = now - lastUpdate;
+      lastUpdate = now;
+
+      // tick for each vehicle
+      Object.values(self._vehicles).forEach(v => v._tick(elapsed))
+
+      window.requestAnimationFrame(worldTick);
+    }
+
+    // we could use a timer as well. overkill.
+    window.requestAnimationFrame(worldTick);
+  }
+
   _processData({
+    vehicleId,
     routeId,
     position,
     schedule,
@@ -313,35 +340,34 @@ class Container {
     routeType,
     agencyName,
   }) {
-    // console.log('processing ', routeId, {now: currentTime(), lastStopArrival: schedule[schedule.length - 1].arrival})
-    /// console.log('processing ', routeId, currentTime(), schedule.map(({arrival}) => arrival))
     if (currentTime() > schedule[schedule.length - 1].arrival) {
+      console.log('xxx trip old, quit.', currentTime(), ' --- ', schedule[schedule.length - 1].arrival)
       return;
     }
 
-    const existingVehicle = this._vehicles[routeId];
+    const existingVehicle = this._vehicles[vehicleId];
 
     if (!existingVehicle) {
       const newVehicle = new Vehicle(
         this.map,
+        vehicleId,
         routeId,
         routeType,
         schedule,
         position,
-        `${routeName} (${agencyName}) debug: ${routeType}`,
-        (vehicle) => this._onVehicleFinalStop(vehicle),
+        `${agencyName}/${routeName}/${vehicleId}`,
+        (vehicle) => this._onVehicleFinalStop(vehicleId),
       );
-      this._vehicles[routeId] = newVehicle;
+      this._vehicles[vehicleId] = newVehicle;
       return;
     }
 
     existingVehicle.updateData({position, schedule});
   }
 
-  _onVehicleFinalStop(vehicle) {
-    delete this._vehicles[vehicle.routeId];
+  _onVehicleFinalStop(vehicleId) {
+    delete this._vehicles[vehicleId];
   }
 }
 
-let REPLAY_DATA = []
 new Container().initialize();
