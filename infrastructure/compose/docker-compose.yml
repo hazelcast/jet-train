@@ -1,0 +1,37 @@
+version: '3'
+services:
+  server:
+    container_name: jet
+    image: hazelcast/hazelcast-jet:4.3
+    volumes:
+      - /Users/nico/.m2/repository:/opt/hazelcast/classpath
+      - /Users/nico/projects/hazelcast/jet-train:/opt/hazelcast/data
+    ports:
+      - 5701:5701
+    environment:
+      - MIN_HEAP_SIZE=1G
+      - CLASSPATH=/opt/hazelcast/classpath/org/json/json/20200518/json-20200518.jar:/opt/hazelcast/classpath/org/jetbrains/kotlin/kotlin-stdlib/1.4.21/kotlin-stdlib-1.4.21.jar:/opt/hazelcast/classpath/com/github/kittinunf/fuel/fuel/2.3.0/fuel-2.3.0.jar:/opt/hazelcast/classpath/com/github/kittinunf/result/result/3.1.0/result-3.1.0.jar
+      - JAVA_OPTS=-Xmx8g -XX:+UseStringDeduplication
+  webapp:
+    container_name: webapp
+    image: nfrankel/jettrain:latest
+    volumes:
+      - /Users/nico/projects/hazelcast/jet-train/infrastructure/compose/etc:/etc/jettrain
+    ports:
+      - 8080:8080
+    environment:
+      - JAVA_TOOL_OPTIONS=-Dhazelcast.client.config=/etc/jettrain/hazelcast-client.xml
+    depends_on:
+      - server
+  management-center:
+    container_name: jet-management-center
+    image: hazelcast/management-center:4.2020.12
+    volumes:
+      - /Users/nico/projects/hazelcast/jet-train/infrastructure/compose/etc:/opt/hazelcast/etc
+    ports:
+      - 8081:8081
+    environment:
+      - MC_HTTP_PORT=8081
+      - MC_INIT_CMD=bin/mc-conf.sh dev-mode configure;bin/mc-conf.sh cluster add --lenient -H=/data -cn=jet -ma=server -v
+    depends_on:
+      - server

@@ -25,3 +25,4 @@ infrastructure/data/gtfs_fp2020_2020-12-02/transfers.txt filter=lfs diff=lfs mer
 infrastructure/data/gtfs_fp2020_2020-12-02/calendar.txt filter=lfs diff=lfs merge=lfs -text
 infrastructure/data/gtfs_fp2020_2020-12-02/routes.txt filter=lfs diff=lfs merge=lfs -text
 infrastructure/data/gtfs_fp2020_2020-12-02/stops.txt filter=lfs diff=lfs merge=lfs -text
+infrastructure/data/current/stop_times.txt filter=lfs diff=lfs merge=lfs -text
