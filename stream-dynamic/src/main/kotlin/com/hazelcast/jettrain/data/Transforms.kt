@@ -1,6 +1,7 @@
 package com.hazelcast.jettrain.data
 
 import com.google.gson.JsonArray
+import com.google.gson.JsonNull
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.google.protobuf.util.JsonFormat
@@ -68,7 +69,9 @@ object ToEntry : FunctionEx<JsonObject, Map.Entry<String, String>> {
 object TimeToTimestamps : FunctionEx<JsonObject, JsonObject> {
     private const val pattern = "HH:mm:ss"
     override fun applyEx(json: JsonObject): JsonObject {
-        val schedule = json.get("schedule").asJsonArray
+        val initialSchedule = json.get("schedule")
+        val schedule = if (initialSchedule is JsonNull) JsonArray()
+            else initialSchedule.asJsonArray
             .map { it as JsonObject }
             .map {
                 JsonObject().apply {
