@@ -1,0 +1,521 @@
+route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color,route_sort_order
+SS:CW,SS,CW,Free South City Shuttle - Blue,"Clockwise route starting at SSF BART station bay 6 through Hillside Blvd, Linden Ave, Grand Ave, Downtown South San Francisco, West Orange Library and El Camino Real.",3,,293adb,293adb,0
+SA:SMART,SA,SMART,Main Line,Sonoma County Airport to Larkspur,2,,4d6d51,,0
+3D:379,3D,379,Antioch BART / Kaiser Deer Valley,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=379,A0FFFF,FFFFFF,0
+3D:388,3D,388,Pittsburg BART / Kaiser Deer Valley,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=388,5080A3,FFFFFF,0
+3D:201,3D,201,Pittsburg / Concord BART,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=201,002580,FFFFFF,0
+3D:394,3D,394,Weekend BART / Antioch,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=394,F3DF80,FFFFFF,0
+3D:300,3D,300,Brentwood Park & Ride / Pittsburg Bay Point BART,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=300,800080,FFFFFF,0
+3D:387,3D,387,Pittsburg BART / Antioch,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=387,D1ACDC,FFFFFF,0
+3D:390,3D,390,Antioch BART / Pittsburg Bay Point BART,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=390,800000,FFFFFF,0
+3D:393,3D,393,Weekend BART / Brentwood,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=393,6BB717,FFFFFF,0
+3D:383,3D,383,Antioch / Oakley,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=383,DC006E,FFFFFF,0
+3D:391,3D,391,Pittsburg BART / Brentwood,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=391,DA8E0F,FFFFFF,0
+3D:395,3D,395,Weekend Antioch / Brentwood,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=395,451472,FFFFFF,0
+3D:389,3D,389,Pittsburg BART / Bay Point,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=389,C3823B,FFFFFF,0
+3D:200,3D,200,Martinez / Pittsburg,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=200,C09600,FFFFFF,0
+3D:385,3D,385,Antioch / Brentwood,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=385,00A8A8,FFFFFF,0
+3D:392,3D,392,Weekend BART / Antioch,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=392,C02000,FFFFFF,0
+3D:380,3D,380,Pittsburg Bay Point BART/ Antioch,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=380,008000,FFFFFF,0
+3D:381,3D,381,Los Medanos College / Pittsburg Marina,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=381,0080FF,FFFFFF,0
+3D:384,3D,384,Antioch BART / Brentwood Park & Ride,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=384,878787,FFFFFF,0
+3D:396,3D,396,Bay Point / Kaiser,,3,http://12.155.17.20/RTT/Public/Schedule.aspx?RouteNo=396,A8C73E,FFFFFF,0
+SB:South SF - Ala - Oak,SB,South SF - Ala - Oak,South SF - Oakland - Alameda,,4,,c60bb6,ffffff,0
+SB:South SF - HB,SB,South SF - HB,South San Francisco - Harbor Bay,,4,,d63956,ffffff,0
+SB:Vallejo - SF,SB,Vallejo - SF,Vallejo - San Francisco,,4,,008e9d,ffffff,0
+SB:HB - SF,SB,HB - SF,Harbor Bay - San Francisco Ferry Building,,4,,d63956,000000,0
+SB:SF - Ala - Oak,SB,SF - Ala - Oak,San Francisco - Alameda via Oakland,,4,,ec7501,,0
+SB:South SF - Oak - Ala,SB,South SF - Oak - Ala,South SF - Alameda via Oakland,,4,,c60bb6,000000,0
+SB:SF - Oak - Ala,SB,SF - Oak - Ala,San Francisco - Oakland via Alameda,,4,,ec7501,000000,0
+SB:Rich - SF,SB,Rich - SF,Richmond - San Francisco,,4,,007e12,ffffff,0
+SI:Blue Line,SI,Blue Line,SFO AirTrain Blue Line,"The Blue Line connects the Rental Car Center with all terminals, terminal garages and the BART Station.",0,https://www.flysfo.com/to-from/getting-around-sfo,0000ff,ffffff,0
+SI:Red Line,SI,Red Line,SFO AirTrain Red Line,"The Red Line connects all terminals, terminal garages and the BART Station.",0,https://www.flysfo.com/to-from/getting-around-sfo,ff0000,ffffff,0
+SI:Long Term Parking,SI,Long Term Parking,Long Term Parking Shuttle Bus,The Long Term Parking shuttle bus serves the Lot DD long-term parking lot and Long-Term Parking Garage and all terminals. Designated priority loading zones at each terminal are found on the upper level.,3,http://www.flysfo.com/to-from/parking/long-term,,,0
+SI:BART,SI,BART,SFO BART Replacement Shuttle Bus,"During the COVID-19 related BART service reductions, the SFO BART Replacement Shuttle Bus provides replacement service between the International Terminal and Balboa Park, Mission/Silver, the Salesforce Transit Center, and 19th Street/Oakland.",3,https://www.flysfo.com/important-travel-information-regarding-covid-19-novel-corona-virus/ground-transportation-updates,,,0
+SI:West Field Garage,SI,West Field Garage,West Field Garage Shuttle Bus,The West Field Garage shuttle bus serves the West Field employee parking garage and the ground level of all terminals.,3,,,,0
+SI:Lot D,SI,Lot D,Parking Lot D Shuttle Bus,"The Parking Lot D shuttle bus serves the Lot D employee parking lot, the long-term parking overflow lot, and all terminals. Designated priority loading zones at each terminal are found on the upper level.",3,,,,0
+SI:Ferry Dock,SI,Ferry Dock,Ferry Dock Shuttle Bus,"The Ferry Dock shuttle bus serves the Oyster Point Ferry Dock in South San Francisco, the West Field cargo area, and the International Terminal. A designated loading zone is found adjacent to Courtyard G.",3,,,,0
+FS:3,FS,3,FTC/Solano Town Center/Walmart,,3,http://www.fasttransit.org/schedules-maps/fixed-local-routes/route-3//,aa3942,ffffff,0
+FS:BLUE,FS,BLUE,PH BART/FTC/Vacaville/Dixon/Davis/Sac,Service between Pleasant Hill BART and Sacramento.,3,,165ba2,ffffff,0
+FS:GX,FS,GX,FTC/El Cerrito Del Norte BART/Suisun City Amtrak,,3,,05bb5e,,0
+FS:1,FS,1,FTC/Walmart,,3,http://www.fasttransit.org/schedules-maps/fixed-local-routes/route-1/,5587b3,ffffff,0
+FS:8,FS,8,Cordelia Library/Oakbrook Dr,,3,http://www.fasttransit.org/schedules-maps/fixed-local-routes/route-8/,75488a,ffffff,0
+FS:7,FS,7,FTC/Solano College/Cordelia Library,,3,http://www.fasttransit.org/schedules-maps/fixed-local-routes/route-7/,c06b3f,ffffff,0
+FS:4,FS,4,Smart & Final/Travis Air Force Base,,3,http://www.fasttransit.org/schedules-maps/fixed-local-routes/route-4/,353983,ffffff,0
+FS:5,FS,5,FTC/Suisun Senior Center,,3,http://www.fasttransit.org/schedules-maps/fixed-local-routes/route-5//,50733e,ffffff,0
+FS:6,FS,6,Solano Town Ctr/Suisun Senior Ctr/Lawler Ranch,,3,http://www.fasttransit.org/schedules-maps/fixed-local-routes/route-6/,2b579a,ffffff,0
+FS:2,FS,2,Solano Town Ctr/FF Vacaville Train Station,,3,http://www.fasttransit.org/schedules-maps/fixed-local-routes/route-2/,749e4a,ffffff,0
+TD:Berk - P52 - P1.5,TD,Berk - P52 - P1.5,Berkeley - Pier 52 - Pier 1.5,,4,https://www.tidelinetickets.com/commute,1e22aa,ffffff,0
+TD:Berk-SF,TD,Berk-SF,Berkeley - San Francisco,,4,https://tidelinetickets.com/commuter-shuttle/berkeley/,1e22aa,ffffff,0
+SO:28,SO,28,"Guerneville, Monte Rio, Occidental",,3,http://www.sctransit.com/maps-schedules/route-28/,522e92,ffffff,0
+SO:30,SO,30,"Santa Rosa, Kenwood, Glen Ellen, Sonoma Valley",,3,http://www.sctransit.com/maps-schedules/route-30/,007363,ffffff,0
+SO:66,SO,66,Windsor Shuttle,,3,http://www.sctransit.com/maps-schedules/route-66/,febe10,000000,0
+SO:20,SO,20,"Russian River Area, Forestville, Sebastopol, Santa Rosa",,3,http://www.sctransit.com/maps-schedules/route-20/,8f6d5d,ffffff,0
+SO:34,SO,34,"Santa Rosa, Sonoma Valley",,3,http://www.sctransit.com/maps-schedules/route-34/,ed1163,ffffff,0
+SO:48X,SO,48X,"Santa Rosa, Rohnert Park, Cotati, Petaluma",,3,http://www.sctransit.com/maps-schedules/route-44-route-48/,006fba,ffffff,0
+SO:14,SO,14,Northern Rohnert Park,,3,http://www.sctransit.com/maps-schedules/route-12-route-14/,aa0072,ffffff,0
+SO:32,SO,32,Sonoma Valley,,3,http://www.sctransit.com/maps-schedules/route-32/,771473,ffffff,0
+SO:62,SO,62,"County Airport, Santa Rosa",,3,http://www.sctransit.com/maps-schedules/route-62/,27004b,ffffff,0
+SO:60,SO,60,"Cloverdale, Healdsburg, Windsor, Santa Rosa",,3,http://www.sctransit.com/maps-schedules/route-60/,9e489b,ffffff,0
+SO:20X,SO,20X,"Russian River Area, Santa Rosa",,3,http://www.sctransit.com/maps-schedules/route-20/,8f6d5d,ffffff,0
+SO:60X,SO,60X,"Cloverdale, Healdsburg, Windsor, Santa Rosa",,3,http://www.sctransit.com/maps-schedules/route-60/,9e489b,ffffff,0
+SO:67,SO,67,Healdsburg Shuttle,,3,http://sctransit.com/maps-schedules/route-67/,009848,ffffff,0
+SO:68,SO,68,Cloverdale Shuttle,,3,http://www.sctransit.com/maps-schedules/route-68/,0d96d4,ffffff,0
+SO:24,SO,24,Sebastopol Shuttle,,3,http://www.sctransit.com/maps-schedules/route-24/,da1f3d,ffffff,0
+SO:40,SO,40,"Sonoma, Petaluma",,3,http://sctransit.com/maps-schedules/route-40-route-53/,f26522,ffffff,0
+SO:48,SO,48,"Santa Rosa, Rohnert Park, Cotati, Petaluma",,3,http://www.sctransit.com/maps-schedules/route-44-route-48/,006fba,ffffff,0
+SO:12,SO,12,Northern Rohnert Park,,3,http://www.sctransit.com/maps-schedules/route-12-route-14/,24338a,ffffff,0
+SO:10,SO,10,"Cotati, Rohnert Park, Sonoma State University",,3,http://www.sctransit.com/maps-schedules/route-10/,67686b,ffffff,0
+SO:30X,SO,30X,"Santa Rosa, Sonoma Valley",,3,http://www.sctransit.com/maps-schedules/route-30/,007363,ffffff,0
+SO:42,SO,42,"Santa Rosa, Industry West Business Park",,3,http://www.sctransit.com/maps-schedules/route-42/,ec008c,ffffff,0
+SO:44X,SO,44X,"Santa Rosa, Rohnert Park, Petaluma",,3,http://www.sctransit.com/maps-schedules/route-44-route-48/,747500,ffffff,0
+SO:44,SO,44,"Santa Rosa, Rohnert Park, SSU, Petaluma",,3,http://www.sctransit.com/maps-schedules/route-44-route-48/,747500,ffffff,0
+ST:7B,ST,7B,Counterclockwise,,3,,004D91,FFFFFF,0
+ST:Y,ST,Y,Yellow Line,,3,,ffb81f,FFFFFF,0
+ST:82,ST,82,SF Express,,3,,b87786,ffffff,0
+ST:R,ST,R,Red Line,,3,,D63029,FFFFFF,0
+ST:7A,ST,7A,Clockwise,,3,,004D91,FFFFFF,0
+ST:1,ST,1,Rancho Square,,3,,592E91,FFFFFF,0
+ST:2,ST,2,Crest,,3,,B72775,FFFFFF,0
+ST:3,ST,3,South Vallejo,,3,,50A140,FFFFFF,0
+ST:4,ST,4,Tuolumne,,3,,00A6CE,FFFFFF,0
+ST:5,ST,5,Six Flags,,3,,F47B20,FFFFFF,0
+ST:6,ST,6,Tennessee,,3,,666EB3,FFFFFF,0
+ST:8,ST,8,Glen Cove,,3,,009577,FFFFFF,0
+RV:50,RV,50,,,3,,ccd7e8,000000,0
+RV:52,RV,52,,,3,,e9caca,000000,0
+MA:23X,MA,23X,Canal - Fairfax Manor,via San Rafael/Fairfax,3,http://marintransit.org/routes/23x,53A946,FFFFFF,0
+MA:71,MA,71,Novato - Marin City,via San Rafael/Hwy 101,3,http://marintransit.org/routes/71,53A946,FFFFFF,0
+MA:66,MA,66,Muir Woods - Sausalito,,3,http://marintransit.org/routes/66,BA8656,FFFFFF,0
+MA:35,MA,35,Canal - Novato,via San Rafael/Civic Center/Northgate,3,http://marintransit.org/routes/35,53A946,FFFFFF,0
+MA:61M,MA,61M,Sausalito - Bolinas,via Marin City/Mt. Tam/Stinson Beach,3,http://marintransit.org/routes/61-61m,3161AB,FFFFFF,0
+MA:17X,MA,17X,Downtown San Rafael - Sausalito,via Strawberry/Mill Valley,3,http://marintransit.org/routes/17-17x,53A946,FFFFFF,0
+MA:49,MA,49,Downtown San Rafael - Novato,via Northgate/Hamilton,3,http://marintransit.org/routes/49,53A946,FFFFFF,0
+MA:71X,MA,71X,Novato - Sausalito,via Marin City/San Rafael/Hwy 101,3,http://marintransit.org/routes/71x,53A946,FFFFFF,0
+MA:171,MA,171,Novato - Marin City,via San Rafael,3,http://marintransit.org/routes/171,F89838,FFFFFF,0
+MA:29,MA,29,Canal - Marin Health,via Larkspur Landing/COM,3,http://marintransit.org/routes/29,53A946,FFFFFF,0
+MA:135,MA,135,San Rafael (Canal - Downtown),via San Rafael,3,http://marintransit.org/routes/135,F89838,FFFFFF,0
+MA:151,MA,151,Hamilton - San Marin HS,via Ignacio/San Jose MS,3,http://marintransit.org/routes/151,F89838,FFFFFF,0
+MA:122,MA,122,Downtown San Rafael - College of Marin,via San Rafael/San Anselmo,3,http://marintransit.org/routes/122,F89838,FFFFFF,0
+MA:17,MA,17,Downtown San Rafael - Sausalito,via Strawberry/Mill Valley,3,http://marintransit.org/routes/17-17x,53A946,FFFFFF,0
+MA:23,MA,23,Canal -  Downtown Fairfax,via San Rafael/San Anselmo,3,http://marintransit.org/routes/23,53A946,FFFFFF,0
+MA:36,MA,36,Canal - Marin City,via San Rafael/Hwy 101,3,http://marintransit.org/routes/36,53A946,FFFFFF,0
+MA:22,MA,22,Downtown San Rafael - Marin City,via San Anselmo/COM/Larkspur,3,http://marintransit.org/routes/22,53A946,FFFFFF,0
+MA:115,MA,115,Marin City - Strawberry,via Willow Creek/Marin City/Tam HS,3,http://marintransit.org/routes/115,F89838,FFFFFF,0
+MA:233,MA,233,San Rafael (Downtown - Santa Venetia),via Civic Center,3,http://marintransit.org/routes/233,A5C73C,FFFFFF,0
+MA:61,MA,61,Sausalito - Bolinas,via Marin City/Mt. Tam/Stinson Beach,3,http://marintransit.org/routes/61-61m,3161AB,FFFFFF,0
+MA:68,MA,68,Downtown San Rafael - Inverness,via Manor/Lagunitas/Pt. Reyes,3,http://marintransit.org/routes/68,3161AB,FFFFFF,0
+MA:117,MA,117,Downtown San Rafael - Marin City,via Mill Valley,3,http://marintransit.org/routes/117,F89838,FFFFFF,0
+MA:119,MA,119,Tiburon - Redwood HS,via Belvedere,3,http://marintransit.org/routes/119,F89838,FFFFFF,0
+MA:139,MA,139,Lucas Valley - Terra Linda HS,via Marinwood,3,http://marintransit.org/routes/139,F89838,FFFFFF,0
+MA:154,MA,154,Olive - Novato,via San Marin HS/Sinaloa MS,3,http://marintransit.org/routes/154,F89838,FFFFFF,0
+MA:113,MA,113,Paradise Cay - Redwood HS,via Corte Madera,3,http://marintransit.org/routes/113,F89838,FFFFFF,0
+MA:228,MA,228,Downtown San Rafael - Fairfax Manor,via Larkspur Landing/COM/Fairfax,3,http://marintransit.org/routes/228,A5C73C,FFFFFF,0
+MA:145,MA,145,San Rafael (Downtown - Terra Linda HS),via Civic Center,3,http://marintransit.org/routes/145,F89838,FFFFFF,0
+MA:125,MA,125,Lagunitas - Sir Francis Drake HS - San Rafael,via Fairfax/Sir Francis Drake HS,3,http://marintransit.org/routes/125,F89838,FFFFFF,0
+MA:245,MA,245,San Rafael (Downtown - Smith Ranch Road),via Kaiser,3,http://marintransit.org/routes/245,A5C73C,FFFFFF,0
+MA:251,MA,251,Novato (Hamilton - San Marin),via Indian Valley/Vintage Oaks,3,http://marintransit.org/routes/251,A5C73C,FFFFFF,0
+MA:219,MA,219,Tiburon - Strawberry,via Seminary,3,http://marintransit.org/routes/219,A5C73C,FFFFFF,0
+MA:257,MA,257,San Rafael - Novato (Ignacio),via Kaiser/Hamilton,3,http://marintransit.org/routes/257,A5C73C,FFFFFF,0
+MA:149,MA,149,Hamilton - Downtown Novato,via South Novato Blvd,3,http://marintransit.org/routes/149,F89838,FFFFFF,0
+WH:1,WH,1,Santa Rita Jail,,3,,8000FF,FFFFFF,0
+WH:54,WH,54,Hacienda,,3,,663300,FFFFFF,0
+WH:8,WH,8,Hopyard,,3,,CC0066,FFFFFF,0
+WH:14,WH,14,Pleasanton - Livermore via Outlets,,3,,800080,FFFFFF,0
+WH:53,WH,53,Stoneridge,,3,,3366CC,FFFFFF,0
+WH:15,WH,15,Springtown,,3,,004080,FFFFFF,0
+WH:3,WH,3,Stoneridge,,3,,3399FF,FFFFFF,0
+WH:30R,WH,30R,Dublin - Livermore via College,,3,,00CC00,FFFFFF,0
+WH:10R,WH,10R,Pleasanton - Livermore via Stanley,,3,,FF0000,FFFFFF,0
+VC:1,VC,1,Route 1,,3,,ff0000,ffffff,0
+VC:2,VC,2,Route 2,,3,,c45911,ffffff,0
+VC:3,VC,3,Route 3,,3,,ff00ff,ffffff,0
+VC:4,VC,4,Route 4,,3,,00b050,ffffff,0
+VC:5,VC,5,Route 5,,3,,0070c0,ffffff,0
+VC:6,VC,6,Route 6,,3,,663300,ffffff,0
+DE:DB1,DE,DB1,Dumbarton Exp. - Research Park,,3,,,,0
+DE:DB,DE,DB,Dumbarton Exp. - Palo Alto,,3,,,,0
+BA:YL-S,BA,YL-S,Antioch to SFIA/Millbrae,,2,http://www.bart.gov/schedules/bylineresults?route=1,FFFF33,,0
+BA:GN-S,BA,GN-S,Berryessa/North San Jose to Daly City,,2,http://www.bart.gov/schedules/bylineresults?route=5,339933,,0
+BA:YL-N,BA,YL-N,Millbrae/SFIA to Antioch,,2,http://www.bart.gov/schedules/bylineresults?route=2,FFFF33,,0
+BA:OR-N,BA,OR-N,Berryessa/North San Jose to Richmond,,2,http://www.bart.gov/schedules/bylineresults?route=3,FF9933,,0
+BA:OR-S,BA,OR-S,Richmond to Berryessa/North San Jose,,2,http://www.bart.gov/schedules/bylineresults?route=4,FF9933,,0
+BA:GN-N,BA,GN-N,Daly City to Berryessa/North San Jose,,2,http://www.bart.gov/schedules/bylineresults?route=6,339933,,0
+BA:RD-S,BA,RD-S,Richmond to Daly City/Millbrae,,2,http://www.bart.gov/schedules/bylineresults?route=7,FF0000,,0
+BA:RD-N,BA,RD-N,Millbrae/Daly City to Richmond,,2,http://www.bart.gov/schedules/bylineresults?route=8,FF0000,,0
+BA:BL-S,BA,BL-S,Dublin/Pleasanton to Daly City,,2,http://www.bart.gov/schedules/bylineresults?route=11,0099CC,,0
+BA:BL-N,BA,BL-N,Daly City to Dublin/Pleasanton,,2,http://www.bart.gov/schedules/bylineresults?route=12,0099CC,,0
+BA:PR-N,BA,PR-N,Millbrae to San Francisco International Airport,,2,http://www.bart.gov/schedules/bylineresults?route=13,C463C5,,0
+BA:PR-S,BA,PR-S,San Francisco International Airport to Millbrae,,2,http://www.bart.gov/schedules/bylineresults?route=14,C463C5,,0
+BA:BG-N,BA,BG-N,Oakland Airport to Coliseum,,2,http://www.bart.gov/schedules/bylineresults?route=19,D5CFA3,,0
+BA:BG-S,BA,BG-S,Coliseum to Oakland Airport,,2,http://www.bart.gov/schedules/bylineresults?route=20,D5CFA3,,0
+WC:11,WC,11,Crockett - Rodeo - Hercules,,3,http://www.westcat.org/schedules/route11cs.html,916085,ffffff,0
+WC:JL,WC,JL,Hercules Transit Center - Pinole - Richmond - BART,,3,http://www.westcat.org/schedules/routeJcs.html,ce413d,000000,0
+WC:16,WC,16,Pinole Valley - Old Town Pinole - Richmond Parkway Transit Center,,3,http://www.westcat.org/schedules/route16cs.html,6c8fb8,000000,0
+WC:30Z,WC,30Z,Hercules Transit Center - Martinez,,3,http://www.westcat.org/schedules/route30Zcs.html,426656,ffffff,0
+WC:JX,WC,JX,Hercules Transit Center - El Cerrito del Norte BART,,3,http://www.westcat.org/schedules/routeJPXcs.html,ce413d,000000,0
+WC:18,WC,18,Tara Hills - Richmond Parkway Transit Center - Hilltop Mall,,3,http://www.westcat.org/schedules/route18cs.html,4badad,ffffff,0
+WC:10,WC,10,Gems and Birds,,3,http://www.westcat.org/schedules/route10.html,f8c650,000000,0
+WC:C3,WC,C3,Hercules Transit Center - Pinole - Contra Costa College,,3,http://www.westcat.org/schedules/routeC3cs.html,183958,ffffff,0
+WC:Lynx,WC,Lynx,Rodeo/Hercules/San Francisco Transbay Terminal,,3,http://www.westcat.org/schedules/routeLYNXcs.html,74262b,ffffff,0
+WC:15,WC,15,Rodeo - Hercules (Viewpointe/North Shore Business Park),,3,http://www.westcat.org/schedules/route15cs.html,4b9168,ffffff,0
+WC:17,WC,17,BayView - Richmond Parkway Transit Center,,3,http://www.westcat.org/schedules/route17cs.html,9d8176,ffffff,0
+WC:JR,WC,JR,Hercules Transit Center - Pinole - Richmond - BART,,3,http://www.westcat.org/schedules/routeJcs.html,ce413d,000000,0
+WC:JPX,WC,JPX,Hercules Transit Center - El Cerrito del Norte BART,,3,http://www.westcat.org/schedules/routeJPXcs.html,ce413d,000000,0
+WC:708,WC,708,BART Early Bird Express – Oakland,,3,,74262b,ffffff,0
+WC:705,WC,705,BART Early Bird Express – San Francisco,,3,,74262b,ffffff,0
+WC:12,WC,12,Trees and Flowers,,3,http://www.westcat.org/schedules/route12cs.html,789367,000000,0
+WC:19,WC,19,Hercules - Pinole - Richmond Parkway Transit Center - Hilltop Mall,,3,http://www.westcat.org/schedules/route19cs.html,695b93,ffffff,0
+CT:Bus Bridge,CT,Bus Bridge,SamTrans Bus Bridge,,3,,01529d,ffffff,0
+CT:LTD B,CT,LTD B,Limited B,,2,,f6dd84,000000,0
+CT:Local,CT,Local,Local,,2,,c5c5c5,000000,0
+CT:LTD A,CT,LTD A,Limited A,,2,,fcedc7,000000,0
+CT:TaSJ-Shuttle,CT,TaSJ-Shuttle,TaSJ-Shuttle,,3,,69c570,ffffff,0
+CT:Bullet,CT,Bullet,Baby Bullet,,2,,E31837,ffffff,0
+CT:Special,CT,Special,Special Event Extra Service,,2,,0092ff,ffffff,0
+VN:11X,VN,11X,Napa-Vallejo Express,,3,https://vinetransit.com/routes/route-11x/,eb563b,ffffff,0
+VN:American Canyon Transit,VN,American Canyon Transit,,,3,http://vinetransit.com/routes/american-canyon-transit/,4e6c39,ffffff,0
+VN:St Helena Shuttle,VN,St Helena Shuttle,,,3,http://vinetransit.com/routes/st-helena-shuttle/,7b3d5c,ffffff,0
+VN:E,VN,E,Northwest Napa,,3,https://vinetransit.com/routes/route-e/,e53127,FFFFFF,0
+VN:10X,VN,10X,Up Valley Express,,3,https://vinetransit.com/routes/route-10x/,f2b030,ffffff,0
+VN:D,VN,D,Southeast Napa,,3,https://vinetransit.com/routes/route-d/,FFE901,00000F,0
+VN:C,VN,C,Jefferson | Central Napa,,3,https://vinetransit.com/routes/route-c/,d05aa2,FFFFFF,0
+VN:29,VN,29,Napa-BART Express,,3,https://vinetransit.com/routes/route-29/,de386e,FFFFFF,0
+VN:F,VN,F,Southwest Napa,,3,https://vinetransit.com/routes/route-f/,e67425,FFFFFF,0
+VN:G,VN,G,Coombs,,3,https://vinetransit.com/routes/route-g/,00a49a,FFFFFF,0
+VN:H,VN,H,North Napa,,3,https://vinetransit.com/routes/route-h/,71ccd2,FFFFFF,0
+VN:11,VN,11,Napa-Vallejo Connector,,3,https://vinetransit.com/routes/route-11-2/,8d64aa,FFFFFF,0
+VN:21,VN,21,Napa-Solano Express,,3,https://vinetransit.com/routes/route-21/,74c067,FFFFFF,0
+VN:10,VN,10,Up Valley Connector,,3,https://vinetransit.com/routes/route-10/,3195c9,FFFFFF,0
+VN:A,VN,A,Browns Valley | North Napa,,3,https://vinetransit.com/routes/route-a/,984A2B,FFFFFF,0
+VN:B,VN,B,Westwood | South Napa,,3,https://vinetransit.com/routes/route-b/,434C3D,FFFFFF,0
+SC:Express 168,SC,Express 168,Gilroy/Morgan Hill - San Jose Diridon,,3,https://www.vta.org/go/routes/168,00b140,000000,0
+SC:47,SC,47,Milpitas BART - McCarthy Ranch via Park Victoria,,3,https://www.vta.org/go/routes/47,29588c,FFFFFF,0
+SC:25,SC,25,De Anza College - Alum Rock Station via Valley Med,,3,https://www.vta.org/go/routes/25,e4002b,FFFFFF,0
+SC:26,SC,26,West Valley College - Eastridge,,3,https://www.vta.org/go/routes/26,e4002b,FFFFFF,0
+SC:72,SC,72,Downtown San Jose - Senter & Monterey via McLaughlin,,3,https://www.vta.org/go/routes/72,e4002b,FFFFFF,0
+SC:27,SC,27,Winchester Station - Kaiser San Jose via Downtown Los Gatos,,3,https://www.vta.org/go/routes/27,29588c,FFFFFF,0
+SC:31,SC,31,Evergreen Valley College - Eastridge,,3,https://www.vta.org/go/routes/31,29588c,FFFFFF,0
+SC:37,SC,37,West Valley College - Capitol Station,,3,https://www.vta.org/go/routes/37,29588c,FFFFFF,0
+SC:39,SC,39,Eastridge - The Villages,,3,https://www.vta.org/go/routes/39,29588c,FFFFFF,0
+SC:57,SC,57,Old Ironsides Station - West Valley College,,3,https://www.vta.org/go/routes/57,e4002b,FFFFFF,0
+SC:55,SC,55,Old Ironsides Station - De Anza College,,3,https://www.vta.org/go/routes/55,29588c,FFFFFF,0
+SC:60,SC,60,Milpitas BART - Winchester Station via SJC Airport,,3,https://www.vta.org/go/routes/60,e4002b,FFFFFF,0
+SC:66,SC,66,North Milpitas - Kaiser San Jose,,3,https://www.vta.org/go/routes/66,e4002b,FFFFFF,0
+SC:68,SC,68,San Jose Diridon Station - Gilroy Transit Center,,3,https://www.vta.org/go/routes/68,e4002b,FFFFFF,0
+SC:23,SC,23,De Anza College - Alum Rock Station via Stevens Creek,,3,https://www.vta.org/go/routes/23,e4002b,FFFFFF,0
+SC:70,SC,70,Milpitas BART - Eastridge via Jackson,,3,https://www.vta.org/go/routes/70,e4002b,FFFFFF,0
+SC:71,SC,71,Milpitas BART - Capitol Station,,3,https://www.vta.org/go/routes/71,29588c,FFFFFF,0
+SC:83,SC,83,Almaden & McKean - Ohlone-Chynoweth Station,,3,https://www.vta.org/go/routes/83,29588c,FFFFFF,0
+SC:73,SC,73,Downtown San Jose - Senter & Monterey via Senter,,3,https://www.vta.org/go/routes/73,e4002b,FFFFFF,0
+SC:Orange Line,SC,Orange Line,Mountain View - Alum Rock,,0,https://www.vta.org/go/routes/orange-line,ff8300,000000,0
+SC:Rapid 500,SC,Rapid 500,San Jose Diridon Station - Berryessa BART,"Rapid buses may depart up to five minutes earlier than the time shown, if traffic allows.",3,https://www.vta.org/go/routes/rapid-500,e4002b,FFFFFF,0
+SC:Blue Line,SC,Blue Line,Baypointe - Santa Teresa,,0,https://www.vta.org/go/routes/blue-line,4cb4e7,000000,0
+SC:Rapid 522,SC,Rapid 522,Palo Alto Transit Center - Eastridge,"Rapid buses may depart up to five minutes earlier than the time shown, if traffic allows.",3,https://www.vta.org/go/routes/rapid-522,e4002b,FFFFFF,0
+SC:21,SC,21,Stanford Shopping Center - Santa Clara Transit Center,,3,https://www.vta.org/go/routes/21,29588c,FFFFFF,0
+SC:Green Line,SC,Green Line,Old Ironsides - Winchester,,0,https://www.vta.org/go/routes/green-line,73c92d,000000,0
+SC:Rapid 523,SC,Rapid 523,Berryessa BART -  Lockheed Martin via De Anza College,"Rapid buses may depart up to five minutes earlier than the time shown, if traffic allows.",3,https://www.vta.org/go/routes/rapid-523,e4002b,FFFFFF,0
+SC:51H,SC,51H,Moffett Field/Ames Center - De Anza College,,3,https://www.vta.org/go/routes/51h,29588c,FFFFFF,0
+SC:61,SC,61,Sierra & Piedmont - Good Samaritan Hospital,,3,https://www.vta.org/go/routes/61,e4002b,FFFFFF,0
+SC:Express 101,SC,Express 101,Camden & Highway 85 - Stanford Research Park,,3,https://www.vta.org/go/routes/101,00b140,000000,0
+SC:Express 102,SC,Express 102,South San Jose - Stanford Research Park,,3,https://www.vta.org/go/routes/102,00b140,000000,0
+SC:Express 103,SC,Express 103,Eastridge - Stanford Research Park,,3,https://www.vta.org/go/routes/103,00b140,000000,0
+SC:Express 104,SC,Express 104,Milpitas BART - Stanford Research Park,,3,https://www.vta.org/go/routes/104,00b140,000000,0
+SC:ACE Gray,SC,ACE Gray,Great America ACE Station -  South Sunnyvale,,3,,939598,FFFFFF,0
+SC:ACE Green,SC,ACE Green,Great America ACE Station -  North Santa Clara,,3,,0e9972,FFFFFF,0
+SC:ACE Orange,SC,ACE Orange,Great America ACE Station -  Mountain View,,3,,f69238,FFFFFF,0
+SC:ACE Purple,SC,ACE Purple,Great America ACE Station -  West Milpitas,,3,,263996,FFFFFF,0
+SC:ACE Red,SC,ACE Red,Great America ACE Station -  North Sunnyvale,,3,,d60e51,FFFFFF,0
+SC:ACE Yellow,SC,ACE Yellow,Great America ACE Station -  South Santa Clara,,3,,ffe601,000000,0
+SC:ACE Brown,SC,ACE Brown,Great America ACE Station -  South Sunnyvale,,3,,6d4739,FFFFFF,0
+SC:ACE Violet,SC,ACE Violet,Great America ACE Station -  VTA Light Rail,,3,,bbb7da,000000,0
+SC:44,SC,44,Milpitas BART - McCarthy Ranch via Tasman & Alder,,3,https://www.vta.org/go/routes/44,29588c,FFFFFF,0
+SC:56,SC,56,Lockheed Martin - Tamien Station,,3,https://www.vta.org/go/routes/56,29588c,FFFFFF,0
+SC:59,SC,59,Valley Fair - Baypointe Station via Alviso,,3,https://www.vta.org/go/routes/59,29588c,FFFFFF,0
+SC:20,SC,20,Milpitas BART - Sunnyvale Transit Center,,3,https://www.vta.org/go/routes/20,29588c,FFFFFF,0
+SC:40,SC,40,Foothill College - Mountain View Transit Center via North Bayshore,,3,https://www.vta.org/go/routes/40,29588c,FFFFFF,0
+SC:51,SC,51,Moffett Field/Ames Center - West Valley College,,3,https://www.vta.org/go/routes/51,29588c,FFFFFF,0
+SC:64A,SC,64A,McKee & White - Ohlone-Chynoweth Station,,3,https://www.vta.org/go/routes/64A,e4002b,FFFFFF,0
+SC:64B,SC,64B,McKee & White - Almaden Expressway & Camden,,3,https://www.vta.org/go/routes/64B,e4002b,FFFFFF,0
+SC:86,SC,86,Gavilan College - Gilroy Transit Center,,3,https://www.vta.org/go/routes/86,29588c,FFFFFF,0
+SC:84,SC,84,Gilroy Transit Center - Saint Louise Hospital via Gilroy Outlets,,3,https://www.vta.org/go/routes/84,29588c,FFFFFF,0
+SC:85,SC,85,Gilroy Transit Center - Saint Louise Hospital via west Gilroy,,3,https://www.vta.org/go/routes/85,29588c,FFFFFF,0
+SC:87,SC,87,Morgan Hill Civic Center - Burnett Avenue,,3,https://www.vta.org/go/routes/87,29588c,FFFFFF,0
+SC:52,SC,52,Foothill College - Mountain View Transit Center via El Monte,,3,https://www.vta.org/go/routes/52,29588c,FFFFFF,0
+SC:89,SC,89,California Avenue Caltrain - Palo Alto VA Hospital,,3,https://www.vta.org/go/routes/89,29588c,FFFFFF,0
+SC:53,SC,53,Sunnyvale Transit Center - Santa Clara Transit Center,,3,https://www.vta.org/go/routes/53,29588c,FFFFFF,0
+SC:42,SC,42,Evergreen Valley College - Santa Teresa Station,,3,https://www.vta.org/go/routes/42,29588c,FFFFFF,0
+SC:77,SC,77,Milpitas BART - Eastridge via King,,3,https://www.vta.org/go/routes/77,e4002b,FFFFFF,0
+SC:22,SC,22,Palo Alto Transit Center - Eastridge,,3,https://www.vta.org/go/routes/22,e4002b,FFFFFF,0
+GF:LF,GF,LF,Larkspur - San Francisco Ferry,,4,http://goldengateferry.org/schedules/Larkspur.php,0000FF,FFFFFF,0
+GF:SF,GF,SF,Sausalito - San Francisco Ferry,,4,http://goldengateferry.org/schedules/Sausalito.php,0000FF,FFFFFF,0
+GF:TF,GF,TF,Tiburon - San Francisco Ferry,,4,,0000FF,FFFFFF,0
+CE:ACE,CE,ACE,Altamont Corridor Express,,2,https://acerail.com/schedules/,bd10e0,FFFFFF,0
+UC:1,UC,1,Delores,"Union Landing, Four Corners, Dyer & Union City Blvd, and Union City BART",3,,3ab859,,0
+UC:4,UC,4,Tamarack,"Seven Hills, Whipple Rd, Calaveras Landing, Union Landing, Continues as Route 3 to Tropics and Union City BART",3,,f99523,,0
+UC:8,UC,8,Alvarado-Niles,"Perry Rd, Union Landing, Kaiser, Continues as Route 2 to Whipple Rd, Decoto District, and Union City BART",3,,3b8a26,,0
+UC:5,UC,5,Dyer,"Union Landing, Four Corners, Dyer & Union City Blvd, and Union City BART",3,,fd00a6,,0
+UC:3,UC,3,Almaden,"Tropics, Union Landing, Continues as Route 4 to Calaveras Landing, Whipple Rd, Seven Hills, and Union City BART",3,,43afff,,0
+UC:2,UC,2,Whipple,"Decoto District, Whipple Rd, Kaiser, Continues as Route 8 to Union Landing, Perry Rd, and Union City BART",3,,7235f9,,0
+PE:3,PE,3,Eastside Clockwise,,3,http://petaluma.rideralerts.com/infopoint3,00AAEB,FFFFFF,0
+PE:501,PE,501,Pjhs/phs/smart,,3,http://petaluma.rideralerts.com/infopoint501,9E003A,FFFFFF,0
+PE:2,PE,2,N. Mcdowell,,3,http://petaluma.rideralerts.com/infopoint2,D1232F,FFFFFF,0
+PE:24,PE,24,Smart - Lakeville -Kaiser,,3,http://petaluma.rideralerts.com/infopoint24,F7911D,FFFFFF,0
+PE:11,PE,11,Crosstown,,3,http://petaluma.rideralerts.com/infopoint11,763491,FFFFFF,0
+PE:301,PE,301,N. Mcdowell/etc/kjhs/cghs,,3,http://petaluma.rideralerts.com/infopoint301,4CB36E,FFFFFF,0
+PE:302,PE,302,Kjhs/cghs N. Mcdowell,,3,http://petaluma.rideralerts.com/infopoint302,b44c8f,FFFFFF,0
+PE:303,PE,303,Kjhs/cghs,,3,http://petaluma.rideralerts.com/infopoint303,005c66,FFFFFF,0
+PE:311,PE,311,Downtown Kjhs/cghs,,3,http://petaluma.rideralerts.com/infopoint311,F15b4f,FFFFFF,0
+PE:33,PE,33,Eastside Counter-Clock,,3,http://petaluma.rideralerts.com/infopoint33,293F8B,FFFFFF,0
+PE:312,PE,312,Cghs / Eastside Transit Center,,3,http://petaluma.rideralerts.com/infopoint312,559AB4,ffffff,0
+PE:10,PE,10,Petaluma Blvd,,3,http://petaluma.rideralerts.com/infopoint10,B53B2C,FFFFFF,0
+CC:35,CC,35,ROUTE 35,,3,,006493,000000,0
+CC:10,CC,10,ROUTE 10,,3,,006493,000000,0
+CC:17,CC,17,ROUTE 17,,3,,006493,000000,0
+CC:18,CC,18,ROUTE 18,,3,,006493,000000,0
+CC:20,CC,20,ROUTE 20,,3,,006493,000000,0
+CC:15,CC,15,ROUTE 15,,3,,006493,000000,0
+CC:21,CC,21,ROUTE 21,,3,,006493,000000,0
+CC:28,CC,28,ROUTE 28,,3,,800000,000000,0
+CC:16,CC,16,ROUTE 16,,3,,46a076,000000,0
+CC:310,CC,310,ROUTE 310,,3,,9c629d,000000,0
+CC:316,CC,316,ROUTE 316,,3,,9c629d,000000,0
+CC:320,CC,320,ROUTE 320,,3,,9c629d,000000,0
+CC:98X,CC,98X,ROUTE 98X,,3,,de9634,000000,0
+CC:19,CC,19,ROUTE 19,,3,,006493,000000,0
+CC:311,CC,311,ROUTE 311,,3,,9c629d,000000,0
+CC:7,CC,7,ROUTE 7,,3,,46a076,000000,0
+CC:314,CC,314,ROUTE 314,,3,,9c629d,000000,0
+CC:9,CC,9,ROUTE 9,,3,,006493,000000,0
+CC:91X,CC,91X,ROUTE 91X,,3,,de9634,000000,0
+CC:315,CC,315,ROUTE 315,,3,,9c629d,000000,0
+CC:5,CC,5,ROUTE 5,,3,,46a076,000000,0
+CC:6,CC,6,ROUTE 6,,3,,006493,000000,0
+CC:92X,CC,92X,ROUTE 92X,,3,,de9634,000000,0
+CC:93X,CC,93X,ROUTE 93X,,3,,de9634,000000,0
+CC:95X,CC,95X,ROUTE 95X,,3,,de9634,000000,0
+CC:96X,CC,96X,ROUTE 96X,,3,,de9634,000000,0
+CC:321,CC,321,ROUTE 321,,3,,9c629d,000000,0
+CC:14,CC,14,ROUTE 14,,3,,46a076,000000,0
+CC:27,CC,27,ROUTE 27,,3,,006493,000000,0
+CC:335,CC,335,ROUTE 335,,3,,9c629d,000000,0
+CC:11,CC,11,ROUTE 11,,3,,46a076,000000,0
+CC:97X,CC,97X,ROUTE 97X,,3,,de9634,000000,0
+CC:4,CC,4,ROUTE 4,,3,,46a076,000000,0
+CC:99X,CC,99X,ROUTE 99X,,3,,de9634,000000,0
+CC:1,CC,1,ROUTE 1,,3,,006493,000000,0
+SR:2,SR,2,Sebastopol Rd Corp Center,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=2,EF692F,FFFFFF,0
+SR:2B,SR,2B,Sebastopol Road,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=20,662D91,FFFFFF,0
+SR:15,SR,15,Stony Point Road,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=15,2DACCE,FFFFFF,0
+SR:8,SR,8,Bennett Valley,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=8,EF692F,FFFFFF,0
+SR:9,SR,9,West 9th Street,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=9,8094C4,FFFFFF,0
+SR:4,SR,4,Rincon Valley,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=4,39B54A,FFFFFF,0
+SR:5,SR,5,Petaluma Hill Rd,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=5,E9C01E,FFFFFF,0
+SR:6,SR,6,Fulton Road,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=6,B8093D,FFFFFF,0
+SR:18,SR,18,East Circulator,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=18,274867,FFFFFF,0
+SR:1,SR,1,Mendocino Ave,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=1,0074B3,FFFFFF,0
+SR:3,SR,3,Santa Rosa Ave,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=3,ED017F,FFFFFF,0
+SR:12,SR,12,Corby Ave - Roseland,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=12,0BA08E,FFFFFF,0
+SR:10,SR,10,North City Connector,,3,https://santarosaivl.availtec.com/InfoPoint?routes[selected]=10,F99F38,FFFFFF,0
+EM:Hollis South,EM,Hollis South,,,3,https://www.emerygoround.com/commute-service.html,ffb311,000000,0
+EM:Hollis North,EM,Hollis North,,,3,https://www.emerygoround.com/commute-service.html,ff0001,ffffff,0
+EM:North Shellmound,EM,North Shellmound,,,3,https://www.emerygoround.com/commute-service.html,603669,ffffff,0
+EM:Hollis,EM,Hollis,,,3,https://www.emerygoround.com/standard-service.html,ff0001,ffffff,0
+EM:Shellmound/Powell,EM,Shellmound/Powell,,,3,,5e3767,ffffff,0
+EM:South Shellmound/Powell,EM,South Shellmound/Powell,,,3,,9b6bdf,000000,0
+EM:Watergate Express,EM,Watergate Express,,,3,https://www.emerygoround.com/commute-service.html,00a1ea,000000,0
+AC:G,AC,G,Colusa - Solano Transbay,,3,http://www.actransit.org/bus-lines-schedules/G,FFFF00,000000,0
+AC:46L,AC,46L,82nd Ave. - Grass Valley Limited,,3,http://www.actransit.org/bus-lines-schedules/46L,87CEEB,000000,0
+AC:604,AC,604,Head Royce - Hebrew Day - Berk.,,3,http://www.actransit.org/bus-lines-schedules/604,ffffff,000000,0
+AC:605,AC,605,Head Royce - Montclair - College,,3,http://www.actransit.org/bus-lines-schedules/605,ffffff,000000,0
+AC:14,AC,14,14th St - San Antonio - High St,,3,http://www.actransit.org/bus-lines-schedules/14,E0B0FF,000000,0
+AC:72M,AC,72M,Macdonald - San Pablo,,3,http://www.actransit.org/bus-lines-schedules/72M,EE82EE,000000,0
+AC:99,AC,99,Mission - Decoto - Fremont Blvd.,,3,http://www.actransit.org/bus-lines-schedules/99,008000,000000,0
+AC:18,AC,18,Solano - Shattuck - MLK Jr.,,3,http://www.actransit.org/bus-lines-schedules/18,A52A2A,000000,0
+AC:606,AC,606,Head Royce - Piedmont,,3,http://www.actransit.org/bus-lines-schedules/606,ffffff,000000,0
+AC:51B,AC,51B,University - College - Rockridge,,3,http://www.actransit.org/bus-lines-schedules/51B,008000,000000,0
+AC:210,AC,210,Fremont Blvd. - Mission San Jose,,3,http://www.actransit.org/bus-lines-schedules/210,EE82EE,000000,0
+AC:54,AC,54,35th Ave. - Merritt College,,3,http://www.actransit.org/bus-lines-schedules/54,008080,000000,0
+AC:51A,AC,51A,Broadway - Santa Clara,,3,http://www.actransit.org/bus-lines-schedules/51A,808000,000000,0
+AC:45,AC,45,Seminary - Sobrante Park,,3,http://www.actransit.org/bus-lines-schedules/45,008080,000000,0
+AC:840,AC,840,Foothill - Eastmont All Nighter,,3,http://www.actransit.org/bus-lines-schedules/840,FFC0CB,000000,0
+AC:93,AC,93,Ashland - San Lorenzo - A St.,,3,http://www.actransit.org/bus-lines-schedules/93,FFC0CB,000000,0
+AC:95,AC,95,D St. - Maud - Fairview,,3,http://www.actransit.org/bus-lines-schedules/95,E0B0FF,000000,0
+AC:251,AC,251,Paseo Padre - Thornton - Cherry,,3,http://www.actransit.org/bus-lines-schedules/251,4f7942,000000,0
+AC:J,AC,J,Sacramento -  Christie Transbay,,3,http://www.actransit.org/bus-lines-schedules/J,FFFF00,000000,0
+AC:L,AC,L,San Pablo Transbay,,3,http://www.actransit.org/bus-lines-schedules/L,8A8AFF,000000,0
+AC:19,AC,19,Buena Vista - Fruitvale,,3,http://www.actransit.org/bus-lines-schedules/19,87CEEB,000000,0
+AC:98,AC,98,Eastmont - 98th Ave. - Edgewater,,3,http://www.actransit.org/bus-lines-schedules/98,FFC0CB,000000,0
+AC:F,AC,F,Adeline - Market Transbay,,3,http://www.actransit.org/bus-lines-schedules/F,FFA500,000000,0
+AC:57,AC,57,40th St. - MacArthur,,3,http://www.actransit.org/bus-lines-schedules/57,8A8AFF,000000,0
+AC:88,AC,88,Sacramento - Market,,3,http://www.actransit.org/bus-lines-schedules/88,808000,000000,0
+AC:21,AC,21,Dimond - Fruitvale - Bay Farm,,3,http://www.actransit.org/bus-lines-schedules/21,008000,000000,0
+AC:62,AC,62,7th St. - San Antonio - 23rd Av.,,3,http://www.actransit.org/bus-lines-schedules/62,A52A2A,000000,0
+AC:40,AC,40,Foothill - Bancroft - Bay Fair,,3,http://www.actransit.org/bus-lines-schedules/40,EE82EE,000000,0
+AC:LA,AC,LA,Hilltop - Pierce Transbay,,3,http://www.actransit.org/bus-lines-schedules/LA,FFA500,000000,0
+AC:65,AC,65,Grizzly Peak - Euclid,,3,http://www.actransit.org/bus-lines-schedules/65,EE82EE,000000,0
+AC:7,AC,7,Arlington - 1000 Oaks - Shattuck,,3,http://www.actransit.org/bus-lines-schedules/7,4f7942,000000,0
+AC:1T,AC,1T,Uptown Oakland\ San Leandro BART Southbound OWL,,3,http://www.actransit.org/bus-lines-schedules/1T,00ABC8,000000,0
+AC:NL,AC,NL,MacArthur Transbay Limited,,3,http://www.actransit.org/bus-lines-schedules/NL,FFA500,000000,0
+AC:200,AC,200,Decoto - Newark Blvd. - Mowry,,3,http://www.actransit.org/bus-lines-schedules/200,A52A2A,000000,0
+AC:216,AC,216,Niles - Stevenson - NewPark,,3,http://www.actransit.org/bus-lines-schedules/216,FFA500,000000,0
+AC:239,AC,239,Grimmer - Warm Springs,,3,http://www.actransit.org/bus-lines-schedules/239,008080,000000,0
+AC:20,AC,20,Dimond - Fruitvale - South Shore,,3,http://www.actransit.org/bus-lines-schedules/20,FFA500,000000,0
+AC:NX,AC,NX,Grand Lake - Laurel  Transbay,,3,http://www.actransit.org/bus-lines-schedules/NX,FFFF00,000000,0
+AC:376,AC,376,Cutting - North Richmond Nights,,3,http://www.actransit.org/bus-lines-schedules/376,FFFF00,000000,0
+AC:39,AC,39,Skyline - Dimond - Fruitvale,,3,http://www.actransit.org/bus-lines-schedules/39,E6E6FA,000000,0
+AC:NX2,AC,NX2,MacArthur - Laurel Transbay,,3,http://www.actransit.org/bus-lines-schedules/NX2,87CEEB,000000,0
+AC:O,AC,O,Santa Clara - Encinal Transbay,,3,http://www.actransit.org/bus-lines-schedules/O,E6E6FA,000000,0
+AC:P,AC,P,Piedmont - Oakland Ave. Transbay,,3,http://www.actransit.org/bus-lines-schedules/P,E6E6FA,000000,0
+AC:U,AC,U,Stanford - Dumbarton - Fremont,,3,http://www.actransit.org/bus-lines-schedules/U,FF6666,000000,0
+AC:W,AC,W,High - South Shore Transbay,,3,http://www.actransit.org/bus-lines-schedules/W,FFC0CB,000000,0
+AC:800,AC,800,Rich - Oak Transbay All Nighter,,3,http://www.actransit.org/bus-lines-schedules/800,7FFF00,000000,0
+AC:52,AC,52,UC Village - Cedar - UC Campus,,3,http://www.actransit.org/bus-lines-schedules/52,FFC0CB,000000,0
+AC:60,AC,60,CSUEB - Southland - Chabot Coll,,3,http://www.actransit.org/bus-lines-schedules/60,E6E6FA,000000,0
+AC:67,AC,67,Tilden Park - Spruce - Oxford,,3,http://www.actransit.org/bus-lines-schedules/67,FFFF00,000000,0
+AC:802,AC,802,San Pablo All Nighter,,3,http://www.actransit.org/bus-lines-schedules/802,4f7942,000000,0
+AC:851,AC,851,College - Broadway All Nighter,,3,http://www.actransit.org/bus-lines-schedules/851,E0B0FF,000000,0
+AC:NX1,AC,NX1,MacArthur - Grand Lake Transbay,,3,http://www.actransit.org/bus-lines-schedules/NX1,7FFF00,000000,0
+AC:V,AC,V,Montclair - Park Blvd. Transbay,,3,http://www.actransit.org/bus-lines-schedules/V,E6E6FA,000000,0
+AC:212,AC,212,Fremont Blvd. - Pacific Commons,,3,http://www.actransit.org/bus-lines-schedules/212,8A8AFF,000000,0
+AC:217,AC,217,Mission San Jose - Milpitas,,3,http://www.actransit.org/bus-lines-schedules/217,E6E6FA,000000,0
+AC:71,AC,71,Parchester - Rumrill - Carlson,,3,http://www.actransit.org/bus-lines-schedules/71,8A8AFF,000000,0
+AC:702,AC,702,Pleas Hill Transbay Early Bird,,3,http://www.actransit.org/bus-lines-schedules/702,ffffff,000000,0
+AC:232,AC,232,Mission - Decoto - NewPark,,3,http://www.actransit.org/bus-lines-schedules/232,EE82EE,000000,0
+AC:34,AC,34,Estudillo - Davis - Meekland,,3,http://www.actransit.org/bus-lines-schedules/34,EE82EE,000000,0
+AC:35,AC,35,Estudillo - Davis -  Lewelling,,3,http://www.actransit.org/bus-lines-schedules/35,008000,000000,0
+AC:41,AC,41,Whitman - Huntwood - Union Landg,,3,http://www.actransit.org/bus-lines-schedules/41,7FFF00,000000,0
+AC:56,AC,56,Santa Clara - Weekes - Huntwood,,3,http://www.actransit.org/bus-lines-schedules/56,87CEEB,000000,0
+AC:6,AC,6,Berkeley - Telegraph - Oakland,,3,http://www.actransit.org/bus-lines-schedules/6,8A8AFF,000000,0
+AC:72,AC,72,Hilltop - CCC - San Pablo,,3,http://www.actransit.org/bus-lines-schedules/72,008000,000000,0
+AC:10,AC,10,E. 14th St. - Mission,,3,http://www.actransit.org/bus-lines-schedules/10,A52A2A,000000,0
+AC:801,AC,801,E 14th - Mission  All Nighter,,3,http://www.actransit.org/bus-lines-schedules/801,FFFF00,000000,0
+AC:86,AC,86,Winton - Industrial - Tennyson,,3,http://www.actransit.org/bus-lines-schedules/86,FFA500,000000,0
+AC:805,AC,805,MacArthur - Airport All Nighter,,3,http://www.actransit.org/bus-lines-schedules/805,FFC0CB,000000,0
+AC:74,AC,74,San Pablo Dam - 23rd St.,,3,http://www.actransit.org/bus-lines-schedules/74,E6E6FA,000000,0
+AC:90,AC,90,85th Ave. - Elmhurst - 90th Ave.,,3,http://www.actransit.org/bus-lines-schedules/90,FF6666,000000,0
+AC:97,AC,97,Hesperian - Alvarado - Decoto,,3,http://www.actransit.org/bus-lines-schedules/97,008080,000000,0
+AC:73,AC,73,73rd Ave. - Coliseum - Airport,,3,http://www.actransit.org/bus-lines-schedules/73,A52A2A,000000,0
+AC:12,AC,12,MLK Jr. - Temescal - Grand,,3,http://www.actransit.org/bus-lines-schedules/12,87CEEB,000000,0
+AC:701,AC,701,Pittsburg/BP Transbay Early Bird,,3,http://www.actransit.org/bus-lines-schedules/701,ffffff,000000,0
+AC:706,AC,706,Bay Fair Transbay Early Bird,,3,http://www.actransit.org/bus-lines-schedules/706,ffffff,000000,0
+AC:70,AC,70,Rheem - San Pablo Dam - Appian,,3,http://www.actransit.org/bus-lines-schedules/70,4f7942,000000,0
+AC:72R,AC,72R,San Pablo Rapid,,3,http://www.actransit.org/bus-lines-schedules/72R,008080,000000,0
+AC:76,AC,76,Hilltop - Market -  Cutting,,3,http://www.actransit.org/bus-lines-schedules/76,FFC0CB,000000,0
+AC:29,AC,29,Hollis - Peralta - Lakeshore,,3,http://www.actransit.org/bus-lines-schedules/29,FF6666,000000,0
+AC:33,AC,33,Piedmont - Harrison - Park Blvd.,,3,http://www.actransit.org/bus-lines-schedules/33,4f7942,000000,0
+AC:36,AC,36,Dwight - Shellmound - Adeline,,3,http://www.actransit.org/bus-lines-schedules/36,E6E6FA,000000,0
+AC:79,AC,79,Colusa - The Alameda - Claremont,,3,http://www.actransit.org/bus-lines-schedules/79,008080,000000,0
+AC:96,AC,96,Alameda Pt. - 14th Ave. - Dimond,,3,http://www.actransit.org/bus-lines-schedules/96,008080,000000,0
+AC:28,AC,28,Alvarado - Castro Valley - B St.,,3,http://www.actransit.org/bus-lines-schedules/28,4f7942,000000,0
+AM:Shuttle,AM,Shuttle,Shuttle_Auburn,Shuttle to Auburn,3,https://www.capitolcorridor.org/wp-content/uploads/2020/03/Bus_Schedules_3.21.20.pdf,,,0
+AM:SF,AM,SF,Shuttle_SF,Shuttle to San Francisco Transbay Terminal,3,http://capitolcorridor.org/route_and_schedules/,,,0
+AM:CC,AM,CC,Capitol Corridor,"Daily train service between Auburn, Sacramento, Oakland and San Jose",2,http://capitolcorridor.org/route_and_schedules/,,,0
+CM:SCC Shuttle,CM,SCC Shuttle,San Carlos Commuter,,3,http://commute.org/shuttles/routes-and-schedules/290-san-carlos-commuter,5b91cc,,0
+CM:MPT Shuttle,CM,MPT Shuttle,Redwood City Midpoint Caltrain,,3,http://commute.org/shuttles/routes-and-schedules/25-redwood-city-midpoint-caltrain,5b91cc,,0
+CM:RLC Shuttle,CM,RLC Shuttle,Redwood LIFE Caltrain,,3,http://commute.org/shuttles/routes-and-schedules/248-redwood-shores-bayshore-technology-park-caltrain,5b91cc,,0
+CM:LC Shuttle,CM,LC Shuttle,Lincoln Centre,,3,http://commute.org/shuttles/routes-and-schedules/106-foster-city-lincoln-centre-caltrain,5b91cc,,0
+CM:NB Shuttle,CM,NB Shuttle,North Burlingame,,3,http://commute.org/shuttles/routes-and-schedules/89-burlingame-north-bartcaltrain,5b91cc,,0
+CM:OPC Shuttle,CM,OPC Shuttle,Oyster Point Caltrain,,3,http://commute.org/shuttles/routes-and-schedules/78-so-san-francisco-oyster-pt-caltrain,5b91cc,,0
+CM:OPF Shuttle,CM,OPF Shuttle,Oyster Point Ferry,,3,http://commute.org/shuttles/routes-and-schedules/129-so-san-francisco-oyster-point-ferry,5b91cc,,0
+CM:SEA Shuttle,CM,SEA Shuttle,Seaport Centre,,3,http://commute.org/shuttles/routes-and-schedules/122-redwood-city-seaport-caltrain,5b91cc,,0
+CM:OTP Shuttle,CM,OTP Shuttle,Genesis One Tower Place BART/Caltrain,,3,http://commute.org/shuttles-info/127-so-san-francisco-genesis-one-tower-place,5b91cc,,0
+CM:MB Shuttle,CM,MB Shuttle,Millbrae Broadway,,3,http://www.smctd.com/Shuttles/Millbrae_Broadway_Shuttle.html,5b91cc,,0
+CM:BH Shuttle,CM,BH Shuttle,Belmont Hillsdale,,3,http://www.smctd.com/Shuttles/Belmont_Hillsdale_Shuttle.html,5b91cc,,0
+CM:TD Shuttle,CM,TD Shuttle,Twin Dolphin,,3,https://www.smctd.com/Shuttles/Twin_Dolphin_Shuttle.html,5b91cc,,0
+CM:PS Shuttle,CM,PS Shuttle,Pacific Shores,,3,http://www.smctd.com/Shuttles/Pacific_Shores_Shuttle.html,5b91cc,,0
+CM:MAR Shuttle,CM,MAR Shuttle,Mariners' Island,,3,http://commute.org/shuttles/routes-and-schedules/27-san-mateo-mariners-island-caltrain,5b91cc,,0
+CM:NOR Shuttle,CM,NOR Shuttle,San Mateo Norfolk,,3,http://commute.org/shuttles/routes-and-schedules/28-san-mateo-norfolk-caltrain,5b91cc,,0
+CM:UGC Shuttle,CM,UGC Shuttle,Utah-Grand Caltrain,,3,http://commute.org/shuttles/routes-and-schedules/82-so-san-francisco-utahgrand-caltrain,5b91cc,,0
+CM:BAY Shuttle,CM,BAY Shuttle,Burlingame Bayside,,3,http://commute.org/shuttles/routes-and-schedules/87-burlingame-bayside-bartcaltrain,5b91cc,,0
+CM:NFC Shuttle,CM,NFC Shuttle,North Foster City,,3,http://commute.org/shuttles/routes-and-schedules/22-foster-city-north-bartcaltrain,5b91cc,,0
+CM:CAM Shuttle,CM,CAM Shuttle,Campus Drive,,3,http://commute.org/shuttles/routes-and-schedules/26-san-mateo-campus-drive-caltrain,5b91cc,,0
+CM:BBC Shuttle,CM,BBC Shuttle,Brisbane-Bayshore Caltrain,,3,http://commute.org/shuttles/routes-and-schedules/15-brisbane-bayshore-caltrain,5b91cc,,0
+CM:OPB Shuttle,CM,OPB Shuttle,Oyster Point BART,,3,http://commute.org/shuttles/routes-and-schedules/98-so-san-francisco-oyster-pt-bart,5b91cc,,0
+CM:UGB Shuttle,CM,UGB Shuttle,Utah-Grand BART,,3,http://commute.org/shuttles/routes-and-schedules/81-so-san-francisco-utahgrand-bart,5b91cc,,0
+CM:UGF Shuttle,CM,UGF Shuttle,Utah-Grand Ferry,,3,http://commute.org/shuttles/routes-and-schedules/120-so-san-francisco-utahgrand-ferry,5b91cc,,0
+CM:BCP Shuttle,CM,BCP Shuttle,Brisbane Crocker Park,,3,http://commute.org/shuttles/routes-and-schedules/16-brisbane-crocker-park-bartcaltrain,5b91cc,,0
+SM:FCX,SM,FCX,Foster City - San Francisco,,3,,,,0
+SM:FLX,SM,FLX,Flex Route Pacifica,,3,,,,0
+SM:713,SM,713,SF Transit Center - San Francisco International,,3,,,,0
+SM:SFO,SM,SFO,SFO - Millbrae,,3,,,,0
+SM:83,SM,83,Hillview School - Bay/Marsh,,3,,,,0
+SM:110,SM,110,Daly City BART - Linda Mar Park & Ride,,3,,,,0
+SM:120,SM,120,Colma BART - Brunswick/Templeton,,3,,,,0
+SM:256,SM,256,Hillsdale Mall - Foster City,,3,,,,0
+SM:260,SM,260,San Carlos Caltrain - College of San Mateo,,3,,,,0
+SM:270,SM,270,Redwood City Caltrain - Florence/17th loop,,3,,,,0
+SM:112,SM,112,Linda Mar Park & Ride - Colma BART,,3,,,,0
+SM:121,SM,121,Lowell/Hanover - Skyline College,,3,,,,0
+SM:122,SM,122,South SF BART - Stonestown/SF State,,3,,,,0
+SM:130,SM,130,Daly City BART - Airport/Linden,,3,,,,0
+SM:140,SM,140,Airtrain - West Manor/Palmetto,,3,,,,0
+SM:141,SM,141,Airport/Linden - Shelter Creek,,3,,,,0
+SM:250,SM,250,5th/El Camino - College of San Mateo,,3,,,,0
+SM:251,SM,251,Foster City - Hillsdale Mall,,3,,,,0
+SM:17,SM,17,Linda Mar Park & Ride - Pescadero,,3,,,,0
+SM:38,SM,38,Safe Harbor Shelter,,3,,,,0
+SM:280,SM,280,Purdue/Fordham - Stanford Mall,,3,,,,0
+SM:281,SM,281,Onetta Harris Ctr - Stanford Mall,,3,,,,0
+SM:292,SM,292,San Francisco - SFO - Hillsdale Mall,,3,,,,0
+SM:296,SM,296,Redwood City Transit Center - Bayshore/Donohoe,,3,,,,0
+SM:ECR,SM,ECR,Daly City BART - Palo Alto Transit Ctr,,3,,,,0
+SM:278,SM,278,Woodside/Alameda - Canada College - Saturday Only,,3,,,,0
+SM:286,SM,286,Ringwood/Arlington - Monte Rosa/Eastridge,,3,,,,0
+SM:294,SM,294,SM Med Ctr - Hillsdale - CSM - Half Moon Bay,,3,,,,0
+SM:295,SM,295,San Mateo Caltrain - Redwood City Transit Center,,3,,,,0
+SM:397,SM,397,San Francisco - Palo Alto Transit Ctr,,3,,,,0
+SM:398,SM,398,Redwood City Transit Center to SF Transbay Termina,,3,,,,0
+SF:7,SF,7,HAIGHT-NORIEGA,,3,https://SFMTA.com/7,,,0
+SF:37,SF,37,CORBETT,,3,https://SFMTA.com/37,,,0
+SF:J,SF,J,CHURCH,,0,https://SFMTA.com/J,,,0
+SF:48,SF,48,QUINTARA-24TH STREET,,3,https://SFMTA.com/48,,,0
+SF:TBUS,SF,TBUS,THIRD BUS SHUTTLE,,3,https://SFMTA.com/TBUS,,,0
+SF:67,SF,67,BERNAL HEIGHTS,,3,https://SFMTA.com/67,,,0
+SF:8AX,SF,8AX,BAYSHORE A EXPRESS,,3,https://SFMTA.com/8AX,,,0
+SF:9R,SF,9R,SAN BRUNO RAPID,,3,https://SFMTA.com/9R,,,0
+SF:15,SF,15,BAYVIEW HUNTERS POINT EXPRESS,,3,https://SFMTA.com/15,,,0
+SF:27,SF,27,BRYANT,,3,https://SFMTA.com/27,,,0
+SF:KBUS,SF,KBUS,INGLESIDE BUS,,3,https://SFMTA.com/KBUS,,,0
+SF:30,SF,30,STOCKTON,,3,https://SFMTA.com/30,,,0
+SF:54,SF,54,FELTON,,3,https://SFMTA.com/54,,,0
+SF:MBUS,SF,MBUS,OCEAN VIEW BUS,,3,https://SFMTA.com/MBUS,,,0
+SF:43,SF,43,MASONIC,,3,https://SFMTA.com/43,,,0
+SF:33,SF,33,ASHBURY-18TH ST,,3,https://SFMTA.com/33,,,0
+SF:38R,SF,38R,GEARY RAPID,,3,https://SFMTA.com/38R,,,0
+SF:45,SF,45,UNION-STOCKTON,,3,https://SFMTA.com/45,,,0
+SF:55,SF,55,DOGPATCH,,3,https://SFMTA.com/55,,,0
+SF:5,SF,5,FULTON,,3,https://SFMTA.com/5,,,0
+SF:12,SF,12,FOLSOM-PACIFIC,,3,https://SFMTA.com/12,,,0
+SF:28,SF,28,19TH AVENUE,,3,https://SFMTA.com/28,,,0
+SF:714,SF,714,BART EARLY BIRD,,3,https://SFMTA.com/714,,,0
+SF:LBUS,SF,LBUS,TARAVAL BUS,,3,https://SFMTA.com/LBUS,,,0
+SF:NBUS,SF,NBUS,JUDAH BUS,,3,https://SFMTA.com/NBUS,,,0
+SF:T,SF,T,THIRD,,0,https://SFMTA.com/T,,,0
+SF:14R,SF,14R,MISSION RAPID,,3,https://SFMTA.com/14R,,,0
+SF:8,SF,8,BAYSHORE,,3,https://SFMTA.com/8,,,0
+SF:14,SF,14,MISSION,,3,https://SFMTA.com/14,,,0
+SF:9,SF,9,SAN BRUNO,,3,https://SFMTA.com/9,,,0
+SF:19,SF,19,POLK,,3,https://SFMTA.com/19,,,0
+SF:22,SF,22,FILLMORE,,3,https://SFMTA.com/22,,,0
+SF:25,SF,25,TREASURE ISLAND,,3,https://SFMTA.com/25,,,0
+SF:29,SF,29,SUNSET,,3,https://SFMTA.com/29,,,0
+SF:44,SF,44,O'SHAUGHNESSY,,3,https://SFMTA.com/44,,,0
+SF:24,SF,24,DIVISADERO,,3,https://SFMTA.com/24,,,0
+SF:38,SF,38,GEARY,,3,https://SFMTA.com/38,,,0
+SF:49,SF,49,VAN NESS-MISSION,,3,https://SFMTA.com/49,,,0
+SF:90,SF,90,SAN BRUNO OWL,,3,https://SFMTA.com/90,,,0
+SF:L-OWL,SF,L-OWL,OWL TARAVAL,,3,https://SFMTA.com/L-OWL,,,0
+SF:91,SF,91,3RD-19TH AVE OWL,,3,https://SFMTA.com/91,,,0
+SF:N-OWL,SF,N-OWL,OWL JUDAH,,3,https://SFMTA.com/N-OWL,,,0
+SF:1,SF,1,CALIFORNIA,,3,https://SFMTA.com/1,,,0
+GG:705,GG,705,Oakland - San Francisco,,3,,CC3333,FFFFFF,0
+GG:71,GG,71,Novato -Marin City,,3,,53A946,FFFFFF,0
+GG:101,GG,101,Santa Rosa - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_101.php,3366FF,FFFFFF,0
+GG:704,GG,704,Del Norte BART Station - San Francisco,,3,,CC3333,FFFFFF,0
+GG:54,GG,54,Novato - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_54.php,CC3333,FFFFFF,0
+GG:30,GG,30,San Rafael - San Francisco,,3,,3366FF,FFFFFF,0
+GG:40,GG,40,Del Norte BART Station - San Rafael,,3,http://goldengatetransit.org/schedules/current/route_40.php,3366FF,FFFFFF,0
+GG:70,GG,70,Novato - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_70.php,3366FF,FFFFFF,0
+GG:72,GG,72,Santa Rosa - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_72.php,CC3333,FFFFFF,0
+GG:27,GG,27,San Rafael - San Francisco,,3,http://goldengatetransit.org/schedules/current/route_27.php,CC3333,FFFFFF,0
