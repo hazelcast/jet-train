@@ -38,5 +38,13 @@
             <groupId>com.github.kittinunf.result</groupId>
             <artifactId>result</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.mobilitydata.transit</groupId>
+            <artifactId>gtfs-realtime-bindings</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java-util</artifactId>
+        </dependency>
     </dependencies>
 </project>

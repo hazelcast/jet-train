@@ -16,7 +16,7 @@
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <kotlin.version>1.4.21</kotlin.version>
+        <kotlin.version>1.4.30</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <sonar.organization>hazelcast</sonar.organization>
@@ -89,7 +89,7 @@
             <dependency>
                 <groupId>com.hazelcast.jet</groupId>
                 <artifactId>hazelcast-jet</artifactId>
-                <version>4.3</version>
+                <version>4.4</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
@@ -99,12 +99,22 @@
             <dependency>
                 <groupId>com.github.kittinunf.fuel</groupId>
                 <artifactId>fuel</artifactId>
-                <version>2.3.0</version>
+                <version>2.3.1</version>
             </dependency>
             <dependency>
                 <groupId>com.github.kittinunf.result</groupId>
                 <artifactId>result</artifactId>
                 <version>4.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.mobilitydata.transit</groupId>
+                <artifactId>gtfs-realtime-bindings</artifactId>
+                <version>0.0.5</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java-util</artifactId>
+                <version>3.9.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
