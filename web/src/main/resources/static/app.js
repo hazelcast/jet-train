@@ -229,7 +229,7 @@ class Vehicle {
       this._lastKnownPosition = null // skip until the next known position comes in
     } else {
       const speed = 2 // meters/sec
-      const animTimerDuration = 60000
+      const animTimerDuration = 90000
       animSpeed = Math.floor(animTimerDuration / speed) // animates good enough.
 
       const nextStop = this.schedule[nextStopIdx]
