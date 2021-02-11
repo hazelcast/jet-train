@@ -183,16 +183,17 @@ class Vehicle {
   }
 
   _onFinalStop() {
-    DEBUG && console.log('xxx _onFinalStop')
+    DEBUG && console.log(`${this.vehicleId} must have finished its route; removing from map.`)
+
     if (this._marker) {
       this._marker.remove();
       this._marker = undefined;
     }
 
-    if (this._route) {
-      this._route.remove();
-      this._route = undefined;
-    }
+    // if (this._route) {
+    //   this._route.remove();
+    //   this._route = undefined;
+    // }
 
     this._onFinalStopCb(this);
   }
@@ -213,28 +214,68 @@ class Vehicle {
 
   _tick() {
     if (!this._marker) return
-    if (!this._lastKnownPosition) return // no need process unless new data comes in.
 
-    // move to the last known position with the given speed
+    const t = currentTime();
+    const nextStopIdx = this.schedule.findIndex(({ arrival }) => t < arrival);
+    if (nextStopIdx === -1) {
+      this._onFinalStop()
+      return
+    }
+
+    let targetLatLon, animSpeed
+    if (this._lastKnownPosition) {
+      targetLatLon = this._lastKnownLatLong
+      animSpeed = 500 // move to last known position quickly
+      this._lastKnownPosition = null // skip until the next known position comes in
+    } else {
+      const speed = 2 // meters/sec
+      const animTimerDuration = 60000
+      animSpeed = Math.floor(animTimerDuration / speed) // animates good enough.
+
+      const nextStop = this.schedule[nextStopIdx]
+      const nextStopLatLon = [nextStop.latitude, nextStop.longitude]
+      // this._debugMarker(nextStopLatLon, `next stop(${nextStopIdx}) for ${this.vehicleId}`)
+      targetLatLon = nextStopLatLon // move to estimated position with fake speed above
+    }
+
     // animation time is an approximation
     // trick - use css transitions for a smoother animation:
     const marker = this._marker
-    const speed = this._lastKnownPosition.speed || 10 // meters/sec
-    // console.log(this._lastKnownPosition)
-    if (!speed) return;
-
-    const animSpeed = Math.floor(30000 / speed) // animates good enough.
     if (marker._icon) { marker._icon.style[L.DomUtil.TRANSITION] = ('all ' + animSpeed + 'ms linear'); }
     if (marker._shadow) { marker._shadow.style[L.DomUtil.TRANSITION] = 'all ' + animSpeed + 'ms linear'; }
 
-    this._marker.setLatLng(this._lastKnownLatLong);
-    this._lastKnownPosition = null;
+    // moves with the transition above
+    this._marker.setLatLng(targetLatLon);
+  }
+
+  _disableAnimation() {
+    // call this before zooming to disable animation on vehicles
+    const marker = this._marker
+    if (!marker) return
+    this._disabledTransition = marker._icon.style[L.DomUtil.TRANSITION]
+    if (marker._icon) { marker._icon.style[L.DomUtil.TRANSITION] = 'none'; }
+    if (marker._shadow) { marker._shadow.style[L.DomUtil.TRANSITION] = 'none'; }
+  }
+  _enableAnimation() {
+    // call this after zooming to enable animation on vehicles
+    const marker = this._marker
+    if (!marker) return
+    if (marker._icon) { marker._icon.style[L.DomUtil.TRANSITION] = this._disabledTransition; }
+    if (marker._shadow) { marker._shadow.style[L.DomUtil.TRANSITION] = this._disabledTransition; }
   }
 }
 
 class Container {
   constructor() {
     this.map = L.map('map').setView([37.6688, -122.0810], 10);
+    this.map.on('zoomstart', () => {
+      console.log('zoomstart, stop animations')
+      Object.values(this._vehicles).forEach(v => v._disableAnimation())
+    });
+    this.map.on('zoomend', () => {
+      console.log('zoomend, just tick again')
+      Object.values(this._vehicles).forEach(v => v._tick())
+    });
     this._vehicles = {};
     this._socket = undefined;
     this._stomp = undefined;
@@ -337,7 +378,7 @@ class Container {
     }
 
     // we could use a timer as well. overkill.
-    window.setInterval(worldTick, 1000);
+    window.setInterval(worldTick, 3000);
   }
 
   _processData({
@@ -350,7 +391,7 @@ class Container {
     agencyName,
   }) {
     if (currentTime() > schedule[schedule.length - 1].arrival) {
-      DEBUG && console.log('xxx trip old, quit.', currentTime(), ' --- ', schedule[schedule.length - 1].arrival)
+      DEBUG && console.log('xxx trip old somehow, quit.', currentTime(), ' --- ', schedule[schedule.length - 1].arrival)
       return;
     }
 
