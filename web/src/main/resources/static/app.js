@@ -133,10 +133,13 @@ class Vehicle {
       return;
     }
 
-    if (!this._hasMovementStarted) {
-      DEBUG && console.log(555, 'xxx movement not started, not doing anything.', this.vehicleId)
-      return;
-    }
+    // xxx why the time diff?
+    if (this._lastKnownPosition.speed = 0) return
+    // if (!this._hasMovementStarted) {
+    //   DEBUG && console.log(555, 'xxx movement not started, not doing anything.', this.vehicleId)
+    //   DEBUG && console.log(555, currentTime(), this.schedule[0].arrival, this._lastKnownPosition.speed)
+    //   return;
+    // }
 
     if (!this._marker) {
       this._createMarker();
@@ -216,7 +219,8 @@ class Vehicle {
     // animation time is an approximation
     // trick - use css transitions for a smoother animation:
     const marker = this._marker
-    const speed = this._lastKnownPosition.speed // meters/sec
+    const speed = this._lastKnownPosition.speed || 10 // meters/sec
+    // console.log(this._lastKnownPosition)
     if (!speed) return;
 
     const animSpeed = Math.floor(30000 / speed) // animates good enough.
@@ -295,7 +299,7 @@ class Container {
         //
         // transform the data a bit:
         //
-        if (!data.schedule) return // lax it a bit; does hit occasionally
+        if (!(data.schedule && data.schedule.length)) return // lax it a bit; does hit occasionally
 
         data.vehicleId = data.vehicle.vehicle.id
         data.routeId = data.vehicle.trip.route.id
@@ -327,7 +331,9 @@ class Container {
 
     function worldTick(timestamp) {
       // tick for each vehicle
+      //console.time('worldTick')
       Object.values(self._vehicles).forEach(v => v._tick())
+      //console.timeEnd('worldTick')
     }
 
     // we could use a timer as well. overkill.
