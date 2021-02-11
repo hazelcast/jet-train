@@ -1,3 +1,6 @@
+const DEBUG = true
+const DEBUG_REPLAY = false
+
 const UNKNOWN_COLOR = 'red';
 
 // route types are here:
@@ -45,13 +48,14 @@ const ROUTE_ICON_MAPPING = {
 const randomColor = () => "#" + ((1<<24)*Math.random() | 0).toString(16)
 // const currentTime = () => new Date();
 
-
-// xxx fake time data
 function currentTime() {
-  var dateOffset = ((78)*60*60*1000);
-  var fakeNow = new Date();
-  fakeNow.setTime(fakeNow.getTime() - dateOffset);
-  return fakeNow
+  if (DEBUG && DEBUG_REPLAY) {
+    var dateOffset = ((149)*60*60*1000);
+    var fakeNow = new Date();
+    fakeNow.setTime(fakeNow.getTime() - dateOffset);
+    return fakeNow
+  }
+  return new Date();
 }
 
 let KNOWN_ROUTES = {}
@@ -65,7 +69,7 @@ class Route {
     this.type = type;
     this.polyline = L.polyline(schedule.map(Route.stopToLatLong), {
       color: ROUTE_COLOR_MAPPING[this.type] || UNKNOWN_COLOR,
-      weight: 2
+      weight: 2,
     });
     this.polyline.addTo(map);
     this.latlngs = this.polyline.getLatLngs()
@@ -73,7 +77,8 @@ class Route {
       const isLastStop = idx === schedule.length - 1
       const circle = L.circleMarker([latitude, longitude], {
         color: ROUTE_COLOR_MAPPING[this.type] || UNKNOWN_COLOR,
-        radius: isLastStop ? 5 : 2, // make last stops larger
+        radius: isLastStop ? 5 : 3, // make last stops larger
+        fillColor: isLastStop ? 'red' : 'lime',
         fill: true,
         fillOpacity: 0.8,
       });
@@ -123,13 +128,13 @@ class Vehicle {
     this._lastKnownPosition = position;
 
     if (this._hasMovementEnded) {
-      console.log(555, 'xxx movement has ended, removing.', this.vehicleId)
+      DEBUG && console.log(555, 'xxx movement has ended, removing.', this.vehicleId)
       this._onFinalStop();
       return;
     }
 
     if (!this._hasMovementStarted) {
-      console.log(555, 'xxx movement not started, not doing anything.', this.vehicleId)
+      DEBUG && console.log(555, 'xxx movement not started, not doing anything.', this.vehicleId)
       return;
     }
 
@@ -138,7 +143,7 @@ class Vehicle {
       this._route.setColor();
     }
 
-    // this._debugMarker(this._lastKnownLatLong, new Date())
+    // this._debugMarker(this._lastKnownLatLong, `${this.vehicleId} - ${new Date()}`)
 
     // this._route.latlngs.forEach(latlong => {
     //   console.log(999, latlong.distanceTo(this._marker.getLatLng()))
@@ -148,7 +153,6 @@ class Vehicle {
     // const closestDistance = Math.min(...distancesToMarker)
     // const idx = distancesToMarker.findIndex(distance => distance === closestDistance)
 
-    // xxx problematic: it jumps all around!!!!!
     // console.log(999999, `closest stop: (${idx}/${this._route.latlngs.length})`)
     // const nextStopIdx = this.schedule.findIndex(({ latitude, longitude }) => t < arrival);
   }
@@ -162,7 +166,6 @@ class Vehicle {
 
     const icon = DEBUG_ICON
 
-    // xxx
     // const icon = ROUTE_ICON_MAPPING[this.routeType]
     this._marker = L.marker([this._lastKnownPosition.latitude, this._lastKnownPosition.longitude], {icon});
     this._marker.bindTooltip(this.name);
@@ -177,7 +180,7 @@ class Vehicle {
   }
 
   _onFinalStop() {
-    console.log('xxx _onFinalStop')
+    DEBUG && console.log('xxx _onFinalStop')
     if (this._marker) {
       this._marker.remove();
       this._marker = undefined;
@@ -205,16 +208,23 @@ class Vehicle {
     return [this._lastKnownPosition.latitude, this._lastKnownPosition.longitude]
   }
 
-  _tick(elapsed) {
+  _tick() {
     if (!this._marker) return
+    if (!this._lastKnownPosition) return // no need process unless new data comes in.
 
+    // move to the last known position with the given speed
+    // animation time is an approximation
     // trick - use css transitions for a smoother animation:
     const marker = this._marker
-    const speed = 2000 // we could calculate based on speed as well. this looks good enogh.
-    if (marker._icon) { marker._icon.style[L.DomUtil.TRANSITION] = ('all ' + speed + 'ms linear'); }
-    if (marker._shadow) { marker._shadow.style[L.DomUtil.TRANSITION] = 'all ' + speed + 'ms linear'; }
+    const speed = this._lastKnownPosition.speed // meters/sec
+    if (!speed) return;
+
+    const animSpeed = Math.floor(30000 / speed) // animates good enough.
+    if (marker._icon) { marker._icon.style[L.DomUtil.TRANSITION] = ('all ' + animSpeed + 'ms linear'); }
+    if (marker._shadow) { marker._shadow.style[L.DomUtil.TRANSITION] = 'all ' + animSpeed + 'ms linear'; }
 
     this._marker.setLatLng(this._lastKnownLatLong);
+    this._lastKnownPosition = null;
   }
 }
 
@@ -236,11 +246,11 @@ class Container {
       },
     ).addTo(this.map);
 
-    //this.listen()
+    this.listen()
 
     this.animationLoop()
 
-    this.replayFakeData()
+    DEBUG && DEBUG_REPLAY && this.replayFakeData()
   }
 
   replayFakeData() {
@@ -249,7 +259,7 @@ class Container {
         'AC:72M',
         'AC:97'
     ]
-    // xxx replay debug data
+
     let idx = 0;
     setInterval(() => {
 
@@ -313,22 +323,15 @@ class Container {
   }
 
   animationLoop() {
-    let lastUpdate = new Date();
     const self = this;
 
     function worldTick(timestamp) {
-      const now = new Date();
-      const elapsed = now - lastUpdate;
-      lastUpdate = now;
-
       // tick for each vehicle
-      Object.values(self._vehicles).forEach(v => v._tick(elapsed))
-
-      window.requestAnimationFrame(worldTick);
+      Object.values(self._vehicles).forEach(v => v._tick())
     }
 
     // we could use a timer as well. overkill.
-    window.requestAnimationFrame(worldTick);
+    window.setInterval(worldTick, 1000);
   }
 
   _processData({
@@ -341,14 +344,14 @@ class Container {
     agencyName,
   }) {
     if (currentTime() > schedule[schedule.length - 1].arrival) {
-      console.log('xxx trip old, quit.', currentTime(), ' --- ', schedule[schedule.length - 1].arrival)
+      DEBUG && console.log('xxx trip old, quit.', currentTime(), ' --- ', schedule[schedule.length - 1].arrival)
       return;
     }
 
-    const existingVehicle = this._vehicles[vehicleId];
+    let existingVehicle = this._vehicles[vehicleId];
 
     if (!existingVehicle) {
-      const newVehicle = new Vehicle(
+      existingVehicle = new Vehicle(
         this.map,
         vehicleId,
         routeId,
@@ -358,8 +361,7 @@ class Container {
         `${agencyName}/${routeName}/${vehicleId}`,
         (vehicle) => this._onVehicleFinalStop(vehicleId),
       );
-      this._vehicles[vehicleId] = newVehicle;
-      return;
+      this._vehicles[vehicleId] = existingVehicle;
     }
 
     existingVehicle.updateData({position, schedule});
