@@ -1,19 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Swiss Trains</title>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/webjars/leaflet/leaflet.css"
-    />
-  </head>
-  <body>
-    <div id="map" style="height:800px"></div>
-    <script src="/webjars/jquery/jquery.min.js"></script>
-    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script src="/webjars/leaflet/leaflet.js"></script>
+
+<head>
+  <title>California Transit</title>
+  <link rel="stylesheet" type="text/css" href="/webjars/leaflet/leaflet.css" />
+  <link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.15.2/css/all.min.css" />
+</head>
+<style>
+  /* map should cover the body */
+  body {
+    padding: 0;
+    margin: 0;
+  }
+
+  html,
+  body,
+  #map {
+    height: 100%;
+    width: 100%;
+  }
+
+  /* misc. styling for the map */
+  .leaflet-tooltip {
+    font-size: 1.5rem;
+  }
+  .train-marker-icon {
+    color: Lime;
+  }
+  .bus-marker-icon {
+    color: Red;
+  }
+  .boat-marker-icon {
+    color: Navy;
+  }
+</style>
+
+<body>
+  <div id="map"></div>
+  <script src="/webjars/jquery/jquery.min.js"></script>
+  <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+  <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+  <script src="/webjars/leaflet/leaflet.js"></script>
+  <script src="/webjars/font-awesome/5.15.2/js/all.js"></script>
+  <script src="/replay.js"></script>
   <script src="/app.js"></script>
-  </body>
+</body>
+
 </html>
