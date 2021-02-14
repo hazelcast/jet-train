@@ -1,6 +1,10 @@
 const DEBUG = true
 const DEBUG_REPLAY = false
 
+const OPTIONS = {
+  VEHICLE_COLORS: 'PER-ROUTE' // FUNKY, PER-ROUTE, PER-AGENCY
+}
+
 const UNKNOWN_COLOR = 'red';
 
 // route types are here:
@@ -17,19 +21,19 @@ const ROUTE_COLOR_MAPPING = {
 }
 
 const TrainMarkerIcon = L.divIcon({
-  html: `<i class="fa train fa-2x"></i>`,
+  html: `<i class="fa train fa-2x" style="color: ${ROUTE_COLOR_MAPPING['0']}"></i>`,
   iconSize: [20, 20],
   className: 'train-marker-icon'
 });
 
 const BusMarkerIcon = L.divIcon({
-  html: `<i class="fa fa-bus fa-2x"></i>`,
+  html: `<i class="fa fa-bus fa-2x" style="color: ${ROUTE_COLOR_MAPPING['3']}"></i>`,
   iconSize: [20, 20],
   className: 'bus-marker-icon'
 });
 
 const BoatMarkerIcon = L.divIcon({
-  html: `<i class="fa fa-ship fa-2x"></i>`,
+  html: `<i class="fa fa-ship fa-2x" style="color: ${ROUTE_COLOR_MAPPING['4']}"></i>`,
   iconSize: [20, 20],
   className: 'boat-marker-icon'
 });
@@ -46,7 +50,11 @@ const ROUTE_ICON_MAPPING = {
 }
 
 const randomColor = () => "#" + ((1<<24)*Math.random() | 0).toString(16)
-// const currentTime = () => new Date();
+
+let COLOR_PALETTE = {
+  PER_ROUTE: {},
+  PER_AGENCY: {}
+}
 
 function currentTime() {
   if (DEBUG && DEBUG_REPLAY) {
@@ -102,8 +110,9 @@ class Route {
 }
 
 class Vehicle {
-  constructor(map, vehicleId, routeId, routeType, schedule, position, name, onFinalStopCb) {
+  constructor(map, vehicleId, agencyName, routeId, routeType, schedule, position, name, onFinalStopCb) {
     this.vehicleId = vehicleId;
+    this.agencyName = agencyName;
     this.routeId = routeId;
     this.routeType = routeType;
     this.schedule = schedule;
@@ -161,15 +170,28 @@ class Vehicle {
   }
 
   _createMarker() {
-    const DEBUG_ICON = L.divIcon({
-      html: `<i class="fa fa-bus fa-2x" style="color: ${randomColor()}"></i>`,
-      iconSize: [20, 20],
-      className: 'boat-marker-icon'
-    });
+    const icon = ROUTE_ICON_MAPPING[this.routeType]
 
-    const icon = DEBUG_ICON
+    if (OPTIONS.VEHICLE_COLORS == 'FUNKY') {
+      icon.options.html = icon.options.html.replace(/style="[^\"]*"/g, `style="color: ${randomColor()}"`)
+    } else
+    if (OPTIONS.VEHICLE_COLORS == 'PER-ROUTE') {
+      let color = COLOR_PALETTE.PER_ROUTE[this.routeId]
+      if (!color) {
+        color = randomColor()
+        COLOR_PALETTE.PER_ROUTE[this.routeId] = color
+      }
+      icon.options.html = icon.options.html.replace(/style="[^\"]*"/g, `style="color: ${color}"`)
+    } else
+    if (OPTIONS.VEHICLE_COLORS == 'PER-AGENCY') {
+      let color = COLOR_PALETTE.PER_AGENCY[this.agencyName]
+      if (!color) {
+        color = randomColor()
+        COLOR_PALETTE.PER_AGENCY[this.agencyName] = color
+      }
+      icon.options.html = icon.options.html.replace(/style="[^\"]*"/g, `style="color: ${color}"`)
+    }
 
-    // const icon = ROUTE_ICON_MAPPING[this.routeType]
     this._marker = L.marker([this._lastKnownPosition.latitude, this._lastKnownPosition.longitude], {icon});
     this._marker.bindTooltip(this.name);
     this._marker.addTo(this._map);
@@ -189,11 +211,6 @@ class Vehicle {
       this._marker.remove();
       this._marker = undefined;
     }
-
-    // if (this._route) {
-    //   this._route.remove();
-    //   this._route = undefined;
-    // }
 
     this._onFinalStopCb(this);
   }
@@ -234,6 +251,7 @@ class Vehicle {
 
       const nextStop = this.schedule[nextStopIdx]
       const nextStopLatLon = [nextStop.latitude, nextStop.longitude]
+
       // this._debugMarker(nextStopLatLon, `next stop(${nextStopIdx}) for ${this.vehicleId}`)
       targetLatLon = nextStopLatLon // move to estimated position with fake speed above
     }
@@ -401,6 +419,7 @@ class Container {
       existingVehicle = new Vehicle(
         this.map,
         vehicleId,
+        agencyName,
         routeId,
         routeType,
         schedule,
