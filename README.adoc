@@ -105,7 +105,7 @@ If you're a Java developer, this approach will be fastest as you probably have a
 
 === Requirements
 
-* Git
+* Git (with LFS extension installed - on Ubuntu it's not installed by default) 
 * A Java IDE _e.g._ IntelliJ IDEA, Eclipse, etc.
 
 === Steps
