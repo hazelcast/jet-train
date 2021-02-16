@@ -4,6 +4,10 @@ const OPTIONS = {
   VEHICLE_COLORS: 'PER-ROUTE' // FUNKY, PER-ROUTE, PER-AGENCY
 }
 
+const OPTIONS = {
+  VEHICLE_COLORS: 'PER-ROUTE' // FUNKY, PER-ROUTE, PER-AGENCY
+}
+
 const UNKNOWN_COLOR = 'red';
 
 // route types are here:
@@ -218,6 +222,7 @@ class Vehicle {
       const nextStop = this.schedule[nextStopIdx]
       const nextStopLatLon = [nextStop.latitude, nextStop.longitude]
 
+      // this._debugMarker(nextStopLatLon, `next stop(${nextStopIdx}) for ${this.vehicleId}`)
       targetLatLon = nextStopLatLon // move to estimated position with fake speed above
     }
 
@@ -317,14 +322,14 @@ class Container {
   }
 
   _processData({
-                 vehicleId,
-                 routeId,
-                 position,
-                 schedule,
-                 routeName,
-                 routeType,
-                 agencyName,
-               }) {
+     vehicleId,
+     routeId,
+     position,
+     schedule,
+     routeName,
+     routeType,
+     agencyName,
+   }) {
     if (currentTime() > schedule[schedule.length - 1].arrival) {
       DEBUG && console.log(`trip for vehicle ${vehicleId} has ended; nothing to do.`)
       return;
