@@ -4,10 +4,6 @@ const OPTIONS = {
   VEHICLE_COLORS: 'PER-ROUTE' // FUNKY, PER-ROUTE, PER-AGENCY
 }
 
-const OPTIONS = {
-  VEHICLE_COLORS: 'PER-ROUTE' // FUNKY, PER-ROUTE, PER-AGENCY
-}
-
 const UNKNOWN_COLOR = 'red';
 
 // route types are here:
@@ -77,7 +73,7 @@ class Route {
       weight: 2,
     });
     this.polyline.addTo(map);
-    this.latlngs = this.polyline.getLatLngs()
+    // this.latlngs = this.polyline.getLatLngs()
     this.stops = schedule.map(({ stopName, latitude, longitude }, idx) => {
       const isLastStop = idx === schedule.length - 1
       const circle = L.circleMarker([latitude, longitude], {
@@ -148,10 +144,10 @@ class Vehicle {
   _createMarker() {
     const icon = ROUTE_ICON_MAPPING[this.routeType]
 
-    if (OPTIONS.VEHICLE_COLORS == 'FUNKY') {
+    if (OPTIONS.VEHICLE_COLORS === 'FUNKY') {
       icon.options.html = icon.options.html.replace(/style="[^\"]*"/g, `style="color: ${randomColor()}"`)
     } else
-    if (OPTIONS.VEHICLE_COLORS == 'PER-ROUTE') {
+    if (OPTIONS.VEHICLE_COLORS === 'PER-ROUTE') {
       let color = COLOR_PALETTE.PER_ROUTE[this.routeId]
       if (!color) {
         color = randomColor()
@@ -159,7 +155,7 @@ class Vehicle {
       }
       icon.options.html = icon.options.html.replace(/style="[^\"]*"/g, `style="color: ${color}"`)
     } else
-    if (OPTIONS.VEHICLE_COLORS == 'PER-AGENCY') {
+    if (OPTIONS.VEHICLE_COLORS === 'PER-AGENCY') {
       let color = COLOR_PALETTE.PER_AGENCY[this.agencyName]
       if (!color) {
         color = randomColor()
@@ -347,7 +343,7 @@ class Container {
           schedule,
           position,
           `${agencyName}/${routeName}/${vehicleId}`,
-          (vehicle) => this._onVehicleFinalStop(vehicleId),
+          (vehicle) => this._onVehicleFinalStop(vehicle),
       );
       this._vehicles[vehicleId] = existingVehicle;
     }
@@ -355,8 +351,8 @@ class Container {
     existingVehicle.updateData({ position, schedule });
   }
 
-  _onVehicleFinalStop(vehicleId) {
-    delete this._vehicles[vehicleId];
+  _onVehicleFinalStop(vehicle) {
+    delete this._vehicles[vehicle.vehicleId];
   }
 }
 
