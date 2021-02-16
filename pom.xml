@@ -22,6 +22,7 @@
         <sonar.organization>hazelcast</sonar.organization>
         <sonar.projectKey>${project.groupId}:${project.artifactId}</sonar.projectKey>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <protobuf.version>3.14.0</protobuf.version>
     </properties>
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
@@ -114,7 +115,12 @@
             <dependency>
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java-util</artifactId>
-                <version>3.14.0</version>
+                <version>${protobuf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
