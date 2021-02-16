@@ -1,5 +1,4 @@
 const DEBUG = true
-const DEBUG_REPLAY = false
 
 const OPTIONS = {
   VEHICLE_COLORS: 'PER-ROUTE' // FUNKY, PER-ROUTE, PER-AGENCY
@@ -49,24 +48,18 @@ const ROUTE_ICON_MAPPING = {
   '4': BoatMarkerIcon,
 }
 
-const randomColor = () => "#" + ((1<<24)*Math.random() | 0).toString(16)
-
 let COLOR_PALETTE = {
   PER_ROUTE: {},
   PER_AGENCY: {}
 }
 
+let KNOWN_ROUTES = {}
+
+const randomColor = () => "#" + ((1 << 24) * Math.random() | 0).toString(16)
+
 function currentTime() {
-  if (DEBUG && DEBUG_REPLAY) {
-    var dateOffset = ((149)*60*60*1000);
-    var fakeNow = new Date();
-    fakeNow.setTime(fakeNow.getTime() - dateOffset);
-    return fakeNow
-  }
   return new Date();
 }
-
-let KNOWN_ROUTES = {}
 
 class Route {
   static stopToLatLong({ latitude, longitude }) {
@@ -97,7 +90,7 @@ class Route {
   }
 
   setColor() {
-    // xxx why call this at all
+    // refactor: why call this at all
     const color = ROUTE_COLOR_MAPPING[this.type] || UNKNOWN_COLOR
     this.polyline.setStyle({ color });
     this.stops.forEach((stop) => stop.setStyle({ color }));
@@ -132,41 +125,20 @@ class Vehicle {
     this._lastKnownPosition = position;
   }
 
-  updateData({position, schedule}) {
+  updateData({ position, schedule }) {
     this.schedule = schedule;
     this._lastKnownPosition = position;
 
     if (this._hasMovementEnded) {
-      DEBUG && console.log(555, 'xxx movement has ended, removing.', this.vehicleId)
+      DEBUG && console.log(`movement for vehicle ${this.vehicleId} has ended, removing.`)
       this._onFinalStop();
       return;
     }
-
-    // xxx why the time diff?
-    if (this._lastKnownPosition.speed = 0) return
-    // if (!this._hasMovementStarted) {
-    //   DEBUG && console.log(555, 'xxx movement not started, not doing anything.', this.vehicleId)
-    //   DEBUG && console.log(555, currentTime(), this.schedule[0].arrival, this._lastKnownPosition.speed)
-    //   return;
-    // }
 
     if (!this._marker) {
       this._createMarker();
       this._route.setColor();
     }
-
-    // this._debugMarker(this._lastKnownLatLong, `${this.vehicleId} - ${new Date()}`)
-
-    // this._route.latlngs.forEach(latlong => {
-    //   console.log(999, latlong.distanceTo(this._marker.getLatLng()))
-    // })
-
-    // const distancesToMarker = this._route.latlngs.map(latlong => latlong.distanceTo(this._marker.getLatLng()))
-    // const closestDistance = Math.min(...distancesToMarker)
-    // const idx = distancesToMarker.findIndex(distance => distance === closestDistance)
-
-    // console.log(999999, `closest stop: (${idx}/${this._route.latlngs.length})`)
-    // const nextStopIdx = this.schedule.findIndex(({ latitude, longitude }) => t < arrival);
   }
 
   _createMarker() {
@@ -192,15 +164,14 @@ class Vehicle {
       icon.options.html = icon.options.html.replace(/style="[^\"]*"/g, `style="color: ${color}"`)
     }
 
-    this._marker = L.marker([this._lastKnownPosition.latitude, this._lastKnownPosition.longitude], {icon});
+    this._marker = L.marker([this._lastKnownPosition.latitude, this._lastKnownPosition.longitude], { icon });
     this._marker.bindTooltip(this.name);
     this._marker.addTo(this._map);
   }
 
   _debugMarker(latlng, s) {
-    if (!this.__order) this.__order = 1
     let m = L.marker(latlng);
-    m.bindTooltip(s + "order:" + this.__order++);
+    m.bindTooltip(s);
     m.addTo(this._map);
   }
 
@@ -218,11 +189,6 @@ class Vehicle {
   get _hasMovementEnded() {
     const routeEndTime = this.schedule[this.schedule.length - 1].arrival;
     return currentTime() > routeEndTime;
-  }
-
-  get _hasMovementStarted() {
-    const routeStartTime = this.schedule[0].arrival;
-    return currentTime() > routeStartTime;
   }
 
   get _lastKnownLatLong() {
@@ -252,7 +218,6 @@ class Vehicle {
       const nextStop = this.schedule[nextStopIdx]
       const nextStopLatLon = [nextStop.latitude, nextStop.longitude]
 
-      // this._debugMarker(nextStopLatLon, `next stop(${nextStopIdx}) for ${this.vehicleId}`)
       targetLatLon = nextStopLatLon // move to estimated position with fake speed above
     }
 
@@ -270,16 +235,8 @@ class Vehicle {
     // call this before zooming to disable animation on vehicles
     const marker = this._marker
     if (!marker) return
-    this._disabledTransition = marker._icon.style[L.DomUtil.TRANSITION]
     if (marker._icon) { marker._icon.style[L.DomUtil.TRANSITION] = 'none'; }
     if (marker._shadow) { marker._shadow.style[L.DomUtil.TRANSITION] = 'none'; }
-  }
-  _enableAnimation() {
-    // call this after zooming to enable animation on vehicles
-    const marker = this._marker
-    if (!marker) return
-    if (marker._icon) { marker._icon.style[L.DomUtil.TRANSITION] = this._disabledTransition; }
-    if (marker._shadow) { marker._shadow.style[L.DomUtil.TRANSITION] = this._disabledTransition; }
   }
 }
 
@@ -287,11 +244,9 @@ class Container {
   constructor() {
     this.map = L.map('map').setView([37.6688, -122.0810], 10);
     this.map.on('zoomstart', () => {
-      console.log('zoomstart, stop animations')
       Object.values(this._vehicles).forEach(v => v._disableAnimation())
     });
     this.map.on('zoomend', () => {
-      console.log('zoomend, just tick again')
       Object.values(this._vehicles).forEach(v => v._tick())
     });
     this._vehicles = {};
@@ -301,49 +256,18 @@ class Container {
 
   initialize() {
     L.tileLayer(
-      'https://tile.thunderforest.com/transport/{z}/{x}/{y}{r}.png?apikey=170be1cff4224274add97bf552fd4745',
-      {
-        attribution:
-          '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,' +
-          '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-      },
+        'https://tile.thunderforest.com/transport/{z}/{x}/{y}{r}.png?apikey=170be1cff4224274add97bf552fd4745',
+        {
+          attribution:
+              '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,' +
+              '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+        },
     ).addTo(this.map);
 
     this.listen()
 
     this.animationLoop()
-
-    DEBUG && DEBUG_REPLAY && this.replayFakeData()
   }
-
-  replayFakeData() {
-    let allowed = [
-        'AC:72R',
-        'AC:72M',
-        'AC:97'
-    ]
-
-    let idx = 0;
-    setInterval(() => {
-
-      for (let i=0; i < 10; i++) {
-        if (REPLAYS.length - 1 === idx) return
-        const data = REPLAYS[idx]
-        data.vehicleId = data.vehicle.vehicle.id
-        data.schedule.forEach((schobj) => {
-          schobj.departure = new Date(schobj.departure)
-          schobj.arrival = new Date(schobj.arrival)
-        });
-        idx++
-
-        // if (!allowed.includes(data.routeId)) continue;
-        console.log('processing:', data.routeId, data.vehicleId)
-
-        this._processData(data);
-      }
-    }, 1000)
-  }
-
 
   listen() {
     this._socket = new SockJS('/hazelcast');
@@ -386,30 +310,23 @@ class Container {
   }
 
   animationLoop() {
-    const self = this;
-
-    function worldTick(timestamp) {
+    window.setInterval(() => {
       // tick for each vehicle
-      //console.time('worldTick')
-      Object.values(self._vehicles).forEach(v => v._tick())
-      //console.timeEnd('worldTick')
-    }
-
-    // we could use a timer as well. overkill.
-    window.setInterval(worldTick, 3000);
+      Object.values(this._vehicles).forEach(v => v._tick())
+    }, 3000);
   }
 
   _processData({
-    vehicleId,
-    routeId,
-    position,
-    schedule,
-    routeName,
-    routeType,
-    agencyName,
-  }) {
+                 vehicleId,
+                 routeId,
+                 position,
+                 schedule,
+                 routeName,
+                 routeType,
+                 agencyName,
+               }) {
     if (currentTime() > schedule[schedule.length - 1].arrival) {
-      DEBUG && console.log('xxx trip old somehow, quit.', currentTime(), ' --- ', schedule[schedule.length - 1].arrival)
+      DEBUG && console.log(`trip for vehicle ${vehicleId} has ended; nothing to do.`)
       return;
     }
 
@@ -417,20 +334,20 @@ class Container {
 
     if (!existingVehicle) {
       existingVehicle = new Vehicle(
-        this.map,
-        vehicleId,
-        agencyName,
-        routeId,
-        routeType,
-        schedule,
-        position,
-        `${agencyName}/${routeName}/${vehicleId}`,
-        (vehicle) => this._onVehicleFinalStop(vehicleId),
+          this.map,
+          vehicleId,
+          agencyName,
+          routeId,
+          routeType,
+          schedule,
+          position,
+          `${agencyName}/${routeName}/${vehicleId}`,
+          (vehicle) => this._onVehicleFinalStop(vehicleId),
       );
       this._vehicles[vehicleId] = existingVehicle;
     }
 
-    existingVehicle.updateData({position, schedule});
+    existingVehicle.updateData({ position, schedule });
   }
 
   _onVehicleFinalStop(vehicleId) {
