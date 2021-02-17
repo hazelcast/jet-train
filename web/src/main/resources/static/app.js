@@ -145,7 +145,7 @@ class Vehicle {
     const icon = ROUTE_ICON_MAPPING[this.routeType]
 
     if (OPTIONS.VEHICLE_COLORS === 'FUNKY') {
-      icon.options.html = icon.options.html.replace(/style="[^\"]*"/g, `style="color: ${randomColor()}"`)
+      icon.options.html = icon.options.html.replace(/style="[^"]*"/g, `style="color: ${randomColor()}"`)
     } else
     if (OPTIONS.VEHICLE_COLORS === 'PER-ROUTE') {
       let color = COLOR_PALETTE.PER_ROUTE[this.routeId]
@@ -153,7 +153,7 @@ class Vehicle {
         color = randomColor()
         COLOR_PALETTE.PER_ROUTE[this.routeId] = color
       }
-      icon.options.html = icon.options.html.replace(/style="[^\"]*"/g, `style="color: ${color}"`)
+      icon.options.html = icon.options.html.replace(/style="[^"]*"/g, `style="color: ${color}"`)
     } else
     if (OPTIONS.VEHICLE_COLORS === 'PER-AGENCY') {
       let color = COLOR_PALETTE.PER_AGENCY[this.agencyName]
@@ -161,18 +161,12 @@ class Vehicle {
         color = randomColor()
         COLOR_PALETTE.PER_AGENCY[this.agencyName] = color
       }
-      icon.options.html = icon.options.html.replace(/style="[^\"]*"/g, `style="color: ${color}"`)
+      icon.options.html = icon.options.html.replace(/style="[^"]*"/g, `style="color: ${color}"`)
     }
 
     this._marker = L.marker([this._lastKnownPosition.latitude, this._lastKnownPosition.longitude], { icon });
     this._marker.bindTooltip(this.name);
     this._marker.addTo(this._map);
-  }
-
-  _debugMarker(latlng, s) {
-    let m = L.marker(latlng);
-    m.bindTooltip(s);
-    m.addTo(this._map);
   }
 
   _onFinalStop() {
@@ -216,10 +210,9 @@ class Vehicle {
       animSpeed = Math.floor(animTimerDuration / speed) // animates good enough.
 
       const nextStop = this.schedule[nextStopIdx]
-      const nextStopLatLon = [nextStop.latitude, nextStop.longitude]
 
-      // this._debugMarker(nextStopLatLon, `next stop(${nextStopIdx}) for ${this.vehicleId}`)
-      targetLatLon = nextStopLatLon // move to estimated position with fake speed above
+      // move to estimated position with fake speed above
+      targetLatLon = [nextStop.latitude, nextStop.longitude]
     }
 
     // animation time is an approximation
