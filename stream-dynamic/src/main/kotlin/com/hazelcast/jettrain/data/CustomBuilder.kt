@@ -19,7 +19,7 @@ class WithEndpointData(private val token: String) : BiConsumerEx<TimeHolder, Sou
     private val url = "http://api.511.org/transit/vehiclepositions"
     private val agency = "AC"
     override fun acceptEx(time: TimeHolder, buffer: SourceBuffer<Pair<String, ByteArray>>) {
-        if (Instant.now().isAfter(time.value.plusSeconds(30))) {
+        if (Instant.now().isAfter(time.value.plusSeconds(10))) {
             val (_, _, result) = Fuel.get(url)
                 .apply { parameters = listOf("agency" to agency, "api_key" to token) }
                 .response()
