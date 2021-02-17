@@ -37,8 +37,8 @@ class TripTraverser(private val agency: String, entities: MutableList<FeedEntity
 object ToJson : FunctionEx<Pair<String, FeedEntity>, JsonObject> {
     override fun applyEx(payload: Pair<String, FeedEntity>): JsonObject {
         val string = JsonFormat.printer().print(payload.second)
-        return JsonParser()
-            .parse(string)
+        return JsonParser
+            .parseString(string)
             .asJsonObject
             .apply {
                 addProperty("agencyId", payload.first)
@@ -103,9 +103,8 @@ object TimeToTimestamps : FunctionEx<JsonObject, JsonObject> {
 }
 
 object TimestampExtractor : ToLongFunctionEx<String> {
-    private val parser = JsonParser()
-    override fun applyAsLongEx(value: String) = parser
-        .parse(value)
+    override fun applyAsLongEx(value: String) = JsonParser
+        .parseString(value)
         .asJsonObject
         .getAsJsonObject("header")
         .getAsJsonPrimitive("timestamp")

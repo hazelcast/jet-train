@@ -1,7 +1,6 @@
 package com.hazelcast.jettrain.data
 
 import com.google.gson.JsonArray
-import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.hazelcast.function.BiFunctionEx
@@ -20,11 +19,10 @@ object TripIdExtractor : FunctionEx<JsonObject, String> {
 }
 
 object EnrichWithTrip : BiFunctionEx<JsonObject, String?, JsonObject> {
-    private val parser = JsonParser()
     override fun applyEx(json: JsonObject, tripString: String?) =
         if (tripString == null) json
         else json.apply {
-            val trip = parser.parse(tripString).asJsonObject
+            val trip = JsonParser.parseString(tripString).asJsonObject
             val headsign = trip.getAsJsonPrimitive("trip_headsign").asString
             getAsJsonObject("vehicle")
                 .getAsJsonObject("trip")
@@ -44,11 +42,10 @@ object RouteIdExtractor : FunctionEx<JsonObject, String?> {
 }
 
 object EnrichWithRoute : BiFunctionEx<JsonObject, String?, JsonObject> {
-    private val parser = JsonParser()
     override fun applyEx(json: JsonObject, routeString: String?) =
         if (routeString == null) json
         else json.apply {
-            val route = parser.parse(routeString).asJsonObject
+            val route = JsonParser.parseString(routeString).asJsonObject
             getAsJsonObject("vehicle")
                 .getAsJsonObject("trip").apply {
                     add("route", route)
@@ -58,17 +55,15 @@ object EnrichWithRoute : BiFunctionEx<JsonObject, String?, JsonObject> {
 }
 
 object EnrichWithStopTimes : BiFunctionEx<JsonObject, String?, JsonObject> {
-    private val parser = JsonParser()
     override fun applyEx(json: JsonObject, scheduleString: String?) =
         if (scheduleString == null) json
         else json.apply {
-            val schedule = parser.parse(scheduleString).asJsonArray
+            val schedule = JsonParser.parseString(scheduleString).asJsonArray
             add("schedule", schedule)
         }
 }
 
 object EnrichWithStop : BiFunctionEx<IMap<String, String>, JsonObject, JsonObject> {
-    private val parser = JsonParser()
     override fun applyEx(stops: IMap<String, String>, json: JsonObject): JsonObject {
         return json.apply {
             val vehicle = json.getAsJsonObject("vehicle")
@@ -76,7 +71,7 @@ object EnrichWithStop : BiFunctionEx<IMap<String, String>, JsonObject, JsonObjec
                 ?.getAsJsonPrimitive("stopId")
                 ?.asString
             stops[mainStopId]?.let {
-                add("stop", parser.parse(it))
+                add("stop", JsonParser.parseString(it))
                 remove("stopId")
             }
             val schedule = getAsJsonArray("schedule")
@@ -86,7 +81,7 @@ object EnrichWithStop : BiFunctionEx<IMap<String, String>, JsonObject, JsonObjec
                 val stopString = stops[stopId]
                 if (stopString == null) it
                 else it.apply {
-                    add("stop", parser.parse(stopString))
+                    add("stop", JsonParser.parseString(stopString))
                     remove("stopId")
                 }
             }?.fold(JsonArray()) { acc, element ->
