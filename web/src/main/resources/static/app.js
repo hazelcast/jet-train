@@ -1,11 +1,5 @@
 const DEBUG = true
 
-const OPTIONS = {
-  VEHICLE_COLORS: 'PER-ROUTE' // FUNKY, PER-ROUTE, PER-AGENCY
-}
-
-const UNKNOWN_COLOR = 'red';
-
 // route types are here:
 // https://sites.google.com/site/gtfschanges/proposals/route-type
 const ROUTE_COLOR_MAPPING = {
@@ -23,19 +17,19 @@ const TrainMarkerIcon = L.divIcon({
   html: `<i class="fa train fa-2x" style="color: ${ROUTE_COLOR_MAPPING['0']}"></i>`,
   iconSize: [20, 20],
   className: 'train-marker-icon'
-});
+})
 
 const BusMarkerIcon = L.divIcon({
   html: `<i class="fa fa-bus fa-2x" style="color: ${ROUTE_COLOR_MAPPING['3']}"></i>`,
   iconSize: [20, 20],
   className: 'bus-marker-icon'
-});
+})
 
 const BoatMarkerIcon = L.divIcon({
   html: `<i class="fa fa-ship fa-2x" style="color: ${ROUTE_COLOR_MAPPING['4']}"></i>`,
   iconSize: [20, 20],
   className: 'boat-marker-icon'
-});
+})
 
 const ROUTE_ICON_MAPPING = {
   // tram/rail, subway/metro, rail
@@ -48,38 +42,34 @@ const ROUTE_ICON_MAPPING = {
   '4': BoatMarkerIcon,
 }
 
-let COLOR_PALETTE = {
-  PER_ROUTE: {},
-  PER_AGENCY: {}
-}
-
 let KNOWN_ROUTES = {}
 
-const randomColor = () => "#" + ((1 << 24) * Math.random() | 0).toString(16)
-
 function currentTime() {
-  return new Date();
+  return new Date()
 }
 
 class Route {
-  static stopToLatLong({ latitude, longitude }) {
-    return [latitude, longitude];
+  static stopToLatLong({
+                         latitude,
+                         longitude
+                       }) {
+    return [latitude, longitude]
   }
 
   constructor(type, color, map, schedule) {
-    console.debug(color)
     if (!color.startsWith('#')) {
       color = '#' + color
     }
-    console.debug(color)
-    this.type = type;
     this.polyline = L.polyline(schedule.map(Route.stopToLatLong), {
       color: color,
       weight: 2,
-    });
-    this.polyline.addTo(map);
-    // this.latlngs = this.polyline.getLatLngs()
-    this.stops = schedule.map(({ stopName, latitude, longitude }, idx) => {
+    })
+    this.polyline.addTo(map)
+    this.stops = schedule.map(({
+                                 stopName,
+                                 latitude,
+                                 longitude
+                               }, idx) => {
       const isLastStop = idx === schedule.length - 1
       const circle = L.circleMarker([latitude, longitude], {
         color: color,
@@ -87,106 +77,86 @@ class Route {
         fillColor: isLastStop ? 'red' : 'lime',
         fill: true,
         fillOpacity: 0.8,
-      });
-      circle.bindTooltip('Stop: ' + stopName);
-      circle.addTo(map);
-      return circle;
-    });
-  }
-
-  setColor() {
-    let color = this.polyline.getStyle();
-    this.stops.forEach((stop) => stop.setStyle(color));
+      })
+      circle.bindTooltip('Stop: ' + stopName)
+      circle.addTo(map)
+      return circle
+    })
   }
 
   remove() {
-    this.polyline.remove();
-    this.stops.forEach((stop) => stop.remove());
+    this.polyline.remove()
+    this.stops.forEach((stop) => stop.remove())
   }
 }
 
 class Vehicle {
   constructor(map, vehicleId, agencyName, routeId, routeType, routeColor, schedule, position, name, onFinalStopCb) {
-    this.vehicleId = vehicleId;
-    this.agencyName = agencyName;
-    this.routeId = routeId;
-    this.routeType = routeType;
-    this.routeColor = routeColor;
-    this.schedule = schedule;
-    this.name = name;
+    this.vehicleId = vehicleId
+    this.agencyName = agencyName
+    this.routeId = routeId
+    this.routeType = routeType
+    this.routeColor = routeColor
+    this.schedule = schedule
+    this.name = name
 
-    this._map = map;
-    this._onFinalStopCb = onFinalStopCb;
+    this._map = map
+    this._onFinalStopCb = onFinalStopCb
 
     // use existing route if possible
     this._route = KNOWN_ROUTES[routeId]
     if (!this._route) {
-      this._route = new Route(this.routeType, this.routeColor, this._map, this.schedule);
+      this._route = new Route(this.routeType, this.routeColor, this._map, this.schedule)
       KNOWN_ROUTES[routeId] = this._route
     }
-    this._marker = undefined;
+    this._marker = undefined
 
-    this._lastKnownPosition = position;
+    this._lastKnownPosition = position
   }
 
-  updateData({ position, schedule }) {
-    this.schedule = schedule;
-    this._lastKnownPosition = position;
+  updateData({
+               position,
+               schedule
+             }) {
+    this.schedule = schedule
+    this._lastKnownPosition = position
 
     if (this._hasMovementEnded) {
       DEBUG && console.log(`movement for vehicle ${this.vehicleId} has ended, removing.`)
-      this._onFinalStop();
-      return;
+      this._onFinalStop()
+      return
     }
 
     if (!this._marker) {
-      this._createMarker();
-      this._route.setColor();
+      this._createMarker()
     }
   }
 
   _createMarker() {
     const icon = ROUTE_ICON_MAPPING[this.routeType]
+    icon.options.html = icon.options.html.replace(/style="[^"]*"/g, `style="color: #${this.routeColor}"`)
 
-    if (OPTIONS.VEHICLE_COLORS === 'FUNKY') {
-      icon.options.html = icon.options.html.replace(/style="[^"]*"/g, `style="color: ${randomColor()}"`)
-    } else
-    if (OPTIONS.VEHICLE_COLORS === 'PER-ROUTE') {
-      let color = COLOR_PALETTE.PER_ROUTE[this.routeId]
-      if (!color) {
-        color = randomColor()
-        COLOR_PALETTE.PER_ROUTE[this.routeId] = color
-      }
-      icon.options.html = icon.options.html.replace(/style="[^"]*"/g, `style="color: ${color}"`)
-    } else
-    if (OPTIONS.VEHICLE_COLORS === 'PER-AGENCY') {
-      let color = COLOR_PALETTE.PER_AGENCY[this.agencyName]
-      if (!color) {
-        color = randomColor()
-        COLOR_PALETTE.PER_AGENCY[this.agencyName] = color
-      }
-      icon.options.html = icon.options.html.replace(/style="[^"]*"/g, `style="color: ${color}"`)
-    }
-
-    this._marker = L.marker([this._lastKnownPosition.latitude, this._lastKnownPosition.longitude], { icon });
-    this._marker.bindTooltip(this.name);
-    this._marker.addTo(this._map);
+    this._marker = L.marker([this._lastKnownPosition.latitude, this._lastKnownPosition.longitude], {
+      icon
+    })
+    this._marker.bindTooltip(this.name)
+    this._marker.addTo(this._map)
   }
 
   _onFinalStop() {
-    DEBUG && console.log(`${this.vehicleId} must have finished its route; removing from map.`)
+    DEBUG && console.log(`${this.agencyName}/${this.routeId}/${this.vehicleId} must have finished its route; removing from map.`)
 
     if (this._marker) {
-      this._marker.remove();
-      this._marker = undefined;
+      this._marker.remove()
+      this._marker = undefined
     }
 
-    this._onFinalStopCb(this);
+    this._onFinalStopCb(this)
   }
 
   get _hasMovementEnded() {
-    const routeEndTime = this.schedule[this.schedule.length - 1].arrival;
-    return currentTime() > routeEndTime;
+    const routeEndTime = this.schedule[this.schedule.length - 1].arrival
+    return currentTime() > routeEndTime
   }
 
   get _lastKnownLatLong() {
@@ -196,8 +166,10 @@ class Vehicle {
   _tick() {
     if (!this._marker) return
 
-    const t = currentTime();
-    const nextStopIdx = this.schedule.findIndex(({ arrival }) => t < arrival);
+    const t = currentTime()
+    const nextStopIdx = this.schedule.findIndex(({
+                                                   arrival
+                                                 }) => t < arrival)
     if (nextStopIdx === -1) {
       this._onFinalStop()
       return
@@ -222,45 +194,51 @@ class Vehicle {
     // animation time is an approximation
     // trick - use css transitions for a smoother animation:
     const marker = this._marker
-    if (marker._icon) { marker._icon.style[L.DomUtil.TRANSITION] = ('all ' + animSpeed + 'ms linear'); }
-    if (marker._shadow) { marker._shadow.style[L.DomUtil.TRANSITION] = 'all ' + animSpeed + 'ms linear'; }
+    if (marker._icon) {
+      marker._icon.style[L.DomUtil.TRANSITION] = ('all ' + animSpeed + 'ms linear')
+    }
+    if (marker._shadow) {
+      marker._shadow.style[L.DomUtil.TRANSITION] = 'all ' + animSpeed + 'ms linear'
+    }
 
     // moves with the transition above
-    this._marker.setLatLng(targetLatLon);
+    this._marker.setLatLng(targetLatLon)
   }
 
   _disableAnimation() {
     // call this before zooming to disable animation on vehicles
     const marker = this._marker
     if (!marker) return
-    if (marker._icon) { marker._icon.style[L.DomUtil.TRANSITION] = 'none'; }
-    if (marker._shadow) { marker._shadow.style[L.DomUtil.TRANSITION] = 'none'; }
+    if (marker._icon) {
+      marker._icon.style[L.DomUtil.TRANSITION] = 'none'
+    }
+    if (marker._shadow) {
+      marker._shadow.style[L.DomUtil.TRANSITION] = 'none'
+    }
   }
 }
 
 class Container {
   constructor() {
-    this.map = L.map('map').setView([37.6688, -122.0810], 10);
+    this.map = L.map('map').setView([37.6688, -122.0810], 10)
     this.map.on('zoomstart', () => {
       Object.values(this._vehicles).forEach(v => v._disableAnimation())
-    });
+    })
     this.map.on('zoomend', () => {
       Object.values(this._vehicles).forEach(v => v._tick())
-    });
-    this._vehicles = {};
-    this._socket = undefined;
-    this._stomp = undefined;
+    })
+    this._vehicles = {}
+    this._socket = undefined
+    this._stomp = undefined
   }
 
   initialize() {
     L.tileLayer(
-        'https://tile.thunderforest.com/transport/{z}/{x}/{y}{r}.png?apikey=170be1cff4224274add97bf552fd4745',
-        {
-          attribution:
-              '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,' +
+        'https://tile.thunderforest.com/transport/{z}/{x}/{y}{r}.png?apikey=170be1cff4224274add97bf552fd4745', {
+          attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,' +
               '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
         },
-    ).addTo(this.map);
+    ).addTo(this.map)
 
     this.listen()
 
@@ -268,14 +246,14 @@ class Container {
   }
 
   listen() {
-    this._socket = new SockJS('/hazelcast');
-    this._stomp = Stomp.over(this._socket);
-    this._stomp.reconnect_delay = 2000;
-    this._stomp.debug = null; // turns off logging
+    this._socket = new SockJS('/hazelcast')
+    this._stomp = Stomp.over(this._socket)
+    this._stomp.reconnect_delay = 2000
+    this._stomp.debug = null // turns off logging
     this._stomp.connect({}, () => {
       console.log('Connected to stomp server.')
       this._stomp.subscribe('/topic/updates', (update) => {
-        const data = JSON.parse(update.body);
+        const data = JSON.parse(update.body)
 
         //
         // transform the data a bit:
@@ -298,61 +276,64 @@ class Container {
             stopName: schobj.stop.stop_name,
             stopid: schobj.stop.stop_id
           }
-        });
+        })
 
-        this._processData(data);
-      });
-    });
+        this._processData(data)
+      })
+    })
 
-    $.ajax('/data/');
+    $.ajax('/data/')
   }
 
   animationLoop() {
     window.setInterval(() => {
       // tick for each vehicle
       Object.values(this._vehicles).forEach(v => v._tick())
-    }, 3000);
+    }, 3000)
   }
 
   _processData({
-    vehicleId,
-    routeId,
-    position,
-    schedule,
-    routeName,
-    routeType,
-    routeColor,
-    agencyName,
-  }) {
+                 vehicleId,
+                 routeId,
+                 position,
+                 schedule,
+                 routeName,
+                 routeType,
+                 routeColor,
+                 agencyName,
+               }) {
     if (currentTime() > schedule[schedule.length - 1].arrival) {
       DEBUG && console.log(`trip for vehicle ${vehicleId} has ended; nothing to do.`)
-      return;
+      return
     }
 
-    let existingVehicle = this._vehicles[vehicleId];
+    let existingVehicle = this._vehicles[vehicleId]
 
     if (!existingVehicle) {
       existingVehicle = new Vehicle(
-        this.map,
-        vehicleId,
-        agencyName,
-        routeId,
-        routeType,
-        routeColor,
-        schedule,
-        position,
-        `${agencyName}/${routeName}/${vehicleId}`,
-        (vehicle) => this._onVehicleFinalStop(vehicleId),
-      );
-      this._vehicles[vehicleId] = existingVehicle;
+          this.map,
+          vehicleId,
+          agencyName,
+          routeId,
+          routeType,
+          routeColor,
+          schedule,
+          position,
+          `${agencyName}/${routeName}/${vehicleId}`,
+          (vehicle) => this._onVehicleFinalStop(vehicle),
+      )
+      this._vehicles[vehicleId] = existingVehicle
     }
 
-    existingVehicle.updateData({ position, schedule });
+    existingVehicle.updateData({
+      position,
+      schedule
+    })
   }
 
   _onVehicleFinalStop(vehicle) {
-    delete this._vehicles[vehicle.vehicleId];
+    delete this._vehicles[vehicle.vehicleId]
   }
 }
 
-new Container().initialize();
+new Container().initialize()
