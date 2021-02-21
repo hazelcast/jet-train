@@ -37,7 +37,8 @@ object ToRoute : ToJson(
         "id" to 0,
         "agency_id" to 1,
         "route_name" to 2,
-        "route_type" to 5
+        "route_type" to 5,
+        "route_color" to 7,
     )
 )
 

@@ -66,10 +66,15 @@ class Route {
     return [latitude, longitude];
   }
 
-  constructor(type, map, schedule) {
+  constructor(type, color, map, schedule) {
+    console.debug(color)
+    if (!color.startsWith('#')) {
+      color = '#' + color
+    }
+    console.debug(color)
     this.type = type;
     this.polyline = L.polyline(schedule.map(Route.stopToLatLong), {
-      color: ROUTE_COLOR_MAPPING[this.type] || UNKNOWN_COLOR,
+      color: color,
       weight: 2,
     });
     this.polyline.addTo(map);
@@ -77,7 +82,7 @@ class Route {
     this.stops = schedule.map(({ stopName, latitude, longitude }, idx) => {
       const isLastStop = idx === schedule.length - 1
       const circle = L.circleMarker([latitude, longitude], {
-        color: ROUTE_COLOR_MAPPING[this.type] || UNKNOWN_COLOR,
+        color: color,
         radius: isLastStop ? 5 : 3, // make last stops larger
         fillColor: isLastStop ? 'red' : 'lime',
         fill: true,
@@ -90,10 +95,8 @@ class Route {
   }
 
   setColor() {
-    // refactor: why call this at all
-    const color = ROUTE_COLOR_MAPPING[this.type] || UNKNOWN_COLOR
-    this.polyline.setStyle({ color });
-    this.stops.forEach((stop) => stop.setStyle({ color }));
+    let color = this.polyline.getStyle();
+    this.stops.forEach((stop) => stop.setStyle(color));
   }
 
   remove() {
@@ -103,11 +106,12 @@ class Route {
 }
 
 class Vehicle {
-  constructor(map, vehicleId, agencyName, routeId, routeType, schedule, position, name, onFinalStopCb) {
+  constructor(map, vehicleId, agencyName, routeId, routeType, routeColor, schedule, position, name, onFinalStopCb) {
     this.vehicleId = vehicleId;
     this.agencyName = agencyName;
     this.routeId = routeId;
     this.routeType = routeType;
+    this.routeColor = routeColor;
     this.schedule = schedule;
     this.name = name;
 
@@ -117,7 +121,7 @@ class Vehicle {
     // use existing route if possible
     this._route = KNOWN_ROUTES[routeId]
     if (!this._route) {
-      this._route = new Route(this.routeType, this._map, this.schedule);
+      this._route = new Route(this.routeType, this.routeColor, this._map, this.schedule);
       KNOWN_ROUTES[routeId] = this._route
     }
     this._marker = undefined;
@@ -284,7 +288,7 @@ class Container {
         data.routeType = data.vehicle.trip.route.route_type
         data.agencyName = data.agencyId
         data.position = data.vehicle.position
-
+        data.routeColor = data.vehicle.trip.route.route_color
         data.schedule = data.schedule.map((schobj) => {
           return {
             departure: new Date(schobj.departure * 1000),
@@ -311,14 +315,15 @@ class Container {
   }
 
   _processData({
-     vehicleId,
-     routeId,
-     position,
-     schedule,
-     routeName,
-     routeType,
-     agencyName,
-   }) {
+    vehicleId,
+    routeId,
+    position,
+    schedule,
+    routeName,
+    routeType,
+    routeColor,
+    agencyName,
+  }) {
     if (currentTime() > schedule[schedule.length - 1].arrival) {
       DEBUG && console.log(`trip for vehicle ${vehicleId} has ended; nothing to do.`)
       return;
@@ -328,15 +333,16 @@ class Container {
 
     if (!existingVehicle) {
       existingVehicle = new Vehicle(
-          this.map,
-          vehicleId,
-          agencyName,
-          routeId,
-          routeType,
-          schedule,
-          position,
-          `${agencyName}/${routeName}/${vehicleId}`,
-          (vehicle) => this._onVehicleFinalStop(vehicle),
+        this.map,
+        vehicleId,
+        agencyName,
+        routeId,
+        routeType,
+        routeColor,
+        schedule,
+        position,
+        `${agencyName}/${routeName}/${vehicleId}`,
+        (vehicle) => this._onVehicleFinalStop(vehicleId),
       );
       this._vehicles[vehicleId] = existingVehicle;
     }
