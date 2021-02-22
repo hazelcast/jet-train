@@ -22,7 +22,7 @@
         <sonar.organization>hazelcast</sonar.organization>
         <sonar.projectKey>${project.groupId}:${project.artifactId}</sonar.projectKey>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <protobuf.version>3.14.0</protobuf.version>
+        <protobuf.version>3.15.1</protobuf.version>
     </properties>
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
