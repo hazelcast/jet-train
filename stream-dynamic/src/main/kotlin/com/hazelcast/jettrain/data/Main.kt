@@ -17,7 +17,7 @@ fun main(vararg args: String) {
 internal fun pipeline(token: String) = Pipeline.create().apply {
     val service = remoteService(token)
     readFrom(service)
-//        .withTimestamps(TimestampExtractor, 200)
+        .withIngestionTimestamps()
         .flatMap(ToEntities)
         .map(ToJson)
         .filter(OnlyEntityWithTrip.and(OnlyEntityWithStop))

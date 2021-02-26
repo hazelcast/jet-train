@@ -101,12 +101,3 @@ object TimeToTimestamps : FunctionEx<JsonObject, JsonObject> {
             .epochSecond
     }
 }
-
-object TimestampExtractor : ToLongFunctionEx<String> {
-    override fun applyAsLongEx(value: String) = JsonParser
-        .parseString(value)
-        .asJsonObject
-        .getAsJsonObject("header")
-        .getAsJsonPrimitive("timestamp")
-        .asLong
-}

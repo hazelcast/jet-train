@@ -11,7 +11,7 @@ import java.io.Serializable
 import java.time.Instant
 
 fun remoteService(token: String) = SourceBuilder
-    .batch("http-source", UsingTimeHolder)
+    .stream("http-source", UsingTimeHolder)
     .fillBufferFn(WithEndpointData(token))
     .build()
 
