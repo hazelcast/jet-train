@@ -11,6 +11,7 @@
     <artifactId>web</artifactId>
     <properties>
         <spring.version>2.4.3</spring.version>
+        <sonar.sources>src/main/kotlin,src/main/resources/static</sonar.sources>
     </properties>
     <build>
         <plugins>

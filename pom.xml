@@ -20,8 +20,11 @@
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <sonar.organization>hazelcast</sonar.organization>
-        <sonar.projectKey>${project.groupId}:${project.artifactId}</sonar.projectKey>
+        <sonar.projectKey>hazelcast-jet-train</sonar.projectKey>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
+        <sonar.projectName>jet-train</sonar.projectName>
+        <sonar.sources>src/main/kotlin</sonar.sources>
         <protobuf.version>3.15.1</protobuf.version>
     </properties>
     <build>
