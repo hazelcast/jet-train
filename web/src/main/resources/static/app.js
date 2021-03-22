@@ -260,13 +260,6 @@ class Container {
         //
         if (!(data.schedule && data.schedule.length)) return // lax it a bit; does hit occasionally
 
-        data.vehicleId = data.vehicle.vehicle.id
-        data.routeId = data.vehicle.trip.route.id
-        data.routeName = data.vehicle.trip.route.route_name
-        data.routeType = data.vehicle.trip.route.route_type
-        data.agencyName = data.agencyId
-        data.position = data.vehicle.position
-        data.routeColor = data.vehicle.trip.route.route_color
         data.schedule = data.schedule.map((schobj) => {
           return {
             departure: new Date(schobj.departure * 1000),

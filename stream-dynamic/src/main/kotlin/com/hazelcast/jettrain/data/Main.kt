@@ -28,6 +28,7 @@ internal fun pipeline(token: String) = Pipeline.create().apply {
             ServiceFactories.iMapService("stops"),
             EnrichWithStop
         ).map(TimeToTimestamps)
+        .map(ToFlattenedStructure)
         .peek()
         .map(ToEntry)
         .writeTo(Sinks.remoteMap("update", clientConfig))
