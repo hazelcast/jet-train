@@ -31,6 +31,10 @@
             <artifactId>hazelcast-jet</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.hazelcast.jet</groupId>
+            <artifactId>hazelcast-jet-csv</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.github.kittinunf.fuel</groupId>
             <artifactId>fuel</artifactId>
         </dependency>
