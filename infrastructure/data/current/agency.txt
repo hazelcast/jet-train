@@ -5,29 +5,29 @@ ST,SolTrans,http://www.soltransride.com/,America/Los_Angeles,en,(707) 648-4666,h
 RV,Rio Vista Delta Breeze,http://riovistacity.com/delta-breeze-transit-system/,America/Los_Angeles,en,(707) 374-2878,http://riovistacity.com/fares/,
 VC,Vacaville City Coach,http://www.citycoach.com/,America/Los_Angeles,en,707-449-6000,http://www.citycoach.com/fares/,
 DE,Dumbarton Express Consortium,https://dumbartonexpress.com,America/Los_Angeles,en,(510)891-4777,,
-CT,Caltrain,http://www.caltrain.com,America/Los_Angeles,en,800-660-4287,,
-UC,Union City Transit,http://www.uctransit.org,America/Los_Angeles,en,510-471-1411,,
-CC,County Connection,http://www.countyconnection.com/,America/Los_Angeles,en,925-676-7500,,
 AC,AC TRANSIT,http://www.actransit.org,America/Los_Angeles,en,5108914777,,
 AM,Capitol Corridor Joint Powers Authority,http://www.capitolcorridor.org,America/Los_Angeles,en,877-974-3322,,
 WC,WestCat (Western Contra Costa),http://www.westcat.org/,America/Los_Angeles,en,510-724-7993,https://www.westcat.org/home/FaresAll,
 SA,Sonoma Marin Area Rail Transit,http://www.SonomaMarinTrain.org,America/Los_Angeles,en,(707)794-3330,,
-BA,Bay Area Rapid Transit,https://www.bart.gov/,America/Los_Angeles,,510-464-6000,,
 SM,SamTrans,http://www.samtrans.com,America/Los_Angeles,en,800-660-4287,,
-SC,VTA,https://www.vta.org,America/Los_Angeles,en,408-321-2300,https://www.vta.org/go/fares,customer.service@vta.org
 PE,Petaluma,https://transit.cityofpetaluma.net/,America/Los_Angeles,en,707-778-4460,https://transit.cityofpetaluma.net/fares/,transit@cityofpetaluma.org
-CM,Commute.org Shuttles,http://www.commute.org,America/Los_Angeles,en,(650) 588-1600,,
 SI,San Francisco International Airport,https://www.flysfo.com,America/Los_Angeles,,,,
 SS,City of South San Francisco,http://www.ssf.net/SCS,America/Los_Angeles,en,650-877-8550,,shuttle@ssf.net
 FS,Fairfield and Suisun Transit,http://www.fasttransit.org/,America/Los_Angeles,en,707-422-2877,http://www.fasttransit.org/fares-passes/,
 SR,Santa Rosa CityBus,https://srcity.org/1036/Transit-and-CityBus,America/Los_Angeles,en,707-543-3333,https://srcity.org/1658/Fares,support@availtec.com
-SF,San Francisco Municipal Transportation Agency,https://SFMTA.com,America/Los_Angeles,en,,,
-GG,Golden Gate Transit,http://www.goldengate.org,America/Los_Angeles,en,(415) 455-2000),http://www.goldengatetransit.org/fareprograms/,
 GF,Golden Gate Ferry,http://www.goldengate.org,America/Los_Angeles,en,(415) 455-2000),http://www.goldengateferry.org/fareprograms/,
 SO,Sonoma County Transit,http://www.sctransit.com/?referrer=gtfs,America/Los_Angeles,en,(707) 576-7433,http://sctransit.com/fares/?referrer=gtfs,
 CE,Altamont Corridor Express,http://www.acerail.com/,America/Los_Angeles,en,8004117245,https://acerail.com/schedules/,customerservice@acerail.com
 WH,Livermore Amador Valley Transit Authority,http://wheelsbus.com/,America/Los_Angeles,en,925-455-7500,http://www.wheelsbus.com/fares/,
-MA,Marin Transit,https://marintransit.org,America/Los_Angeles,en,415-455-2000,https://marintransit.org/fares,
 EM,Emery Go-Round,http://www.emerygoround.com/,America/Los_Angeles,en,(510) 451-3862,,
 VN,VINE Transit,https://vinetransit.com/,America/Los_Angeles,en,707-251-2800,https://vinetransit.com/fares/,
 3D,Tri Delta Transit,http://trideltatransit.com,America/Los_Angeles,en,(925) 754-4040,,
+SC,VTA,https://www.vta.org,America/Los_Angeles,en,408-321-2300,https://www.vta.org/go/fares,customer.service@vta.org
+CM,Commute.org Shuttles,http://www.commute.org,America/Los_Angeles,en,(650) 588-1600,,
+MA,Marin Transit,https://marintransit.org,America/Los_Angeles,en,415-455-2000,https://marintransit.org/fares,
+SF,San Francisco Municipal Transportation Agency,https://SFMTA.com,America/Los_Angeles,en,,,
+UC,Union City Transit,http://www.uctransit.org,America/Los_Angeles,en,510-471-1411,,
+CC,CCCTA,http://bustracker.cccta.org/bustime/home.jsp,America/Los_Angeles,en,X,,
+BA,Bay Area Rapid Transit,https://www.bart.gov/,America/Los_Angeles,,510-464-6000,,
+CT,Caltrain,http://www.caltrain.com,America/Los_Angeles,en,800-660-4287,,
+GG,Golden Gate Transit,http://www.goldengate.org,America/Los_Angeles,en,(415) 455-2000),http://www.goldengatetransit.org/fareprograms/,
