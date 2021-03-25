@@ -26,6 +26,7 @@
         <sonar.projectName>jet-train</sonar.projectName>
         <sonar.sources>src/main/kotlin</sonar.sources>
         <protobuf.version>3.15.6</protobuf.version>
+        <jet.version>4.4</jet.version>
     </properties>
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
@@ -93,7 +94,12 @@
             <dependency>
                 <groupId>com.hazelcast.jet</groupId>
                 <artifactId>hazelcast-jet</artifactId>
-                <version>4.4</version>
+                <version>${jet.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast.jet</groupId>
+                <artifactId>hazelcast-jet-csv</artifactId>
+                <version>${jet.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>

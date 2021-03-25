@@ -41,6 +41,10 @@
             <artifactId>hazelcast-jet</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.hazelcast.jet</groupId>
+            <artifactId>hazelcast-jet-csv</artifactId>
+        </dependency>
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>common</artifactId>
         </dependency>
