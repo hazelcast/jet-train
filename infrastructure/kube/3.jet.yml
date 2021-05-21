@@ -46,11 +46,11 @@ spec:
       serviceAccountName: hazelcast-account
       containers:
         - name: engine
-          image: hazelcast/hazelcast-jet:4.3
+          image: hazelcast/hazelcast-jet:4.5
           resources:
             requests:
-              memory: "22Gi"
-              cpu: "4000m"
+              memory: "15Gi"
+              cpu: "2000m"
           ports:
             - containerPort: 5701
           volumeMounts:
@@ -62,7 +62,7 @@ spec:
               mountPath: /etc/jet
           env:
             - name: CLASSPATH
-              value: /opt/hazelcast/classpath/org/json/json/20200518/json-20200518.jar:/opt/hazelcast/classpath/org/jetbrains/kotlin/kotlin-stdlib/1.4.21/kotlin-stdlib-1.4.21.jar:/opt/hazelcast/classpath/com/github/kittinunf/fuel/fuel/2.3.0/fuel-2.3.0.jar:/opt/hazelcast/classpath/com/github/kittinunf/result/result/3.1.0/result-3.1.0.jar
+              value: /opt/hazelcast/classpath/org/jetbrains/kotlin/kotlin-stdlib/1.5.0/kotlin-stdlib-1.5.0.jar:/opt/hazelcast/classpath/com/github/kittinunf/fuel/fuel/2.3.1/fuel-2.3.1.jar:/opt/hazelcast/classpath/com/github/kittinunf/result/result/4.0.0/result-4.0.0.jar
             - name: JAVA_OPTS
               value: >-
                 -XX:+UseStringDeduplication

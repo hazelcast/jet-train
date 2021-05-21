@@ -181,16 +181,36 @@ docker-compose up
 ----
 +
 . Get the https://github.com/hazelcast/jet-train/releases/download/1.0-SNAPSHOT/load-static-1.0-SNAPSHOT.jar[latest "static" JAR^]
+. Configure the client configuration file.
++
+It depends on the topology.
+Here's a sample:
++
+[source,yaml]
+.$JET_DISTRIBUTION/config/jettrain.yml
+----
+hazelcast-client:
+  cluster-name: jet
+  network:
+    cluster-members:
+      - localhost:31781
+    smart-routing: false
+  connection-strategy:
+    connection-retry:
+      cluster-connect-timeout-millis: 1000
+----
++
 . To load static data:
 +
 In the Hazelcast Jet distribution folder, run the following commands:
 +
 [source,bash]
 ----
-./jet submit -n Agencies -v -c com.hazelcast.jettrain.refs.Agencies $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
-./jet submit -n Stops -v -c com.hazelcast.jettrain.refs.Stops $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
-./jet submit -n Routes -v -c com.hazelcast.jettrain.refs.Routes $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
-./jet submit -n Trips -v -c com.hazelcast.jettrain.refs.Trips $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+./jet --config ../config/jettrain.yml submit -v -c com.hazelcast.jettrain.refs.Agencies $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+./jet --config ../config/jettrain.yml submit -v -c com.hazelcast.jettrain.refs.Stops $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+./jet --config ../config/jettrain.yml submit -v -c com.hazelcast.jettrain.refs.Routes $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+./jet --config ../config/jettrain.yml submit -v -c com.hazelcast.jettrain.refs.Trips $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
+./jet --config ../config/jettrain.yml submit -v -c com.hazelcast.jettrain.refs.StopTimes $PROJECT_ROOT/load-static/target/load-static-1.0-SNAPSHOT.jar
 ----
 +
 . Get the https://github.com/hazelcast/jet-train/releases/download/1.0-SNAPSHOT/stream-dynamic-1.0-SNAPSHOT.jar[latest "dynamic" JAR^]
@@ -199,6 +219,6 @@ In the Hazelcast Jet distribution folder, run the following commands:
 In the Hazelcast Jet distribution folder, run the following command:
 +
 [source,bash]
-./jet submit -v -c com.hazelcast.jettrain.data.SubmitKt $PROJECT_ROOT/stream-dynamic/target/stream-dynamic-1.0-SNAPSHOT.jar $TOKEN
+./jet --config ../config/jettrain.yml submit -n Stream -v -c com.hazelcast.jettrain.data.SubmitKt $PROJECT_ROOT/stream-dynamic/target/stream-dynamic-1.0-SNAPSHOT.jar $TOKEN
 +
 .The map is available at <http://localhost:8080/>

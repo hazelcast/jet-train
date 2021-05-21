@@ -51,6 +51,7 @@ spec:
       containers:
         - name: webapp
           image: nfrankel/jettrain:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 8080
           volumeMounts:
