@@ -1,0 +1,22 @@
+name: Refresh Dataset
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '12 2 * * 1'
+jobs:
+  build:
+    name: Refresh Dataset
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Fetch dataset archive
+        run: curl -o archive.zip https://api.511.org/transit/datafeeds\?api_key\=${{secrets.FIVEONEONE_API_KEY}}\&operator_id\=RG
+      - name: Extract archive
+        run: unzip -o -d ./infrastructure/data/current/ archive.zip
+      - name: Add & commit
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update to latest data files
+          add_options: '-u'
+
