@@ -16,7 +16,7 @@ fun remoteService(token: String) = SourceBuilder
     .build()
 
 class WithEndpointData(private val token: String) : BiConsumerEx<TimeHolder, SourceBuffer<Pair<String, ByteArray>>> {
-    private val url = "http://api.511.org/transit/vehiclepositions"
+    private val url = "https://api.511.org/transit/vehiclepositions"
     private val agency = "AC"
     override fun acceptEx(time: TimeHolder, buffer: SourceBuffer<Pair<String, ByteArray>>) {
         if (Instant.now().isAfter(time.value.plusSeconds(10))) {

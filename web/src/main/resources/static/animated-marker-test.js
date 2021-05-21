@@ -21,12 +21,12 @@ L.AnimatedMarker = L.Marker.extend({
     // Breaks the line up into tiny chunks (see options) ONLY if CSS3 animations
     // are not supported.
     _chunk: function(latlngs) {
-        var i,
+        let i,
             len = latlngs.length,
             chunkedLatLngs = [];
 
         for (i=1;i<len;i++) {
-            var cur = latlngs[i-1],
+            let cur = latlngs[i-1],
                 next = latlngs[i],
                 dist = cur.distanceTo(next),
                 factor = this.options.distance / dist,
@@ -58,7 +58,7 @@ L.AnimatedMarker = L.Marker.extend({
     },
 
     animate: function() {
-        var self = this,
+        let self = this,
             len = this._latlngs.length,
             speed = this.options.interval;
 

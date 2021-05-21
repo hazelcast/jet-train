@@ -235,8 +235,8 @@ class Container {
   initialize() {
     L.tileLayer(
         'https://tile.thunderforest.com/transport/{z}/{x}/{y}{r}.png?apikey=170be1cff4224274add97bf552fd4745', {
-          attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,' +
-              '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+          attribution: '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors,' +
+              '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
         },
     ).addTo(this.map)
 
