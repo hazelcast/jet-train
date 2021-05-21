@@ -51,3 +51,7 @@ object ToStopTime : FunctionEx<Map.Entry<String, List<Array<String>>>, JsonObjec
         return wrapper.apply { add("schedule", schedule) }
     }
 }
+
+object ByKey : FunctionEx<Array<String>, String> {
+    override fun applyEx(array: Array<String>) = array[0]
+}

@@ -28,7 +28,7 @@ internal val trips = pipeline(
 )
 internal val stopTimes = Pipeline.create().apply {
     readFrom(file("stop_times", listOf("trip_id", "arrival_time", "departure_time", "stop_id", "stop_sequence")))
-        .groupingKey { it[0] }
+        .groupingKey(ByKey)
         .aggregate(AggregateOperations.toList())
         .map(ToStopTime)
         .peek()
