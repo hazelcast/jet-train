@@ -16,7 +16,7 @@
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <kotlin.version>1.4.32</kotlin.version>
+        <kotlin.version>1.5.0</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <sonar.organization>hazelcast</sonar.organization>
@@ -26,7 +26,7 @@
         <sonar.projectName>jet-train</sonar.projectName>
         <sonar.sources>src/main/kotlin</sonar.sources>
         <protobuf.version>3.17.0</protobuf.version>
-        <jet.version>4.4</jet.version>
+        <jet.version>4.5</jet.version>
     </properties>
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
