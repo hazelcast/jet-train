@@ -35,7 +35,7 @@ object UsingTimeHolder : FunctionEx<Processor.Context, TimeHolder> {
 }
 
 class TimeHolder : Serializable {
-    internal var value: Instant = Instant.now().minusSeconds(31)
+    internal var value: Instant = Instant.now()
         private set
 
     internal fun reset() {

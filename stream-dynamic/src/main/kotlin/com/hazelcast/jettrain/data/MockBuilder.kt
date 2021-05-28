@@ -8,6 +8,7 @@ import java.io.File
 import java.io.Serializable
 import java.time.Instant
 
+@Suppress("UNUSED")
 fun mockService() = SourceBuilder
     .batch("mock-source", CreateMockContext())
     .fillBufferFn(MockBuffer())
