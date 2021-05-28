@@ -1,6 +1,6 @@
 package com.hazelcast.jettrain.data
 
-import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 import com.hazelcast.function.BiConsumerEx
 import com.hazelcast.function.FunctionEx
@@ -23,12 +23,14 @@ class WithEndpointData(
 ) : BiConsumerEx<TimeHolder, SourceBuffer<Pair<String, ByteArray>>> {
     override fun acceptEx(time: TimeHolder, buffer: SourceBuffer<Pair<String, ByteArray>>) {
         if (Instant.now().isAfter(time.value.plusSeconds(frequency))) {
-            val (_, _, result) = Fuel.get(url)
-                .apply { parameters = listOf("agency" to agency, "api_key" to token) }
-                .response()
-            if (result is Result.Failure) println(result.getException())
-            else buffer.add(agency to result.get())
-            time.reset()
+            url.httpGet(listOf("agency" to agency, "api_key" to token))
+                .response { _, _, result ->
+                    when (result) {
+                        is Result.Failure -> println(result.getException())
+                        else -> buffer.add(agency to result.get())
+                    }
+                    time.reset()
+                }.join()
         }
     }
 }
