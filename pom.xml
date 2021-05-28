@@ -25,7 +25,7 @@
         <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
         <sonar.projectName>jet-train</sonar.projectName>
         <sonar.sources>src/main/kotlin</sonar.sources>
-        <protobuf.version>3.17.0</protobuf.version>
+        <protobuf.version>3.17.1</protobuf.version>
         <jet.version>4.5</jet.version>
     </properties>
     <build>
