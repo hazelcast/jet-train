@@ -6,6 +6,8 @@ import com.hazelcast.jet.config.JobConfig
 import com.hazelcast.jet.pipeline.Pipeline
 import com.hazelcast.jet.pipeline.ServiceFactories
 import com.hazelcast.jet.pipeline.Sinks
+import com.hazelcast.jettrain.common.sampleEvery
+import com.hazelcast.jettrain.common.toStringFn
 import com.hazelcast.jettrain.common.withCloseable
 
 fun main(vararg args: String) {
@@ -29,7 +31,7 @@ internal fun pipeline(token: String) = Pipeline.create().apply {
             EnrichWithStop
         ).map(TimeToTimestamps)
         .map(ToFlattenedStructure)
-        .peek()
+        .peek(sampleEvery(50), toStringFn)
         .map(ToEntry)
         .writeTo(Sinks.remoteMap("update", clientConfig))
 }
@@ -38,4 +40,6 @@ internal val clientConfig = ClientConfig().apply {
     clusterName = "jet"
 }
 
-internal val jobConfig = JobConfig().addPackage(ToEntities::class.java.`package`.name)
+internal val jobConfig = JobConfig()
+    .addPackage(ToEntities::class.java.`package`.name)
+    .addPackage(toStringFn.javaClass.`package`.name)

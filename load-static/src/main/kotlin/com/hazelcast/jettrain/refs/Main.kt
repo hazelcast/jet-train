@@ -6,6 +6,7 @@ import com.hazelcast.jet.JetInstance
 import com.hazelcast.jet.config.JobConfig
 import com.hazelcast.jet.pipeline.BatchStage
 import com.hazelcast.jet.pipeline.Pipeline
+import com.hazelcast.jettrain.common.toStringFn
 import com.hazelcast.jettrain.common.withCloseable
 
 fun main() {
@@ -25,4 +26,6 @@ internal fun execute(jetInstance: JetInstance, vararg pipeline: Pipeline) {
     }
 }
 
-internal val jobConfig = JobConfig().addPackage(SplitByComma::class.java.`package`.name)
+internal val jobConfig = JobConfig()
+    .addPackage(SplitByComma::class.java.`package`.name)
+    .addPackage(toStringFn.javaClass.`package`.name)
