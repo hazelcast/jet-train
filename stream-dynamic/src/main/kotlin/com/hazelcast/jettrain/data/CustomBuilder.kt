@@ -15,11 +15,14 @@ fun remoteService(token: String) = SourceBuilder
     .fillBufferFn(WithEndpointData(token))
     .build()
 
-class WithEndpointData(private val token: String) : BiConsumerEx<TimeHolder, SourceBuffer<Pair<String, ByteArray>>> {
-    private val url = "https://api.511.org/transit/vehiclepositions"
-    private val agency = "AC"
+class WithEndpointData(
+    private val token: String,
+    private val url: String = "https://api.511.org/transit/vehiclepositions",
+    private val agency: String = "AC",
+    private val frequency: Long = 10
+) : BiConsumerEx<TimeHolder, SourceBuffer<Pair<String, ByteArray>>> {
     override fun acceptEx(time: TimeHolder, buffer: SourceBuffer<Pair<String, ByteArray>>) {
-        if (Instant.now().isAfter(time.value.plusSeconds(10))) {
+        if (Instant.now().isAfter(time.value.plusSeconds(frequency))) {
             val (_, _, result) = Fuel.get(url)
                 .apply { parameters = listOf("agency" to agency, "api_key" to token) }
                 .response()
