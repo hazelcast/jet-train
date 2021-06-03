@@ -2,7 +2,7 @@ name: Refresh Dataset
 on:
   workflow_dispatch:
   schedule:
-    - cron: '12 2 * * 1'
+    - cron: '12 2 * * *'
 jobs:
   build:
     name: Refresh Dataset
@@ -12,11 +12,15 @@ jobs:
         uses: actions/checkout@v2
       - name: Fetch dataset archive
         run: curl -o archive.zip https://api.511.org/transit/datafeeds\?api_key\=${{secrets.FIVEONEONE_API_KEY}}\&operator_id\=RG
-      - name: Extract archive
-        run: unzip -o -d ./infrastructure/data/current/ archive.zip
-      - name: Add & commit
-        uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Extract files of interest from the archive
+        run: unzip -o -j archive.zip agency.txt routes.txt stop_times.txt stops.txt trips.txt -d ./infrastructure/data/current
+      - name: Remove archive
+        run: rm archive.zip
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v3
         with:
-          commit_message: Update to latest data files
-          add_options: '-u'
-
+          commit-message: Update to latest data files
+          branch: data/refresh
+          delete-branch: true
+          title: Refresh data files to latest version
+          body: ""
