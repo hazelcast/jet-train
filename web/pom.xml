@@ -10,7 +10,7 @@
     </parent>
     <artifactId>web</artifactId>
     <properties>
-        <spring.version>2.5.0</spring.version>
+        <spring.version>2.5.2</spring.version>
         <sonar.sources>src/main/kotlin,src/main/resources/static</sonar.sources>
     </properties>
     <build>
