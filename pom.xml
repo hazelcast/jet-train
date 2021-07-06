@@ -131,6 +131,11 @@
                 <artifactId>protobuf-java</artifactId>
                 <version>${protobuf.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast-sql</artifactId>
+                <version>4.2</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <repositories>

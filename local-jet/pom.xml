@@ -50,5 +50,9 @@
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java-util</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast-sql</artifactId>
+        </dependency>
     </dependencies>
 </project>
