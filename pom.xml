@@ -114,7 +114,7 @@
             <dependency>
                 <groupId>com.github.kittinunf.result</groupId>
                 <artifactId>result</artifactId>
-                <version>4.0.0</version>
+                <version>5.1.0</version>
             </dependency>
             <dependency>
                 <groupId>io.mobilitydata.transit</groupId>
