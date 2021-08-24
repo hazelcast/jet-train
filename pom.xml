@@ -113,7 +113,7 @@
             </dependency>
             <dependency>
                 <groupId>com.github.kittinunf.result</groupId>
-                <artifactId>result</artifactId>
+                <artifactId>result-jvm</artifactId>
                 <version>5.2.0</version>
             </dependency>
             <dependency>

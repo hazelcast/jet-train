@@ -47,7 +47,7 @@
         </dependency>
         <dependency>
             <groupId>com.github.kittinunf.result</groupId>
-            <artifactId>result</artifactId>
+            <artifactId>result-jvm</artifactId>
         </dependency>
         <dependency>
             <groupId>com.hazelcast.jet</groupId>
