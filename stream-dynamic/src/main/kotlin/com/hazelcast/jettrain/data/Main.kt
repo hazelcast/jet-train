@@ -1,7 +1,7 @@
 package com.hazelcast.jettrain.data
 
+import com.hazelcast.client.HazelcastClient
 import com.hazelcast.client.config.ClientConfig
-import com.hazelcast.jet.Jet
 import com.hazelcast.jet.config.JobConfig
 import com.hazelcast.jet.pipeline.Pipeline
 import com.hazelcast.jet.pipeline.ServiceFactories
@@ -11,8 +11,8 @@ import com.hazelcast.jettrain.common.toStringFn
 import com.hazelcast.jettrain.common.withCloseable
 
 fun main(vararg args: String) {
-    Jet.newJetClient().withCloseable().use {
-        it.newJob(pipeline(args[0]), jobConfig)
+    HazelcastClient.newHazelcastClient().withCloseable().use {
+        it.jet.newJob(pipeline(args[0]), jobConfig)
     }
 }
 
@@ -33,11 +33,7 @@ internal fun pipeline(token: String) = Pipeline.create().apply {
         .map(ToFlattenedStructure)
         .peek(sampleEvery(50), toStringFn)
         .map(ToEntry)
-        .writeTo(Sinks.remoteMap("update", clientConfig))
-}
-
-internal val clientConfig = ClientConfig().apply {
-    clusterName = "jet"
+        .writeTo(Sinks.remoteMap("update", ClientConfig()))
 }
 
 internal val jobConfig = JobConfig()

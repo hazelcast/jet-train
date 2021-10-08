@@ -1,6 +1,6 @@
 package com.hazelcast.jettrain.refs
 
-import com.hazelcast.jet.impl.JetBootstrap
+import com.hazelcast.core.Hazelcast
 import com.hazelcast.jet.pipeline.Pipeline
 import com.hazelcast.jettrain.common.withCloseable
 
@@ -55,7 +55,7 @@ class StopTimes {
 }
 
 private fun submit(pipeline: Pipeline) {
-    JetBootstrap.getInstance().withCloseable().use { jet ->
-        jet.newJob(pipeline, jobConfig)
+    Hazelcast.bootstrappedInstance().withCloseable().use {
+        it.jet.newJob(pipeline, jobConfig)
     }
 } 

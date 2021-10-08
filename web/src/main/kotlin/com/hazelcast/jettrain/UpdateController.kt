@@ -1,7 +1,7 @@
 package com.hazelcast.jettrain
 
+import com.hazelcast.client.HazelcastClient
 import com.hazelcast.core.EntryEvent
-import com.hazelcast.jet.Jet
 import com.hazelcast.map.listener.EntryAddedListener
 import com.hazelcast.map.listener.EntryUpdatedListener
 import com.hazelcast.map.listener.MapListener
@@ -18,7 +18,7 @@ class UpdateController(val ops: SimpMessageSendingOperations) {
     private val listener = UpdateMapListener()
 
     init {
-        Jet.newJetClient().hazelcastInstance
+        HazelcastClient.newHazelcastClient()
             .getMap<String, String>("update")
             .addEntryListener(listener, true)
     }

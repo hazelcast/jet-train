@@ -1,7 +1,7 @@
 package com.hazelcast.jettrain
 
-import com.hazelcast.jet.Jet
+import com.hazelcast.core.Hazelcast
 
 fun main() {
-    Jet.newJetInstance()
+    Hazelcast.newHazelcastInstance()
 }
