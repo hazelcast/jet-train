@@ -16,7 +16,7 @@
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <kotlin.version>1.5.30</kotlin.version>
+        <kotlin.version>1.5.31</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <sonar.organization>hazelcast</sonar.organization>
@@ -134,7 +134,7 @@
             <dependency>
                 <groupId>com.hazelcast</groupId>
                 <artifactId>hazelcast-sql</artifactId>
-                <version>4.2.2</version>
+                <version>5.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
