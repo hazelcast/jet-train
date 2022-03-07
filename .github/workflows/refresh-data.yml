@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Fetch dataset archive
         run: curl -o archive.zip https://api.511.org/transit/datafeeds\?api_key\=${{secrets.FIVEONEONE_API_KEY}}\&operator_id\=RG
       - name: Extract files of interest from the archive
