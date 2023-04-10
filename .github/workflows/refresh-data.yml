@@ -17,7 +17,7 @@ jobs:
       - name: Remove archive
         run: rm archive.zip
       - name: Create PR
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v5
         with:
           commit-message: Update to latest data files
           branch: data/refresh
